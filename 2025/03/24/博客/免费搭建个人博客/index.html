@@ -426,7 +426,7 @@
 <h1 id="4-将博客托管到-GitHub-Pages"><a href="#4-将博客托管到-GitHub-Pages" class="headerlink" title="4. 将博客托管到 GitHub Pages"></a>4. 将博客托管到 GitHub Pages</h1><p>现在我们这个博客，还只能在本地网址预览。下面我们把博客项目托管到 GitHub 仓库，并且使用 GitHub Pages 来部署博客，让其他人也能访问我们的博客网站</p>
 <h3 id="1-博客项目托管到GitHub"><a href="#1-博客项目托管到GitHub" class="headerlink" title="1. 博客项目托管到GitHub"></a>1. 博客项目托管到GitHub</h3><p>为了方便管理 blog 博客项目，我们下一步把这个项目托管到 GitHub 上。首先在 GitHub 上创建一个项目，项目名可以设置为 我们的GitHub用户名.github.io。</p>
 <h3 id="2-使用-GitHub-Pages-部署博客"><a href="#2-使用-GitHub-Pages-部署博客" class="headerlink" title="2. 使用 GitHub Pages 部署博客"></a>2. 使用 GitHub Pages 部署博客</h3><p>执行完配置命令以后，我们就可以使用 git 来管理博客项目了。接下来我们把 my-blog 项目，部署到 GitHub Pages 上。 这样我们的博客，就不再只是一个本地网站了。其他人也可以通过网络，来访问我们的博客。</p>
-<p>首先在 my-blog 项目的 _config.yml 配置文件中，把 git 服务部署的配置加进去。在 type 配置项这里填上 git，然后分别添加一个 repository 和一个 branch 配置，指定部署博客网站时，所使用的 GitHub 项目和对应的分支。repository 这里填 <a href="mailto:&#103;&#105;&#x74;&#64;&#103;&#x69;&#x74;&#x68;&#117;&#x62;&#46;&#99;&#x6f;&#x6d;">&#103;&#105;&#x74;&#64;&#103;&#x69;&#x74;&#x68;&#117;&#x62;&#46;&#99;&#x6f;&#x6d;</a>:GitHub用户名&#x2F;GitHub仓库名，branch 这里指定 main 分支，然后保存配置。</p>
+<p>首先在 my-blog 项目的 _config.yml 配置文件中，把 git 服务部署的配置加进去。在 type 配置项这里填上 git，然后分别添加一个 repository 和一个 branch 配置，指定部署博客网站时，所使用的 GitHub 项目和对应的分支。repository 这里填 <a href="mailto:&#x67;&#x69;&#116;&#x40;&#x67;&#105;&#116;&#104;&#117;&#98;&#46;&#99;&#x6f;&#x6d;">&#x67;&#x69;&#116;&#x40;&#x67;&#105;&#116;&#104;&#117;&#98;&#46;&#99;&#x6f;&#x6d;</a>:GitHub用户名&#x2F;GitHub仓库名，branch 这里指定 main 分支，然后保存配置。</p>
 <p>最后我们执行 npm install hexo-deployer-git –save 命令，安装 hexo-deployer-git 这个插件，来简化部署到 GitHub Pages 的流程。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install hexo-deployer-git --save<br></code></pre></td></tr></table></figure>
 <p>这样配置完以后，我们就可以在本地写文章，写完以后通过 <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a> 预览文章效果并进行修改。修改满意后，就可以部署到 GitHub Pages 这样其他人就能访问我们的博客了。我们来看一下使用流程：</p>
@@ -527,9 +527,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/03/24/winidows/oh-my-posh%E5%AE%89%E8%A3%85/" title="Windows oh-my-posh和clink打造个性化 PowerShell 和 CMD">
+                      <a href="/2025/03/24/%E5%8D%9A%E5%AE%A2/%E5%85%8D%E8%B4%B9%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/" title="搭建免费高速图床 CLoudFlare R2 +PicGo方案">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Windows oh-my-posh和clink打造个性化 PowerShell 和 CMD</span>
+                        <span class="hidden-mobile">搭建免费高速图床 CLoudFlare R2 +PicGo方案</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -537,8 +537,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/03/24/%E5%8D%9A%E5%AE%A2/%E5%85%8D%E8%B4%B9%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/" title="搭建免费高速图床 CLoudFlare R2 +PicGo方案">
-                        <span class="hidden-mobile">搭建免费高速图床 CLoudFlare R2 +PicGo方案</span>
+                      <a href="/2025/03/23/hello-world/" title="Hello World">
+                        <span class="hidden-mobile">Hello World</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
