@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Windows oh-my-posh和clink打造个性化 PowerShell 和 CMD</title>
+    <url>/2025/03/24/windows/oh-my-posh-an-zhuang/</url>
+    <content><![CDATA[前言工具简介Oh My Posh 是一款用于美化 Windows 终端和 PowerShell 的工具，支持：
+
+自定义提示符和主题
+增强历史记录功能
+个性化视觉效果
+
+oh-my-posh官方文档
+安装配置流程一、Oh My Posh 安装核心组件安装winget install JanDeDobbeleer.OhMyPosh -s winget或Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString(&#x27;https://ohmyposh.dev/install.ps1&#x27;))
+
+配置文件设置(1) 检查配置文件Test-path $profile
+
+(2) 创建配置文件（不存在就创建文件）notepad $profile
+(3) 在文件里输入内容，后关闭PowerShellImport-Module PSReadLineSet-PSReadLineOption -PredictionSource History
+保存文件后会在目录：C:\Users\用户\Documents\WindowsPowerShell，下生成Microsoft.PowerShell_profile.ps1文件
+常见报错处理Set-PSReadLineOption : 找不到与参数名称“PredictionSource”匹配的参数
+
+确保你的 PSReadLine 模块是最新版本。你可以通过以下命令更新 PSReadLine 模块Install-Module -Name PSReadLine -Force
+上面安装完成后还是报错，检查 PowerShell 版本如果版本低于 7.2，你需要升级你的 PowerShell。你可以从 PowerShell GitHub 页面下载最新版本。$PSVersionTable.PSVersion
+
+二、个性化设置1. 字体安装（可选）操作步骤：oh-my-posh font install
+终端设置（MesloLGM字体）以普通身份再运行 PowerShell ：
+
+CTRL + SHIFT + ,打开一个settings.json，找到profiles-&gt;defaults设置对应字体，保存退出
+
+
+&#123;    &quot;profiles&quot;:    &#123;        &quot;defaults&quot;:        &#123;            &quot;font&quot;:            &#123;                &quot;face&quot;: &quot;MesloLGM Nerd Font&quot;            &#125;        &#125;    &#125;&#125;
+
+主题配置(1) 查看可用主题，主题预览start $env:POSH_THEMES_PATH
+
+(2) 应用主题配置，打开Microsoft.PowerShell_profile.ps1文件notepad $profile
+添加主题，这里选择的是bubblesextra.omp.json主题，个人喜好自己修改
+oh-my-posh init pwsh --config &quot;$env:POSH_THEMES_PATH\bubblesextra.omp.json&quot; | Invoke-Expression
+
+到这里 PowerShell 的已设置好了，但是CMD并没有这个效果，继续折腾
+
+Terminal-Icons项目地址（非必须）Terminal-Icons 是一个 PowerShell 模块，它可以让你的终端显示带有图标的文件和目录列表。该项目基于Nerd Fonts提供的定制字体，这些字体包含了大量自定义的图形和图标。通过这个模块，你可以使终端看起来更专业，更具个性化。
+先执行，否则执行后面命令会报错
+Set-PSRepository -Name PSGallery -InstallationPolicy trusted
+终端使用管理员身份打开 PowerShell
+Install-Module -Name Terminal-Icons -Repository PSGallery
+打开Microsoft.PowerShell_profile.ps1文件
+notepad $profile
+添加Icons，保存
+Import-Module -Name Terminal-Icons
+
+Terminal-Icons 让终端不再是单调的文字展示，而是转变为视觉上的盛宴。如果你是一个热爱命令行界面的人，那么这个项目绝对值得你尝试。现在就去安装它，给你的终端增添一份色彩吧！
+
+clink安装clink 是一款增强 CMD 功能的小工具，支持自动补全、命令历史等功能，极大提升了 CMD 的使用体验。
+包管理工具安装winget install clink #winget安装或者scoop install clink #scoop安装
+
+手动安装从clink官方网站下载.zip安装文件或者.setup.exe安装文件（推荐前者）
+安装注意事项如果选择的是.exe安装，记得勾选Autorun when cmd.exe starts和Use enhanced default settings，前者会帮你自动将clinks插入到cmd中，而后者可以帮你进行一些默认的配置，避免自己配置的时候有一些问题。
+激活 clinkclink autorun install -- --quiet
+
+启用自动补全clink set autosuggest.enable true
+
+配置 oh-my-posh 样式创建 Lua 配置文件在 C:\Users\&lt;用户名&gt;\AppData\Local\clink 目录下，新建一个名为 oh-my-posh.lua 的文件。
+加载 oh-my-posh 主题在文件中写入以下代码，以将 oh-my-posh 的样式应用到 CMD：
+local themes_path = os.getenv(&quot;POSH_THEMES_PATH&quot;)if themes_path then    local config_path = themes_path:gsub(&quot;\\&quot;, &quot;/&quot;) .. &quot;/bubblesextra.omp.json&quot;    local command = string.format(&#x27;oh-my-posh init cmd --config &quot;%s&quot;&#x27;, config_path)    load(io.popen(command):read(&quot;*a&quot;))()else    print(&quot;环境变量 POSH_THEMES_PATH 未设置&quot;)end
+bubblesextra.omp.json是主题，可以自行更换配置完成后，重新打开 CMD，即可看到应用了 oh-my-posh 的自定义提示符样式。
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>搭建免费高速图床 CLoudFlare R2 +PicGo方案</title>
+    <url>/2025/03/24/bo-ke/mian-fei-tu-chuang-da-jian/</url>
+    <content><![CDATA[前言什么是图床将图片上传到服务商或个人远程服务器，通过网络地址直接访问的技术方案。适用于以下场景：
+
+快速将图片插入文章内容
+统一管理图片资源
+便于图片迁移与分享
+
+技术方案选择Cloudflare R2
+免费额度：10GB&#x2F;月存储容量（按30天日均存储峰平均值）
+超额单价：$0.015&#x2F;GB&#x2F;月
+API免费限制：
+每天100万次B类事务（文件下载、元数据查询等）
+每天1000万次A类事务（创建&#x2F;列举存储桶等）
+
+
+
+PicGo客户端
+开源图片上传工具
+支持S3协议适配
+剪贴板自动复制链接
+
+准备事项账号准备
+注册Cloudflare账号
+需绑定付费计划（选择0元免费层级防止误扣费）
+
+
+完成账号二次验证
+
+域名准备
+注册域名：
+建议使用低成本年费域名（如.xyz域名）
+可使用二级域名拆分（例：img.yourdomain.com）
+
+
+托管方案：
+若域名不在CF托管，需设置NS&#x2F;CNAME记录转发
+
+
+
+搭建流程Cloudflare R2 配置打开Cloudflare，选择R2对象存储
+2. 创建储存桶
+桶设置PS：如果域名不托管在CloudFlare，可以单独托管二级\三级域名，只需要给二级域名添加一条NS记录指向原托管即可。
+* 选择设置
+* 选择位置：根据自己位置选择
+* 添加自定义域，继续
+* 最好再选择：连接域
+* R2.dev 子域：允许访问
+* 之后就能浏览器 https://&lt;自定义域名&gt;/&lt;文件名&gt;访问存储桶里的文件了。
+
+
+
+
+
+API令牌生成1. 管理API令牌 
+2. 创建API令牌
+3. 创建API令牌完成
+   1. 输入令牌名称
+   2. 选择权限
+   3. 指定存储桶
+   4. 完成
+
+
+
+
+
+
+
+
+
+
+picGo设置在插件设置中，添加常用插件。
+
+S3插件：用来登录S3的图床
+
+
+
+安装好后，图床设置 &#x3D;&gt; Amazon S3 &#x3D;&gt; 新增设置
+
+
+
+这里有几项配置需要尤其注意。
+
+应用密钥 ID，填写 R2 API 中的 Access Key ID（访问密钥 ID）应用密钥，填写 R2 API 中的Secret Access Key（机密访问密钥）桶名，填写 R2 中创建的 Bucket 名称，如创建R2的桶的名字 img文件路径，上传到 R2 中的文件路径，这里选择使用 {fileName}.{extName} (或者{fullName})来保留原文件的文件名和扩展名。自定义节点，填写 R2 API 中的「为 S3 客户端使用管辖权地特定的终结点」，即 xxx.r2.cloudflarestorage.com格式的 S3 Endpoint自定义域名，填写上文生成的https://xxx.r2.dev格式的域名或自定义域名，如我配置的https://img.a.comForcePathStyle：no关闭，否则会在最终路径里面显示有桶名。拒绝无效TLS证书连接 ：yes开启，如果出现证书错误可以关闭ACL访问控制列表：public-readBucket前缀：false
+
+
+完成上述配置后，我们就可以在「上传区」直接拖入文件进行图片上传了，如上传后显示无误则为配置成功，生成的链接会自动在系统剪贴板中，直接在需要的地方粘贴即可。
+如果配置确定没有问题，上传失败，请重启PicGo再试设定缓存规则缓存规则一般设定两个：浏览器缓存和边缘缓存。浏览器缓存：访问后，所需文件储存在浏览器的本地目录，在一段时间内，再次访问优先访问本地文件边缘缓存：访问后，缓存在最近的CDN存一份，在一段时间内，优先访问CDN中的文件
+
+进入域名页面-&gt;规则-&gt;页面规则
+部署页面规则
+
+
+防盗链设置只能通过指定的网站来访问（防君子不防小人，可以伪造refer信息，照样刷流量）。但是还是有点作用，比如别人爬取文章盗用的时候，图片是无法访问的。
+* 安全性-&gt;WAF，创建规则
+* 部署WAF规则
+
+
+
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>免费搭建个人博客</title>
+    <url>/2025/03/24/bo-ke/mian-fei-da-jian-ge-ren-bo-ke/</url>
+    <content><![CDATA[前言个人博客需满足以下要求：
+
+免费：无需购买云服务器  
+易维护：专注内容发布，功能简洁  
+访问流畅：国内外用户均可稳定访问
+
+
+最终方案：Cloudflare + GitHub + Hexo + Fluid  
+
+
+参考资源
+陶渊小明博客  
+YouTube教程
+
+Hexo 环境配置Hexo 是一个基于 Node.js 的静态博客框架，支持 Markdown 编写并生成 HTML 页面。
+1. 安装 Node.js前往 Node.js 官网 下载并安装。
+2. 配置 Hexo更换 npm 镜像源（国内加速）npm config set registry https://registry.npmmirror.com
+安装 Hexo 客户端npm install -g hexo-cli
+
+初始化博客项目hexo init blog &amp;&amp; cd blognpm install
+
+到这里我们的 hexo 环境配置就基本完成了，下面就可以使用它来写文章和发布文章了！👍👍👍
+使用 Hexo 管理博客为了方便编辑，我们使用 vscode 打开 blog 文件夹。下面来看一下 blog 里面的主要组成部分：
+blog/├── _config.yml       # 全局配置（站点名称、作者等）├── source/_posts     # 存放 Markdown 文章，而且 hexo 自带了一篇 demo 文章 hello-world└── themes            # 主题文件夹，hexo 有一个默认主题，但不太好看，后面可以改成漂亮一些的主题
+
+接着我们执行命令，在本地把 hexo 服务跑起来。这样我们就可以，在本地网址的4000端口，预览文章效果。
+# windows执行hexo clean ; hexo g ; hexo s
+# linux执行hexo clean &amp;&amp; hexo g &amp;&amp; hexo s
+打开 http://localhost:4000/ 这个本地网址，已经可以正常访问了，这里就是博客网页的布局。
+将博客托管到 GitHub Pages现在我们这个博客，还只能在本地网址预览。下面我们把博客项目托管到 GitHub 仓库，并且使用 GitHub Pages 来部署博客，让其他人也能访问我们的博客网站
+博客项目托管到GitHub为了方便管理 blog 博客项目，我们下一步把这个项目托管到 GitHub 上。首先在 GitHub 上创建一个项目，项目名可以设置为 我们的GitHub用户名.github.io。
+使用 GitHub Pages 部署博客执行完配置命令以后，我们就可以使用 git 来管理博客项目了。接下来我们把 my-blog 项目，部署到 GitHub Pages 上。 这样我们的博客，就不再只是一个本地网站了。其他人也可以通过网络，来访问我们的博客。
+首先在 my-blog 项目的 _config.yml 配置文件中，把 git 服务部署的配置加进去。在 type 配置项这里填上 git，然后分别添加一个 repository 和一个 branch 配置，指定部署博客网站时，所使用的 GitHub 项目和对应的分支。repository 这里填 &#103;&#x69;&#116;&#64;&#x67;&#x69;&#x74;&#104;&#x75;&#x62;&#x2e;&#x63;&#x6f;&#109;:GitHub用户名&#x2F;GitHub仓库名，branch 这里指定 main 分支，然后保存配置。
+最后我们执行 npm install hexo-deployer-git –save 命令，安装 hexo-deployer-git 这个插件，来简化部署到 GitHub Pages 的流程。
+npm install hexo-deployer-git --save
+这样配置完以后，我们就可以在本地写文章，写完以后通过 http://localhost:4000/ 预览文章效果并进行修改。修改满意后，就可以部署到 GitHub Pages 这样其他人就能访问我们的博客了。我们来看一下使用流程：
+首先我们使用 hexo new post 文章标题，来创建一篇新文章。这样操作后，hexo 就会在 source&#x2F;_post 下面，给我们生成一个新文件来编辑这篇文章。我们使用上一篇文章，搭建的 免费图床 来简单编辑一下这篇新文章。MarkDown 本地渲染一下，显示正常。然后执行这个三合一命令，把文章发布到 GitHub Pages。
+hexo clean &amp;&amp; hexo generate &amp;&amp; hexo deploy
+
+常用命令速查
+
+
+命令
+功能
+简写
+
+
+
+hexo clean
+清除缓存
+hexo -c
+
+
+hexo generate
+生成静态文件
+hexo -g
+
+
+hexo deploy
+部署到 GitHub
+hexo -d
+
+
+hexo server
+启动本地服务器
+hexo -s
+
+
+发布完成后，打开 https://github用户名.github.io/ 这个网址，就可以访问我们的在线博客了！👌
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux操作系统</title>
+    <url>/2025/04/05/wang-luo-an-quan/ji-chu-ru-men/linux-cao-zuo-xi-tong/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>网络安全</category>
+        <category>基础入门</category>
+      </categories>
+      <tags>
+        <tag>网络安全-阶段一</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows操作系统</title>
+    <url>/2025/04/05/wang-luo-an-quan/ji-chu-ru-men/windows-cao-zuo-xi-tong/</url>
+    <content><![CDATA[操作系统的介绍什么是操作系统操作系统（Operating System, OS）是计算机系统中最核心的软件，扮演着硬件管理者和用户服务提供者的双重角色。它为用户和应用程序提供统一的接口，同时管理计算机的硬件资源，如处理器、内存、存储设备和外设。以下是关键内容的清晰梳理：
+classDiagram
+    class 计算机系统 {
+        +硬件系统
+        +软件系统
+    }
+    计算机系统 ]]></content>
+      <categories>
+        <category>网络安全</category>
+        <category>基础入门</category>
+      </categories>
+      <tags>
+        <tag>网络安全-阶段一</tag>
+      </tags>
+  </entry>
+</search>

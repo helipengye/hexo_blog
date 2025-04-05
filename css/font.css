@@ -1,0 +1,10 @@
+@font-face{
+    font-family: 'Maple Mono';
+    font-display: swap;
+    src: url('https://img.jjyyo.com/file/字体/1743707044468_MapleMono-NF-CN-MediumItalic.woff2') format("woff2");
+    /* src: url('https://img.jjyyo.com/file/字体/1743707087462_MapleMono-NF-CN-Bold.woff2') format("woff2"); */
+    font-weight: 600;
+}
+body {
+    font-family: 'Maple Mono';
+}
