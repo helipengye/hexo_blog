@@ -1,10 +1,13 @@
 @font-face{
     font-family: 'Maple Mono';
     font-display: swap;
-    src: url('https://img.jjyyo.com/file/字体/1743707044468_MapleMono-NF-CN-MediumItalic.woff2') format("woff2");
+    /* src: url("https://fontsapi.zeoseven.com/443/main.woff2") format('woff2'),
+        url("https://fontsapi-storage.zeoseven.com/443/main.woff2") format('woff2'); */
+    /* src: url('https://img.jjyyo.com/file/字体/1743707044468_MapleMono-NF-CN-MediumItalic.woff2') format("woff2"); */
     /* src: url('https://img.jjyyo.com/file/字体/1743707087462_MapleMono-NF-CN-Bold.woff2') format("woff2"); */
-    font-weight: 600;
+    src: url('https://img.jjyyo.com/file/字体/1743930189215_MapleMono-NF-CN-Regular.woff2') format("woff2");
 }
 body {
     font-family: 'Maple Mono';
+    font-weight: normal;
 }
