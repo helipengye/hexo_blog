@@ -72,6 +72,86 @@ bubblesextra.omp.json是主题，可以自行更换配置完成后，重新打�
       </tags>
   </entry>
   <entry>
+    <title>免费搭建个人博客</title>
+    <url>/2025/03/24/bo-ke/mian-fei-da-jian-ge-ren-bo-ke/</url>
+    <content><![CDATA[前言个人博客需满足以下要求：
+
+免费：无需购买云服务器  
+易维护：专注内容发布，功能简洁  
+访问流畅：国内外用户均可稳定访问
+
+
+最终方案：Cloudflare + GitHub + Hexo + Fluid  
+
+
+参考资源
+陶渊小明博客  
+YouTube教程
+
+Hexo 环境配置Hexo 是一个基于 Node.js 的静态博客框架，支持 Markdown 编写并生成 HTML 页面。
+1. 安装 Node.js前往 Node.js 官网 下载并安装。
+2. 配置 Hexo更换 npm 镜像源（国内加速）npm config set registry https://registry.npmmirror.com
+安装 Hexo 客户端npm install -g hexo-cli
+
+初始化博客项目hexo init blog &amp;&amp; cd blognpm install
+
+到这里我们的 hexo 环境配置就基本完成了，下面就可以使用它来写文章和发布文章了！👍👍👍
+使用 Hexo 管理博客为了方便编辑，我们使用 vscode 打开 blog 文件夹。下面来看一下 blog 里面的主要组成部分：
+blog/├── _config.yml       # 全局配置（站点名称、作者等）├── source/_posts     # 存放 Markdown 文章，而且 hexo 自带了一篇 demo 文章 hello-world└── themes            # 主题文件夹，hexo 有一个默认主题，但不太好看，后面可以改成漂亮一些的主题
+
+接着我们执行命令，在本地把 hexo 服务跑起来。这样我们就可以，在本地网址的4000端口，预览文章效果。
+# windows执行hexo clean ; hexo g ; hexo s
+# linux执行hexo clean &amp;&amp; hexo g &amp;&amp; hexo s
+打开 http://localhost:4000/ 这个本地网址，已经可以正常访问了，这里就是博客网页的布局。
+将博客托管到 GitHub Pages现在我们这个博客，还只能在本地网址预览。下面我们把博客项目托管到 GitHub 仓库，并且使用 GitHub Pages 来部署博客，让其他人也能访问我们的博客网站
+博客项目托管到GitHub为了方便管理 blog 博客项目，我们下一步把这个项目托管到 GitHub 上。首先在 GitHub 上创建一个项目，项目名可以设置为 我们的GitHub用户名.github.io。
+使用 GitHub Pages 部署博客执行完配置命令以后，我们就可以使用 git 来管理博客项目了。接下来我们把 my-blog 项目，部署到 GitHub Pages 上。 这样我们的博客，就不再只是一个本地网站了。其他人也可以通过网络，来访问我们的博客。
+首先在 my-blog 项目的 _config.yml 配置文件中，把 git 服务部署的配置加进去。在 type 配置项这里填上 git，然后分别添加一个 repository 和一个 branch 配置，指定部署博客网站时，所使用的 GitHub 项目和对应的分支。repository 这里填 &#x67;&#x69;&#116;&#64;&#103;&#105;&#116;&#104;&#117;&#98;&#46;&#x63;&#x6f;&#x6d;:GitHub用户名&#x2F;GitHub仓库名，branch 这里指定 main 分支，然后保存配置。
+最后我们执行 npm install hexo-deployer-git –save 命令，安装 hexo-deployer-git 这个插件，来简化部署到 GitHub Pages 的流程。
+npm install hexo-deployer-git --save
+这样配置完以后，我们就可以在本地写文章，写完以后通过 http://localhost:4000/ 预览文章效果并进行修改。修改满意后，就可以部署到 GitHub Pages 这样其他人就能访问我们的博客了。我们来看一下使用流程：
+首先我们使用 hexo new post 文章标题，来创建一篇新文章。这样操作后，hexo 就会在 source&#x2F;_post 下面，给我们生成一个新文件来编辑这篇文章。我们使用上一篇文章，搭建的 免费图床 来简单编辑一下这篇新文章。MarkDown 本地渲染一下，显示正常。然后执行这个三合一命令，把文章发布到 GitHub Pages。
+hexo clean &amp;&amp; hexo generate &amp;&amp; hexo deploy
+
+常用命令速查
+
+
+命令
+功能
+简写
+
+
+
+hexo clean
+清除缓存
+hexo -c
+
+
+hexo generate
+生成静态文件
+hexo -g
+
+
+hexo deploy
+部署到 GitHub
+hexo -d
+
+
+hexo server
+启动本地服务器
+hexo -s
+
+
+发布完成后，打开 https://github用户名.github.io/ 这个网址，就可以访问我们的在线博客了！👌
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>搭建免费高速图床 CLoudFlare R2 +PicGo方案</title>
     <url>/2025/03/24/bo-ke/mian-fei-tu-chuang-da-jian/</url>
     <content><![CDATA[前言什么是图床将图片上传到服务商或个人远程服务器，通过网络地址直接访问的技术方案。适用于以下场景：
@@ -171,86 +251,6 @@ S3插件：用来登录S3的图床
 
 
 
-]]></content>
-      <categories>
-        <category>博客</category>
-      </categories>
-      <tags>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>免费搭建个人博客</title>
-    <url>/2025/03/24/bo-ke/mian-fei-da-jian-ge-ren-bo-ke/</url>
-    <content><![CDATA[前言个人博客需满足以下要求：
-
-免费：无需购买云服务器  
-易维护：专注内容发布，功能简洁  
-访问流畅：国内外用户均可稳定访问
-
-
-最终方案：Cloudflare + GitHub + Hexo + Fluid  
-
-
-参考资源
-陶渊小明博客  
-YouTube教程
-
-Hexo 环境配置Hexo 是一个基于 Node.js 的静态博客框架，支持 Markdown 编写并生成 HTML 页面。
-1. 安装 Node.js前往 Node.js 官网 下载并安装。
-2. 配置 Hexo更换 npm 镜像源（国内加速）npm config set registry https://registry.npmmirror.com
-安装 Hexo 客户端npm install -g hexo-cli
-
-初始化博客项目hexo init blog &amp;&amp; cd blognpm install
-
-到这里我们的 hexo 环境配置就基本完成了，下面就可以使用它来写文章和发布文章了！👍👍👍
-使用 Hexo 管理博客为了方便编辑，我们使用 vscode 打开 blog 文件夹。下面来看一下 blog 里面的主要组成部分：
-blog/├── _config.yml       # 全局配置（站点名称、作者等）├── source/_posts     # 存放 Markdown 文章，而且 hexo 自带了一篇 demo 文章 hello-world└── themes            # 主题文件夹，hexo 有一个默认主题，但不太好看，后面可以改成漂亮一些的主题
-
-接着我们执行命令，在本地把 hexo 服务跑起来。这样我们就可以，在本地网址的4000端口，预览文章效果。
-# windows执行hexo clean ; hexo g ; hexo s
-# linux执行hexo clean &amp;&amp; hexo g &amp;&amp; hexo s
-打开 http://localhost:4000/ 这个本地网址，已经可以正常访问了，这里就是博客网页的布局。
-将博客托管到 GitHub Pages现在我们这个博客，还只能在本地网址预览。下面我们把博客项目托管到 GitHub 仓库，并且使用 GitHub Pages 来部署博客，让其他人也能访问我们的博客网站
-博客项目托管到GitHub为了方便管理 blog 博客项目，我们下一步把这个项目托管到 GitHub 上。首先在 GitHub 上创建一个项目，项目名可以设置为 我们的GitHub用户名.github.io。
-使用 GitHub Pages 部署博客执行完配置命令以后，我们就可以使用 git 来管理博客项目了。接下来我们把 my-blog 项目，部署到 GitHub Pages 上。 这样我们的博客，就不再只是一个本地网站了。其他人也可以通过网络，来访问我们的博客。
-首先在 my-blog 项目的 _config.yml 配置文件中，把 git 服务部署的配置加进去。在 type 配置项这里填上 git，然后分别添加一个 repository 和一个 branch 配置，指定部署博客网站时，所使用的 GitHub 项目和对应的分支。repository 这里填 &#x67;&#105;&#116;&#x40;&#103;&#x69;&#x74;&#104;&#117;&#98;&#46;&#99;&#111;&#109;:GitHub用户名&#x2F;GitHub仓库名，branch 这里指定 main 分支，然后保存配置。
-最后我们执行 npm install hexo-deployer-git –save 命令，安装 hexo-deployer-git 这个插件，来简化部署到 GitHub Pages 的流程。
-npm install hexo-deployer-git --save
-这样配置完以后，我们就可以在本地写文章，写完以后通过 http://localhost:4000/ 预览文章效果并进行修改。修改满意后，就可以部署到 GitHub Pages 这样其他人就能访问我们的博客了。我们来看一下使用流程：
-首先我们使用 hexo new post 文章标题，来创建一篇新文章。这样操作后，hexo 就会在 source&#x2F;_post 下面，给我们生成一个新文件来编辑这篇文章。我们使用上一篇文章，搭建的 免费图床 来简单编辑一下这篇新文章。MarkDown 本地渲染一下，显示正常。然后执行这个三合一命令，把文章发布到 GitHub Pages。
-hexo clean &amp;&amp; hexo generate &amp;&amp; hexo deploy
-
-常用命令速查
-
-
-命令
-功能
-简写
-
-
-
-hexo clean
-清除缓存
-hexo -c
-
-
-hexo generate
-生成静态文件
-hexo -g
-
-
-hexo deploy
-部署到 GitHub
-hexo -d
-
-
-hexo server
-启动本地服务器
-hexo -s
-
-
-发布完成后，打开 https://github用户名.github.io/ 这个网址，就可以访问我们的在线博客了！👌
 ]]></content>
       <categories>
         <category>博客</category>
@@ -1162,22 +1162,956 @@ iptables四表五链深入、NAT配置
       </tags>
   </entry>
   <entry>
-    <title>Windows操作系统</title>
-    <url>/2025/04/05/wang-luo-an-quan/ji-chu-ru-men/windows-cao-zuo-xi-tong/</url>
-    <content><![CDATA[操作系统的介绍什么是操作系统操作系统（Operating System, OS）是计算机系统中最核心的软件，扮演着硬件管理者和用户服务提供者的双重角色。它为用户和应用程序提供统一的接口，同时管理计算机的硬件资源，如处理器、内存、存储设备和外设。以下是关键内容的清晰梳理：
-classDiagram
-    class 计算机系统 {
-        +硬件系统
-        +软件系统
-    }
-    计算机系统 ]]></content>
+    <title>web前端基础知识</title>
+    <url>/2025/04/06/wang-luo-an-quan/ji-chu-ru-men/web-qian-duan-ji-chu-zhi-shi/</url>
+    <content><![CDATA[web基础概念知识Web基础概念知识详解1. 互联网与万维网（WWW）
+**互联网（Internet）: ** 全球互联的计算机网络，基于TCP&#x2F;IP协议族进行通信，包含硬件设备（路由、服务器）和协议（HTTP, FTP, SMTP）。
+
+万维网（World Wide Web, WWW）: 基于互联网的信息共享系统，通过HTTP协议和超文本（HTML）链接资源，核心组件包括：
+
+URL（资源定位符）
+HTTP&#x2F;HTTPS（传输协议）
+Web浏览器（客户端工具）
+
+2. 网页核心三剑客
+
+
+
+
+技术
+角色
+示例代码
+
+
+
+HTML
+定义页面结构
+&lt;h1&gt;标题&lt;&#x2F;h1&gt;
+
+
+CSS
+控制样式与布局
+body { background: #fff; }
+
+
+JavaScript
+实现动态交互
+document.getElementById(“btn”).onclick &#x3D; () &#x3D;&gt; {…}
+
+
+3. HTTP&#x2F;HTTPS协议
+HTTP（超文本传输协议）:
+无状态协议（每次请求独立）
+请求方法：GET（获取资源）, POST（提交数据）, PUT, DELETE等。
+状态码：200（成功）、404（未找到）、500（服务器错误）。
+
+
+HTTPS:
+加密版HTTP，使用SSL&#x2F;TLS协议保护传输安全。
+加密流程：
+客户端发起HTTPS请求。
+服务器返回数字证书（含公钥）。
+客户端验证证书并生成对称加密密钥。
+双方使用对称密钥加密通信。
+
+
+
+
+
+4. URL结构解析示例：https://www.example.com:8080/path/to/page?name=John&amp;age=25#section1
+
+
+
+组件
+作用
+
+
+
+协议
+https（定义传输方式）
+
+
+域名&#x2F;IP
+www.example.com
+
+
+端口
+:8080（默认80&#x2F;443可省略）
+
+
+路径
+&#x2F;path&#x2F;to&#x2F;page（资源位置）
+
+
+查询参数
+?name&#x3D;John&amp;age&#x3D;25（附加数据）
+
+
+锚点
+#section1（页面内跳转）
+
+
+5. DNS域名解析流程sequenceDiagram
+  User->>浏览器: 输入 example.com
+  浏览器->>本地DNS: 查询缓存
+  本地DNS->>根DNS: 请求.com NS记录
+  根DNS-->>本地DNS: 返回.com权威服务器IP
+  本地DNS->>权威DNS: 解析example.com A记录
+  权威DNS-->>本地DNS: 返回IP地址
+  本地DNS->>用户: 缓存并返回结果
+
+    
+  
+
+
+
+关键点:
+递归查询： 客户端向本地DNS逐层查询直至获取结果。
+TTL（生存时间）： 控制DNS缓存的过期时间。
+
+
+
+6. 客户端与服务器交互
+请求头示例:GET /index.html HTTP/1.1Host: www.example.comUser-Agent: Mozilla/5.0Accept-Language: en-US
+响应头示例:HTTP/1.1 200 OKContent-Type: text/htmlContent-Length: 1234Set-Cookie: session_id=abc123
+
+7. 前端与后端协作
+前端： 负责用户界面和交互（React&#x2F;Vue&#x2F;HTML&#x2F;CSS）。
+后端： 处理业务逻辑和数据处理（Node.js&#x2F;Java&#x2F;Python）。
+API通信:// 请求POST /api/user&#123;&quot;username&quot;: &quot;john&quot;, &quot;password&quot;: &quot;secret&quot;&#125;// 响应&#123;&quot;status&quot;: 200, &quot;data&quot;: &#123;&quot;id&quot;: 1&#125;&#125;
+
+8. 安全机制
+XSS防护:
+
+对用户输入进行转义：&lt;script&gt; → &amp;lt;script&amp;gt;。
+设置HTTP头Content-Security-Policy。
+
+
+CSRF防护:
+
+使用Token验证：&lt;input type=&quot;hidden&quot; name=&quot;csrf_token&quot; value=&quot;...&quot;&gt;。
+设置Cookie的SameSite属性为Strict。
+
+
+
+9. 缓存与性能优化
+浏览器缓存：
+强缓存： Cache-Control: max-age=3600。
+协商缓存： Last-Modified与ETag验证。
+
+
+CDN加速： 将静态资源缓存至全球边缘节点，降低延迟。
+
+常见web前端语言1. 三大基石：HTML &#x2F; CSS &#x2F; JavaScript
+
+
+语言
+类型
+核心作用
+示例代码
+
+
+
+HTML
+标记语言
+定义网页内容结构
+&lt;h1&gt;标题&lt;&#x2F;h1&gt;
+
+
+CSS
+样式表语言
+控制页面布局与视觉样式
+body { background: #fff; }
+
+
+JavaScript
+编程语言
+实现动态交互与逻辑处理
+document.querySelector(‘button’).onclick &#x3D; () &#x3D;&gt; { … }
+
+
+2. JavaScript 与扩展语言
+JavaScript (ES6+)
+现代语法： 箭头函数、解构赋值、Promise等。
+运行环境： 浏览器（DOM操作） &amp; Node.js（服务端）。// ES6模块化import &#123; Component &#125; from &#x27;react&#x27;;export const fetchData = async () =&gt; &#123; ... &#125;;
+
+
+TypeScript
+超集特性： 静态类型检测 + 接口定义。
+协作优势： 减少开发中低级错误。interface User &#123; id: number; name: string; &#125;const getUser = (id: number): User =&gt; &#123; ... &#125;;
+
+
+
+3. CSS 扩展语言与工具
+
+
+工具
+类型
+功能特点
+示例
+
+
+
+Sass
+CSS预处理器
+嵌套语法 &#x2F; 变量定义 &#x2F; Mixins
+$primary-color: #333;
+
+
+Less
+CSS预处理器
+动态样式计算
+.box { height: @base * 2; }
+
+
+PostCSS
+CSS处理工具
+自动添加浏览器前缀
+自动生成 -webkit- 前缀
+
+
+4. 现代前端框架与库
+
+
+框架
+核心技术
+核心优势
+代码示例
+
+
+
+React
+虚拟DOM + JSX
+组件化开发生态庞大
+&lt;Button onClick&#x3D;{handleClick}&gt;Submit&lt;&#x2F;Button&gt;
+
+
+Vue
+响应式系统 + 模板
+渐进式框架易上手
+
+
+
+Angular
+依赖注入 + 强类型
+企业级全栈支持
+@Component({…}) class AppComponent {}
+
+
+5. 其他相关技术
+WebAssembly (Wasm)
+非JS语言支持： 允许C&#x2F;C++&#x2F;Rust代码在浏览器运行。
+场景： 高性能计算（如游戏、图像处理）。
+
+
+模板引擎
+服务器端渲染： Handlebars、EJS。&lt;!-- Handlebars示例 --&gt;&lt;div&gt;&#123;&#123;#if user&#125;&#125;Welcome, &#123;&#123;user.name&#125;&#125;&#123;&#123;/if&#125;&#125;&lt;/div&gt;
+
+
+静态网站生成器
+工具： Next.js（React）、Nuxt.js（Vue）、Gatsby。
+示例用途： 博客、文档站（基于Markdown）。
+
+
+
+html标签1. 基础结构标签定义HTML文档的骨架，包含文档类型声明、根元素和核心结构。
+
+
+
+标签
+作用
+示例代码
+注意事项
+
+
+
+React
+虚拟DOM + JSX
+组件化开发生态庞大
+&lt;Button onClick&#x3D;{handleClick}&gt;Submit&lt;&#x2F;Button&gt;
+
+
+&lt;!DOCTYPE&gt;
+声明文档类型（HTML5标准）
+&lt;!DOCTYPE html&gt;
+必须位于文档最前端
+
+
+&lt;html&gt;
+包裹整个HTML内容（根元素）
+&lt;html lang&#x3D;”zh-CN”&gt;…&lt;&#x2F;html&gt;
+lang属性指定页面语言（SEO优化）
+
+
+&lt;head&gt;
+存放元数据和引用的外部资源
+&lt;head&gt;&lt;&#x2F;head&gt;
+必须包含&lt;title&gt;和&lt;meta charset&gt;
+
+
+&lt;title&gt;
+定义浏览器标签页的标题
+&lt;title&gt;我的网站&lt;&#x2F;title&gt;
+重要SEO元素，推荐不超过60字符
+
+
+&lt;body&gt;
+存放页面实际显示内容
+&lt;body&gt;&lt;h1&gt;欢迎&lt;&#x2F;h1&gt;&lt;&#x2F;body&gt;
+所有可见内容都写在此处
+
+
+2. 文本与段落标签处理文本内容的关键标签，优化结构与可读性。
+
+
+
+标签
+作用
+示例代码
+注意事项
+
+
+
+&lt;h1&gt;~&lt;h6&gt;
+标题元素（从1级到6级）
+&lt;h1&gt;主标题&lt;&#x2F;h1&gt;
+按层级使用，&lt;h1&gt;每个页面仅一个（SEO优化）
+
+
+&lt;p&gt;
+段落文本
+&lt;p&gt;这是一段文字。&lt;&#x2F;p&gt;
+避免嵌套块级元素（如div）在内部
+
+
+&lt;br&gt;
+换行符
+第一行&lt;br&gt;第二行
+无需闭合，直接在需要换行处插入
+
+
+&lt;hr&gt;
+水平分隔线
+&lt;hr&gt;
+常用于段落间的视觉分隔
+
+
+&lt;strong&gt;
+强调文本（加粗，语义化重要内容）
+&lt;strong&gt;警告！&lt;&#x2F;strong&gt;
+优先用&lt;strong&gt;替代无意义的&lt;b&gt;
+
+
+&lt;em&gt;
+强调文本（斜体，语义化强调语气）
+&lt;em&gt;请注意&lt;&#x2F;em&gt;
+优先用&lt;em&gt;替代无意义的&lt;i&gt;
+
+
+3. 列表与链接组织数据和导航的关键结构。
+
+
+
+标签
+作用
+示例代码
+注意事项
+
+
+
+&lt;ul&gt;
+无序列表（项目符号）
+&lt;ul&gt;&lt;li&gt;苹果&lt;&#x2F;li&gt;&lt;li&gt;香蕉&lt;&#x2F;li&gt;&lt;&#x2F;ul&gt;
+配合&lt;li&gt;使用
+
+
+&lt;ol&gt;
+有序列表（数字序号）
+&lt;ol&gt;&lt;li&gt;第一步&lt;&#x2F;li&gt;&lt;li&gt;第二步&lt;&#x2F;li&gt;&lt;&#x2F;ol&gt;
+可使用start属性自定义起始序号
+
+
+&lt;a&gt;
+超链接
+&lt;a href&#x3D;”链接\">https://example.com&quot;&gt;链接\
+href可为URL、锚点(#id)或邮箱(mailto:)
+
+
+&lt;img&gt;
+插入图片
+&lt;img src&#x3D;”logo.png” alt&#x3D;”网站Logo”&gt;
+alt属性必须填写（无障碍访问要求），若图片无法加载时显示
+
+
+4. 表格与表单用于展示结构化数据和用户输入的关键标签。
+
+
+
+标签
+作用
+示例代码
+注意事项
+
+
+
+&lt;table&gt;
+定义表格
+&lt;table&gt;&lt;tr&gt;&lt;th&gt;姓名&lt;&#x2F;th&gt;&lt;th&gt;年龄&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;table&gt;
+需用&lt;tr&gt;定义行，&lt;th&gt;为表头，&lt;td&gt;为单元格
+
+
+&lt;form&gt;
+用户输入表单
+&lt;form action&#x3D;”&#x2F;submit” method&#x3D;”POST”&gt;&lt;input type&#x3D;”text” name&#x3D;”user”&gt;&lt;&#x2F;form&gt;
+method支持GET&#x2F;POST，action指定提交地址
+
+
+&lt;input&gt;
+输入控件（文本&#x2F;密码&#x2F;按钮等）
+&lt;input type&#x3D;”email” placeholder&#x3D;”输入邮箱”&gt;
+常见类型：text,password,checkbox,radio,submit
+
+
+&lt;textarea&gt;
+多行文本输入框
+&lt;textarea rows&#x3D;”4” cols&#x3D;”50”&gt;&lt;&#x2F;textarea&gt;
+默认可拖拽调整大小，需CSS固定尺寸时可添加resize: none
+
+
+&lt;button&gt;
+按钮
+&lt;button type&#x3D;”button”&gt;点击
+type默认为submit，设为button避免表单提交
+
+
+5. 语义化标签（HTML5新增）提升页面结构清晰度，辅助SEO和屏幕阅读器解析。
+
+
+
+标签
+作用
+示例代码
+
+
+
+&lt;header&gt;
+定义页眉或区域的头部
+&lt;header&gt;&lt;h1&gt;网站标题&lt;&#x2F;h1&gt;&lt;nav&gt;…&lt;&#x2F;nav&gt;&lt;&#x2F;header&gt;
+
+
+&lt;footer&gt;
+定义页脚或区域的尾部
+&lt;footer&gt;© 2023 版权所有&lt;&#x2F;footer&gt;
+
+
+&lt;nav&gt;
+导航菜单区域
+&lt;nav&gt;&lt;a href&#x3D;”&#x2F;home”&gt;首页&lt;&#x2F;a&gt;&lt;a href&#x3D;”&#x2F;about”&gt;关于&lt;&#x2F;a&gt;&lt;&#x2F;nav&gt;
+
+
+&lt;article&gt;
+独立的文章或内容块
+&lt;article&gt;&lt;h2&gt;新闻标题&lt;&#x2F;h2&gt;&lt;p&gt;新闻正文…&lt;&#x2F;p&gt;&lt;&#x2F;article&gt;
+
+
+&lt;section&gt;
+页面中的独立章节
+&lt;section&gt;&lt;h2&gt;产品介绍&lt;&#x2F;h2&gt;&lt;p&gt;详细介绍…&lt;&#x2F;p&gt;&lt;&#x2F;section&gt;
+
+
+&lt;aside&gt;
+侧边栏或附属内容
+&lt;aside&gt;&lt;h3&gt;相关链接&lt;&#x2F;h3&gt;&lt;ul&gt;…&lt;&#x2F;ul&gt;&lt;&#x2F;aside&gt;
+
+
+6. 多媒体与容器标签嵌入富媒体内容或通用容器。
+
+
+
+标签
+作用
+示例代码
+
+
+
+&lt;video&gt;
+嵌入视频
+&lt;video controls&gt;&lt;source src&#x3D;”movie.mp4” type&#x3D;”video&#x2F;mp4”&gt;&lt;&#x2F;video&gt;
+
+
+&lt;audio&gt;
+嵌入音频
+&lt;audio controls&gt;&lt;source src&#x3D;”music.mp3” type&#x3D;”audio&#x2F;mpeg”&gt;&lt;&#x2F;audio&gt;
+
+
+&lt;div&gt;
+通用内容容器（块级元素）
+&lt;p&gt;内容块&lt;&#x2F;p&gt;&lt;&#x2F;div&gt;
+
+
+&lt;span&gt;
+通用文本容器（行内元素）
+&lt;span style&#x3D;”color: red;”&gt;高亮文本&lt;&#x2F;span&gt;
+
+
+7. 常用注意事项
+标签闭合： 部分标签如&lt;img&gt;、&lt;br&gt;是自闭合（无需&lt;/img&gt;、&lt;/br&gt;），其余必须显式闭合。
+语义优先： 用&lt;nav&gt;替代&lt;div class=&quot;nav&quot;&gt;提升代码可读性和SEO效果。
+属性规范：
+&lt;a&gt;的target=&quot;_blank&quot;建议加上rel=&quot;noopener&quot;防止安全漏洞。
+&lt;img&gt;必须包含alt属性，即使为空。
+
+
+兼容性： HTML5语义标签（如&lt;header&gt;）在旧版IE中需通过JS支持（或使用polyfill）。
+
+CSS样式1. 基础概念CSS 用于控制网页的样式和布局，分离内容与表现，提升开发效率和可维护性。
+
+
+
+核心机制
+作用
+示例
+
+
+
+选择器
+定位需要样式化的HTML元素
+.class, #id, div, [attribute]
+
+
+盒模型
+元素布局基础（内容+内边距+边框+外边距）
+width, padding, border, margin
+
+
+层叠与继承
+样式优先级与继承规则
+!important, 内联样式 &gt; ID &gt; 类 &gt; 标签
+
+
+单位
+定义尺寸与颜色值
+px, em, rem, %, rgb(), #HEX
+
+
+2. 选择器类型精准定位元素是CSS的核心能力，常用选择器分类如下：
+
+
+
+类型
+语法
+匹配规则
+示例
+
+
+
+元素选择器
+tag
+匹配所有指定标签
+div { color: red; }
+
+
+类选择器
+.class
+匹配所有指定类名的元素
+.btn { padding: 8px; }
+
+
+ID选择器
+#id
+匹配唯一ID元素（页面中唯一）
+#header { height: 60px; }
+
+
+属性选择器
+[attribute] 或 [attr&#x3D;value]
+匹配具有特定属性的元素
+input[type&#x3D;”text”] { … }
+
+
+后代选择器
+selector1 selector2
+匹配selector1内的selector2
+.menu li { … }
+
+
+子元素选择器
+selector1 &gt; selector2
+匹配selector1直接子元素selector2
+ul &gt; li { … }
+
+
+伪类选择器
+:pseudo-class
+匹配元素的特定状态（如悬停、聚焦）
+a:hover { color: blue; }
+
+
+伪元素选择器
+::pseudo-element
+创建虚拟元素（如首行、占位内容）
+p::first-line { … }
+
+
+组合选择器
+sel1, sel2
+同时匹配多个选择器
+h1, h2 { font-size: 24px; }
+
+
+3. 盒模型与布局掌握盒模型与布局技术是构建复杂界面的关键。
+&lt;!-- 盒模型示意图 --&gt;&lt;style&gt;.box &#123;  width: 300px;         /* 内容宽度 */  padding: 20px;        /* 内边距 */  border: 2px solid #000; /* 边框 */  margin: 10px;         /* 外边距 */  box-sizing: border-box; /* 可选：宽度包含padding和border */&#125;&lt;/style&gt;&lt;div class=&quot;box&quot;&gt;内容区域&lt;/div&gt;
+
+
+
+属性
+作用
+常用值
+
+
+
+display
+定义元素显示类型
+block, inline, inline-block, flex, grid, none
+
+
+position
+定位方式
+static, relative, absolute, fixed, sticky
+
+
+float
+元素浮动（图文环绕）
+left, right, none
+
+
+flexbox
+弹性布局（一维）
+display: flex; justify-content: center;
+
+
+grid
+网格布局（二维）
+display: grid; grid-template-columns: 1fr 2fr;
+
+
+z-index
+层叠顺序（需配合定位）
+整数值（越大越靠前）
+
+
+4. 常用样式属性按功能分类的核心样式属性：
+
+
+
+分类
+属性示例
+作用与代码示例
+
+
+
+文本样式
+font-family, font-size
+font-family: “Arial”, sans-serif;
+
+
+
+text-align, line-height
+text-align: center; line-height: 1.5;
+
+
+颜色背景
+color, background-color
+color: #333; background-color: #f0f0f0;
+
+
+
+background-image, opacity
+background-image: url(“bg.jpg”); opacity: 0.8;
+
+
+边距边框
+padding, margin
+padding: 10px 20px; margin: 0 auto;
+
+
+
+border-radius, box-shadow
+border-radius: 8px; box-shadow: 2px 2px 5px #ccc;
+
+
+动画过渡
+transition, animation
+transition: all 0.3s ease;
+
+
+
+@keyframes
+@keyframes fadeIn { from { opacity: 0; } }
+
+
+5. 响应式设计针对不同设备适配布局的核心方法：
+1.  媒体查询（Media Queries）：/* 视口宽度 ≤ 768px 时生效 */@media (max-width: 768px) &#123;  .container &#123; padding: 10px; &#125;  .menu &#123; display: none; &#125;&#125;
+2. 视口单位：
+vw（视口宽度 1%）、vh（视口高度 1%）
+适用于全屏元素或字体缩放：font-size: calc(16px + 1vw);
+
+3. 弹性布局与网格：/* 弹性布局自动换行 */.flex-container &#123;  display: flex;  flex-wrap: wrap;  gap: 20px;&#125;/* 网格自适应列宽 */.grid-container &#123;  display: grid;  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));&#125;
+6. 预处理器与框架提升开发效率的工具生态：
+
+
+
+工具
+描述
+示例代码&#x2F;用法
+
+
+
+Sass&#x2F;SCSS
+支持变量、嵌套、混合的CSS扩展语言
+scss $primary-color: #3498db; .btn { color: $primary-color; }
+
+
+Bootstrap
+流行UI框架（预设组件与响应式系统）
+&lt;button class&#x3D;”btn btn-primary”&gt;按钮&lt;&#x2F;button&gt;
+
+
+Tailwind CSS
+原子化CSS框架（通过类名组合样式）
+&lt;div class&#x3D;”p-4 bg-blue-500 text-white”&gt;&lt;&#x2F;div&gt;
+
+
+7. 调试与优化1. 开发者工具：
+浏览器检查（Chrome DevTools）：实时修改样式、调试布局。
+使用border: 1px solid red;临时高亮元素布局。
+
+2. 性能优化：
+避免过多嵌套选择器（如 .nav ul li a）。
+使用 transform 替代 top/left 实现动画（触发GPU加速）。
+压缩CSS文件：工具如 CSSNano。
+
+3. 前缀兼容性：
+使用 Autoprefixer 自动添加浏览器前缀：/* 原始代码 */.box &#123; display: flex; &#125;/* 处理后 */.box &#123; display: -webkit-box; display: -ms-flexbox; display: flex; &#125;
+
+JavaScript1. 基础语法JavaScript 是动态类型、基于原型的语言，用于实现网页交互逻辑。
+
+
+
+概念
+语法&#x2F;示例
+说明
+
+
+
+变量声明
+let, const, var
+let age &#x3D; 25;（块级作用域），避免使用var
+
+
+数据类型
+String, Number, Boolean, null, undefined, Object, Symbol, BigInt
+typeof “Hello” → “string”
+
+
+运算符
++, -, &#x3D;&#x3D;（松散相等）, &#x3D;&#x3D;&#x3D;（严格相等）
+“5” &#x3D;&#x3D; 5 → true，”5” &#x3D;&#x3D;&#x3D; 5 → false
+
+
+条件语句
+if…else, switch
+js if (score &gt; 60) { console.log(“及格”); }
+
+
+循环语句
+for, while, for…of, for…in
+for (let i &#x3D; 0; i &lt; 5; i++) { … }
+
+
+函数定义
+function, 箭头函数	js
+const sum &#x3D; (a, b) &#x3D;&gt; a + b;
+
+
+2. 核心概念深入理解JavaScript的运行机制和设计模式。
+
+
+
+特性
+说明
+示例
+
+
+
+作用域
+变量访问范围（全局、函数、块级作用域）
+let和const支持块级作用域，避免变量污染
+
+
+闭包
+函数可以记住并访问其词法作用域外的变量
+js function outer() { let x &#x3D; 10; return function() { console.log(x); }; }
+
+
+原型链
+对象通过__proto__继承属性和方法
+js let arr &#x3D; []; arr.proto &#x3D;&#x3D;&#x3D; Array.prototype → true
+
+
+this指向
+根据调用上下文动态变化（可通过call, apply, bind绑定）
+js obj.method &#x3D; function() { console.log(this); };
+
+
+事件循环
+JS单线程通过Event Loop处理异步任务
+js setTimeout(() &#x3D;&gt; console.log(“延迟执行”), 0);
+
+
+3. DOM操作与HTML元素交互的核心API，实现动态页面效果。
+&lt;div id=&quot;app&quot;&gt;点击按钮&lt;/div&gt;&lt;button class=&quot;btn&quot;&gt;点击我&lt;/button&gt;
+
+
+
+方法
+作用
+示例
+
+
+
+document.querySelector
+获取单个元素
+const btn &#x3D; document.querySelector(“.btn”);
+
+
+addEventListener
+添加事件监听
+btn.addEventListener(“click”, handleClick);
+
+
+createElement
+创建新元素
+const div &#x3D; document.createElement(“div”);
+
+
+appendChild &#x2F; removeChild
+添加&#x2F;移除子元素
+document.body.appendChild(div);
+
+
+classList
+操作元素类名
+div.classList.add(“active”);
+
+
+注意事项：
+频繁操作DOM会导致重排（Reflow）和重绘（Repaint），建议批量修改或使用文档片段DocumentFragment。
+事件委托：通过父元素代理子元素事件，减少监听器数量（如ul监听所有li的点击）。
+
+4. 异步编程处理非阻塞操作的核心方式，优化用户体验。
+
+
+
+技术
+说明
+示例
+
+
+
+回调函数
+通过函数传递异步结果
+js fs.readFile(“file.txt”, (err, data) &#x3D;&gt; { … });
+
+
+Promise
+解决回调地狱，链式调用
+js fetch(url).then(res &#x3D;&gt; res.json()).catch(err &#x3D;&gt; console.log(err));
+
+
+async&#x2F;await
+用同步写法处理异步任务（基于Promise）
+js async function loadData() { let data &#x3D; await fetch(url); }
+
+
+Fetch API
+取代XMLHttpRequest的现代网络请求方法
+js fetch(url, { method: ‘POST’, body: JSON.stringify(data) });
+
+
+5. 现代ES6+特性提升代码简洁性和可维护性的核心功能。
+
+
+
+特性
+说明
+示例
+
+
+
+解构赋值
+从数组或对象提取值
+js const [a, b] &#x3D; [1, 2]; const { name } &#x3D; user;
+
+
+模板字符串
+支持多行字符串和变量插入
+js console.log(用户：$&#123;name&#125;);
+
+
+模块化
+import和export管理代码模块
+js export default function() {…}; import app from ‘.&#x2F;app.js’;
+
+
+展开运算符
+合并数组或对象
+js const arr &#x3D; […arr1, …arr2];
+
+
+可选链(?.)
+安全访问深层属性，避免Cannot read property错误
+js const value &#x3D; obj?.prop?.subProp;
+
+
+6. 工具与调试提升开发效率和代码质量的工具链。
+
+
+
+工具
+作用
+使用场景
+
+
+
+Chrome DevTools
+调试代码、监控网络、性能分析
+使用Sources面板设置断点，Console快速测试代码
+
+
+ESLint
+代码规范检查
+在VS Code中集成，自动提示缩进、变量名等问题
+
+
+Babel
+将ES6+代码转换为向后兼容的JS版本
+配置.babelrc支持旧浏览器
+
+
+Webpack
+打包模块化代码，优化资源加载
+合并JS、CSS、图片，支持热更新
+
+
+]]></content>
       <categories>
         <category>网络安全</category>
         <category>基础入门</category>
       </categories>
       <tags>
-        <tag>Windows</tag>
         <tag>网络安全-阶段一</tag>
+        <tag>Web</tag>
       </tags>
   </entry>
   <entry>
@@ -2122,6 +3056,25 @@ TLD服务器（如.com域）
         <category>基础入门</category>
       </categories>
       <tags>
+        <tag>网络安全-阶段一</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows操作系统</title>
+    <url>/2025/04/05/wang-luo-an-quan/ji-chu-ru-men/windows-cao-zuo-xi-tong/</url>
+    <content><![CDATA[操作系统的介绍什么是操作系统操作系统（Operating System, OS）是计算机系统中最核心的软件，扮演着硬件管理者和用户服务提供者的双重角色。它为用户和应用程序提供统一的接口，同时管理计算机的硬件资源，如处理器、内存、存储设备和外设。以下是关键内容的清晰梳理：
+classDiagram
+    class 计算机系统 {
+        +硬件系统
+        +软件系统
+    }
+    计算机系统 ]]></content>
+      <categories>
+        <category>网络安全</category>
+        <category>基础入门</category>
+      </categories>
+      <tags>
+        <tag>Windows</tag>
         <tag>网络安全-阶段一</tag>
       </tags>
   </entry>
