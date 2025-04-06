@@ -1,86 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>免费搭建个人博客</title>
-    <url>/2025/03/24/bo-ke/mian-fei-da-jian-ge-ren-bo-ke/</url>
-    <content><![CDATA[前言个人博客需满足以下要求：
-
-免费：无需购买云服务器  
-易维护：专注内容发布，功能简洁  
-访问流畅：国内外用户均可稳定访问
-
-
-最终方案：Cloudflare + GitHub + Hexo + Fluid  
-
-
-参考资源
-陶渊小明博客  
-YouTube教程
-
-Hexo 环境配置Hexo 是一个基于 Node.js 的静态博客框架，支持 Markdown 编写并生成 HTML 页面。
-1. 安装 Node.js前往 Node.js 官网 下载并安装。
-2. 配置 Hexo更换 npm 镜像源（国内加速）npm config set registry https://registry.npmmirror.com
-安装 Hexo 客户端npm install -g hexo-cli
-
-初始化博客项目hexo init blog &amp;&amp; cd blognpm install
-
-到这里我们的 hexo 环境配置就基本完成了，下面就可以使用它来写文章和发布文章了！👍👍👍
-使用 Hexo 管理博客为了方便编辑，我们使用 vscode 打开 blog 文件夹。下面来看一下 blog 里面的主要组成部分：
-blog/├── _config.yml       # 全局配置（站点名称、作者等）├── source/_posts     # 存放 Markdown 文章，而且 hexo 自带了一篇 demo 文章 hello-world└── themes            # 主题文件夹，hexo 有一个默认主题，但不太好看，后面可以改成漂亮一些的主题
-
-接着我们执行命令，在本地把 hexo 服务跑起来。这样我们就可以，在本地网址的4000端口，预览文章效果。
-# windows执行hexo clean ; hexo g ; hexo s
-# linux执行hexo clean &amp;&amp; hexo g &amp;&amp; hexo s
-打开 http://localhost:4000/ 这个本地网址，已经可以正常访问了，这里就是博客网页的布局。
-将博客托管到 GitHub Pages现在我们这个博客，还只能在本地网址预览。下面我们把博客项目托管到 GitHub 仓库，并且使用 GitHub Pages 来部署博客，让其他人也能访问我们的博客网站
-博客项目托管到GitHub为了方便管理 blog 博客项目，我们下一步把这个项目托管到 GitHub 上。首先在 GitHub 上创建一个项目，项目名可以设置为 我们的GitHub用户名.github.io。
-使用 GitHub Pages 部署博客执行完配置命令以后，我们就可以使用 git 来管理博客项目了。接下来我们把 my-blog 项目，部署到 GitHub Pages 上。 这样我们的博客，就不再只是一个本地网站了。其他人也可以通过网络，来访问我们的博客。
-首先在 my-blog 项目的 _config.yml 配置文件中，把 git 服务部署的配置加进去。在 type 配置项这里填上 git，然后分别添加一个 repository 和一个 branch 配置，指定部署博客网站时，所使用的 GitHub 项目和对应的分支。repository 这里填 &#103;&#x69;&#116;&#x40;&#103;&#105;&#116;&#104;&#117;&#98;&#46;&#99;&#x6f;&#x6d;:GitHub用户名&#x2F;GitHub仓库名，branch 这里指定 main 分支，然后保存配置。
-最后我们执行 npm install hexo-deployer-git –save 命令，安装 hexo-deployer-git 这个插件，来简化部署到 GitHub Pages 的流程。
-npm install hexo-deployer-git --save
-这样配置完以后，我们就可以在本地写文章，写完以后通过 http://localhost:4000/ 预览文章效果并进行修改。修改满意后，就可以部署到 GitHub Pages 这样其他人就能访问我们的博客了。我们来看一下使用流程：
-首先我们使用 hexo new post 文章标题，来创建一篇新文章。这样操作后，hexo 就会在 source&#x2F;_post 下面，给我们生成一个新文件来编辑这篇文章。我们使用上一篇文章，搭建的 免费图床 来简单编辑一下这篇新文章。MarkDown 本地渲染一下，显示正常。然后执行这个三合一命令，把文章发布到 GitHub Pages。
-hexo clean &amp;&amp; hexo generate &amp;&amp; hexo deploy
-
-常用命令速查
-
-
-命令
-功能
-简写
-
-
-
-hexo clean
-清除缓存
-hexo -c
-
-
-hexo generate
-生成静态文件
-hexo -g
-
-
-hexo deploy
-部署到 GitHub
-hexo -d
-
-
-hexo server
-启动本地服务器
-hexo -s
-
-
-发布完成后，打开 https://github用户名.github.io/ 这个网址，就可以访问我们的在线博客了！👌
-]]></content>
-      <categories>
-        <category>博客</category>
-      </categories>
-      <tags>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>搭建免费高速图床 CLoudFlare R2 +PicGo方案</title>
     <url>/2025/03/24/bo-ke/mian-fei-tu-chuang-da-jian/</url>
     <content><![CDATA[前言什么是图床将图片上传到服务商或个人远程服务器，通过网络地址直接访问的技术方案。适用于以下场景：
@@ -257,6 +177,105 @@ bubblesextra.omp.json是主题，可以自行更换配置完成后，重新打�
       </categories>
       <tags>
         <tag>Windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>免费搭建个人博客</title>
+    <url>/2025/03/24/bo-ke/mian-fei-da-jian-ge-ren-bo-ke/</url>
+    <content><![CDATA[前言个人博客需满足以下要求：
+
+免费：无需购买云服务器  
+易维护：专注内容发布，功能简洁  
+访问流畅：国内外用户均可稳定访问
+
+
+最终方案：Cloudflare + GitHub + Hexo + Fluid  
+
+
+参考资源
+陶渊小明博客  
+YouTube教程
+
+Hexo 环境配置Hexo 是一个基于 Node.js 的静态博客框架，支持 Markdown 编写并生成 HTML 页面。
+1. 安装 Node.js前往 Node.js 官网 下载并安装。
+2. 配置 Hexo更换 npm 镜像源（国内加速）npm config set registry https://registry.npmmirror.com
+安装 Hexo 客户端npm install -g hexo-cli
+
+初始化博客项目hexo init blog &amp;&amp; cd blognpm install
+
+到这里我们的 hexo 环境配置就基本完成了，下面就可以使用它来写文章和发布文章了！👍👍👍
+使用 Hexo 管理博客为了方便编辑，我们使用 vscode 打开 blog 文件夹。下面来看一下 blog 里面的主要组成部分：
+blog/├── _config.yml       # 全局配置（站点名称、作者等）├── source/_posts     # 存放 Markdown 文章，而且 hexo 自带了一篇 demo 文章 hello-world└── themes            # 主题文件夹，hexo 有一个默认主题，但不太好看，后面可以改成漂亮一些的主题
+
+接着我们执行命令，在本地把 hexo 服务跑起来。这样我们就可以，在本地网址的4000端口，预览文章效果。
+# windows执行hexo clean ; hexo g ; hexo s
+# linux执行hexo clean &amp;&amp; hexo g &amp;&amp; hexo s
+打开 http://localhost:4000/ 这个本地网址，已经可以正常访问了，这里就是博客网页的布局。
+将博客托管到 GitHub Pages现在我们这个博客，还只能在本地网址预览。下面我们把博客项目托管到 GitHub 仓库，并且使用 GitHub Pages 来部署博客，让其他人也能访问我们的博客网站
+博客项目托管到GitHub为了方便管理 blog 博客项目，我们下一步把这个项目托管到 GitHub 上。首先在 GitHub 上创建一个项目，项目名可以设置为 我们的GitHub用户名.github.io。
+使用 GitHub Pages 部署博客执行完配置命令以后，我们就可以使用 git 来管理博客项目了。接下来我们把 my-blog 项目，部署到 GitHub Pages 上。 这样我们的博客，就不再只是一个本地网站了。其他人也可以通过网络，来访问我们的博客。
+首先在 my-blog 项目的 _config.yml 配置文件中，把 git 服务部署的配置加进去。在 type 配置项这里填上 git，然后分别添加一个 repository 和一个 branch 配置，指定部署博客网站时，所使用的 GitHub 项目和对应的分支。repository 这里填 &#103;&#105;&#116;&#x40;&#103;&#x69;&#x74;&#x68;&#x75;&#98;&#x2e;&#x63;&#111;&#x6d;:GitHub用户名&#x2F;GitHub仓库名，branch 这里指定 main 分支，然后保存配置。
+最后我们执行 npm install hexo-deployer-git –save 命令，安装 hexo-deployer-git 这个插件，来简化部署到 GitHub Pages 的流程。
+npm install hexo-deployer-git --save
+这样配置完以后，我们就可以在本地写文章，写完以后通过 http://localhost:4000/ 预览文章效果并进行修改。修改满意后，就可以部署到 GitHub Pages 这样其他人就能访问我们的博客了。我们来看一下使用流程：
+首先我们使用 hexo new post 文章标题，来创建一篇新文章。这样操作后，hexo 就会在 source&#x2F;_post 下面，给我们生成一个新文件来编辑这篇文章。我们使用上一篇文章，搭建的 免费图床 来简单编辑一下这篇新文章。MarkDown 本地渲染一下，显示正常。然后执行这个三合一命令，把文章发布到 GitHub Pages。
+hexo clean &amp;&amp; hexo generate &amp;&amp; hexo deploy
+
+常用命令速查
+
+
+命令
+功能
+简写
+
+
+
+hexo clean
+清除缓存
+hexo -c
+
+
+hexo generate
+生成静态文件
+hexo -g
+
+
+hexo deploy
+部署到 GitHub
+hexo -d
+
+
+hexo server
+启动本地服务器
+hexo -s
+
+
+发布完成后，打开 https://github用户名.github.io/ 这个网址，就可以访问我们的在线博客了！👌
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows操作系统</title>
+    <url>/2025/04/05/wang-luo-an-quan/ji-chu-ru-men/windows-cao-zuo-xi-tong/</url>
+    <content><![CDATA[操作系统的介绍什么是操作系统操作系统（Operating System, OS）是计算机系统中最核心的软件，扮演着硬件管理者和用户服务提供者的双重角色。它为用户和应用程序提供统一的接口，同时管理计算机的硬件资源，如处理器、内存、存储设备和外设。以下是关键内容的清晰梳理：
+classDiagram
+    class 计算机系统 {
+        +硬件系统
+        +软件系统
+    }
+    计算机系统 ]]></content>
+      <categories>
+        <category>网络安全</category>
+        <category>基础入门</category>
+      </categories>
+      <tags>
+        <tag>Windows</tag>
+        <tag>网络安全-阶段一</tag>
       </tags>
   </entry>
   <entry>
@@ -1162,21 +1181,947 @@ iptables四表五链深入、NAT配置
       </tags>
   </entry>
   <entry>
-    <title>Windows操作系统</title>
-    <url>/2025/04/05/wang-luo-an-quan/ji-chu-ru-men/windows-cao-zuo-xi-tong/</url>
-    <content><![CDATA[操作系统的介绍什么是操作系统操作系统（Operating System, OS）是计算机系统中最核心的软件，扮演着硬件管理者和用户服务提供者的双重角色。它为用户和应用程序提供统一的接口，同时管理计算机的硬件资源，如处理器、内存、存储设备和外设。以下是关键内容的清晰梳理：
-classDiagram
-    class 计算机系统 {
-        +硬件系统
-        +软件系统
-    }
-    计算机系统 ]]></content>
+    <title>计算机网络</title>
+    <url>/2025/04/05/wang-luo-an-quan/ji-chu-ru-men/ji-suan-ji-wang-luo/</url>
+    <content><![CDATA[计算机网络概述Mermaid 可视化 + 结构化 的计算机网络核心知识框架graph LR
+  %% 计算机网络核心结构
+  Network[计算机网络] --> Architecture["分层架构"]
+  Network --> Protocols["核心协议"]
+  Network --> Devices["网络设备"]
+  Network --> Security["网络安全"]
+
+  %% ========== 分层架构 ========== 
+  Architecture --> OSI7["OSI七层模型"]
+  OSI7 --> PhysicalLayer["物理层（比特流传输）"]
+  OSI7 --> DataLinkLayer["数据链路层（MAC/帧）"]
+  OSI7 --> NetworkLayer["网络层（IP/路由）"]
+  OSI7 --> TransportLayer["传输层（TCP/UDP）"]
+  OSI7 --> SessionLayer["会话层"]
+  OSI7 --> PresentationLayer["表示层"]
+  OSI7 --> ApplicationLayer["应用层（HTTP/DNS）"]
+
+  Architecture --> TCPIP["TCP/IP四层模型"]
+  TCPIP --> Link["网络接口层"]
+  TCPIP --> Internet["网络层"] 
+  TCPIP --> Transport["传输层"] 
+  TCPIP --> App["应用层"]
+
+  %% ========== 核心协议 ========== 
+  Protocols --> TCP["TCP（可靠传输/三次握手）"]
+  Protocols --> UDP["UDP（无连接/高效）"]
+  Protocols --> IP["IPv4/IPv6（地址/包结构）"]
+  Protocols --> HTTP["HTTP/HTTPS（请求响应模型）"]
+  Protocols --> DNS["DNS（域名解析）"]
+
+  %% ========== 网络设备 ========== 
+  Devices --> Switch["交换机（二层转发/MAC表）"]
+  Devices --> Router["路由器（三层路由/IP表）"]
+  Devices --> Firewall["防火墙（ACL/状态检测）"]
+  
+  %% ========== 网络安全 ==========
+  Security --> Cryptography["加密技术（SSL/TLS/非对称加密）"]
+  Security --> VPN["VPN隧道（IPSec/OpenVPN）"]
+  Security --> Attack["网络攻击与防御（DDoS/中间人攻击/防火墙规则）"]
+
+  %% ===== 关联逻辑 =====
+  subgraph "数据流示例"
+    direction LR
+    WebClient["客户端HTTP请求"] --> TCP["封装TCP头部"] 
+    TCP --> IP["封装IP头部"] 
+    IP --> MAC["封装MAC地址"]
+    MAC --> Router["通过路由器转发"]
+  end
+
+  %% 高亮关键协议
+  classDef highlight fill:#E6F3FF,stroke:#0066CC
+  class TCP,UDP,HTTP,DNS highlight
+
+    
+  
+
+核心概念分解1. 协议分层对比
+
+
+OSI 7层
+TCP&#x2F;IP 4层
+功能描述
+
+
+
+应用层&#x2F;表示层&#x2F;会话层
+应用层
+HTTP, FTP, DNS, SSL
+
+
+传输层
+传输层
+TCP (可靠), UDP (高速)
+
+
+网络层
+网络层
+IP, ICMP, ARP
+
+
+数据链路层&#x2F;物理层
+网络接口层
+Ethernet, Wi-Fi, MAC地址
+
+
+2. TCP三次握手sequenceDiagram
+  客户端->>服务端: SYN (seq=100)
+  服务端->>客户端: SYN-ACK (seq=300, ack=101)
+  客户端->>服务端: ACK (seq=101, ack=301)
+3. IP地址与子网划分graph LR
+  IP地址["192.168.1.0/24"] --> 子网A["子网A: 192.168.1.0/25 (1-126)"]
+  IP地址 --> 子网B["子网B: 192.168.1.128/26 (129-190)"]
+
+CIDR计算工具：ipcalc 192.168.1.0/26
+
+关键协议功能1. HTTP vs HTTPS
+
+
+特性
+HTTP
+HTTPS
+
+
+
+加密
+无
+SSL&#x2F;TLS 加密
+
+
+端口
+80
+443
+
+
+性能影响
+低
+略高（握手延时&#x2F;加密开销）
+
+
+2. DNS解析流程graph LR
+  浏览器 --> LocalDNS["本地DNS服务器"]
+  LocalDNS --> RootDNS["根域名服务器"]
+  RootDNS --> TLD["顶级域名服务器（.com）"]
+  TLD --> Authoritative["权威域名服务器（example.com）"]
+网络设备功能对比
+
+
+设备
+工作层级
+核心功能
+
+
+
+集线器
+物理层
+广播传输（数据冲突&#x2F;低效）
+
+
+交换机
+数据链路层
+MAC地址学习&#x2F;精确转发
+
+
+路由器
+网络层
+IP路由选择&#x2F;跨网络通信
+
+
+OSI模型Mermaid 可视化 + 结构化 的 OSI七层模型 详解graph LR
+  %% OSI七层模型结构
+  OSI7["OSI七层模型"] --> L1["1\. 物理层（Physical Layer）"]
+  OSI7 --> L2["2\. 数据链路层（Data Link Layer）"]
+  OSI7 --> L3["3\. 网络层（Network Layer）"]
+  OSI7 --> L4["4\. 传输层（Transport Layer）"]
+  OSI7 --> L5["5\. 会话层（Session Layer）"]
+  OSI7 --> L6["6\. 表示层（Presentation Layer）"]
+  OSI7 --> L7["7\. 应用层（Application Layer）"]
+
+  %% ======== 各层核心功能与协议 ========
+  L1 -->|功能| L1_Func["比特流传输物理介质（电缆/光纤/无线电）"]
+  L1 -->|协议| L1_Proto["RS-232, 802.3（以太网物理层）"]
+
+  L2 -->|功能| L2_Func["帧传输MAC地址寻址错误检测（CRC）"]
+  L2 -->|协议| L2_Proto["以太网（802.3）Wi-Fi（802.11）PPP"]
+
+  L3 -->|功能| L3_Func["逻辑寻址（IP地址）路由选择IP分段"]
+  L3 -->|协议| L3_Proto["IPv4/IPv6ICMP（ping）ARP"]
+
+  L4 -->|功能| L4_Func["端到端连接控制流量控制/拥塞控制"]
+  L4 -->|协议| L4_Proto["TCP（可靠）UDP（快速）"]
+
+  L5 -->|功能| L5_Func["建立/管理/终止会话会话同步"]
+  L5 -->|协议| L5_Proto["NetBIOSRPCSQL*Net"]
+
+  L6 -->|功能| L6_Func["数据格式转换加密/解密压缩"]
+  L6 -->|协议| L6_Proto["SSL/TLS（加密）JPEG, ASCII"]
+
+  L7 -->|功能| L7_Func["用户接口应用服务访问"]
+  L7 -->|协议| L7_Proto["HTTP/HTTPSFTPDNSSMTP"]
+
+
+  %% ======== 数据封装流程 ========
+  subgraph "数据封装和解封装（示例：HTTP请求）"
+    direction TB
+    User[用户输入URL] --> L7_HTTP["应用层：生成HTTP请求"]
+    L7_HTTP --> L6_ENC["表示层：加密（HTTPS）"]
+    L6_ENC --> L5_SESSION["会话层：建立TCP会话"]
+    L5_SESSION --> L4_TCP["传输层：添加TCP头部（端口号）"]
+    L4_TCP --> L3_IP["网络层：添加IP头部（源/目标IP）"]
+    L3_IP --> L2_ETH["数据链路层：添加MAC头部（源/目标MAC）"]
+    L2_ETH --> L1_BITS["物理层：转换为比特流传输"]
+  end
+
+  %% 高亮关键技术层
+  classDef green fill:#E8FFE8,stroke:#009900
+  class L3,L4,L7 green
+
+各层核心功能对比例表
+
+
+层级
+名称
+数据单位
+关键设备&#x2F;协议
+典型应用场景
+
+
+
+7
+应用层
+报文&#x2F;消息
+HTTP, DNS, SMTP
+浏览器访问网页
+
+
+6
+表示层
+报文
+SSL&#x2F;TLS, ASCII
+HTTPS加密通信
+
+
+5
+会话层
+会话
+NetBIOS, RPC
+远程数据库连接
+
+
+4
+传输层
+段&#x2F;数据报
+TCP, UDP
+视频流传输（UDP）
+
+
+3
+网络层
+数据包
+IP, 路由器
+跨网络快递路由跟踪
+
+
+2
+数据链路层
+帧
+交换机, MAC地址
+局域网内设备通信
+
+
+1
+物理层
+比特
+网卡, 光纤
+网线传输电信号
+
+
+工具与调试命令
+
+
+层级
+工具&#x2F;命令
+用途
+
+
+
+2
+arp -a
+查看ARP缓存（IP-MAC映射）
+
+
+3
+traceroute &#x2F; tracert
+跟踪数据包路径（网络层路由）
+
+
+4
+netstat -ano
+查看TCP&#x2F;UDP连接状态
+
+
+7
+Wireshark过滤http.request
+抓取应用层HTTP请求
+
+
+对比TCP&#x2F;IP模型：
+应用层 ≈ OSI 5-7层
+传输层&#x2F;网络层 对应OSI同名层
+网络接口层 ≈ OSI 1-2层
+
+常见层次模型中的协议及设备TCP&#x2F;IP体系结构Mermaid 可视化 + 结构化 的 TCP&#x2F;IP体系结构 详解graph LR
+  %% ======== 数据流示例（发送HTTP请求） ========
+  subgraph "数据封装流程示例"
+    direction LR
+    User["用户输入URL"] --> HTTP["应用层: HTTP请求"] 
+    --> TCP["传输层: 添加TCP头（端口号:80）"] 
+    --> IP["网络层: 添加IP头（目标IP: 8.8.8.8）"] 
+    --> Ethernet["网络接口层: 添加MAC头（目标MAC:路由器）"]
+    --> Bits["物理传输（比特流）"]
+  end
+graph LR
+  %% TCP/IP四层模型结构
+  TCPIP["TCP/IP四层模型"] --> LinkLayer["网络接口层"]
+  TCPIP --> InternetLayer["网络层（Internet Layer）"]
+  TCPIP --> TransportLayer["传输层（Transport Layer）"]
+  TCPIP --> ApplicationLayer["应用层（Application Layer）"]
+
+  %% ========== 各层核心协议与功能 ==========
+  LinkLayer -->|功能| LinkFunc["物理介质传输MAC地址寻址"]
+  LinkLayer -->|协议| LinkProto["以太网（Ethernet）Wi-Fi（802.11）PPP"]
+
+  InternetLayer -->|功能| InternetFunc["IP地址路由数据包分片与重组"]
+  InternetLayer -->|协议| InternetProto["IPv4/IPv6ICMP（网络控制）ARP（地址解析）"]
+
+  TransportLayer -->|功能| TransportFunc["端到端可靠传输端口号标识服务"]
+  TransportLayer -->|协议| TransportProto["TCP（连接/可靠）UDP（无连接/高效）"]
+
+  ApplicationLayer -->|功能| AppFunc["用户应用服务支持"]
+  ApplicationLayer -->|协议| AppProto["HTTP/HTTPSDNSSMTP/IMAPSSH/FTP"]
+
+  %% ======= TCP/IP与OSI模型对应关系 ======= 
+  subgraph "TCP/IP vs OSI模型"
+    TCPIP -->|应用层≈| OSI5_7["OSI应用层/表示层/会话层"]
+    TCPIP -->|传输层≈| OSI4["OSI传输层"]
+    TCPIP -->|网络层≈| OSI3["OSI网络层"]
+    TCPIP -->|网络接口层≈| OSI1_2["OSI物理层/数据链路层"]
+  end
+
+  %% 高亮关键技术层
+  classDef green fill:#E8FFE8,stroke:#009900
+  class InternetLayer,TransportLayer,ApplicationLayer green
+
+TCP&#x2F;IP四层详细解析1. 网络接口层（Link Layer）
+功能： 物理介质连接与数据帧传输。
+典型协议&#x2F;技术：
+以太网（Ethernet）：局域网通信（MAC地址）
+Wi-Fi（802.11）：无线局域网接入
+串行通信协议（如PPP）：拨号连接
+
+
+
+2. 网络层（Internet Layer）
+关键技术：
+IP协议（IPv4&#x2F;IPv6）：全球唯一地址分配与路由
+ICMP： 网络状态诊断（如ping命令）
+路由协议 （OSPF, BGP）：路径选择与优化
+
+
+核心设备： 路由器（基于IP表转发）
+
+3. 传输层（Transport Layer）
+关键对比：
+
+
+
+
+协议
+特性
+典型应用
+
+
+
+TCP
+可靠传输、流量控制、拥塞控制
+网页浏览（HTTP&#x2F;HTTPS）
+
+
+UDP
+无连接、低延迟、无可靠性保证
+视频直播（QUIC&#x2F;DNS）
+
+
+4. 应用层（Application Layer）
+常见协议与服务：
+HTTP&#x2F;HTTPS：Web数据传输
+DNS：域名解析为IP地址
+SMTP&#x2F;POP3：电子邮件发送与接收
+
+
+
+TCP&#x2F;IP与OSI模型核心对比graph LR
+  OSI模型 --> L7["7\. 应用层"] 
+  OSI模型 --> L6["6\. 表示层"] 
+  OSI模型 --> L5["5\. 会话层"] 
+  OSI模型 --> L4["4\. 传输层"] 
+  OSI模型 --> L3["3\. 网络层"] 
+  OSI模型 --> L2["2\. 数据链路层"] 
+  OSI模型 --> L1["1\. 物理层"] 
+
+  TCP/IP模型 --> App["应用层"] 
+  TCP/IP模型 --> Transport["传输层"] 
+  TCP/IP模型 --> Internet["网络层"] 
+  TCP/IP模型 --> Link["网络接口层"] 
+
+  App -->|合并了| OSI的L5_L7["OSI应用层/表示层/会话层"]
+  Transport --> OSI的L4["OSI传输层"]
+  Internet --> OSI的L3["OSI网络层"]
+  Link -->|对应| OSI的L1_L2["OSI物理层/数据链路层"]
+典型数据流场景1. 浏览器访问网页（HTTP请求）sequenceDiagram
+  用户计算机->>DNS服务器: 解析域名（DNS协议）
+  DNS服务器-->>用户计算机: 返回IP地址（如202.108.22.5）
+  用户计算机->>Web服务器: HTTP请求（TCP端口80）
+  Web服务器-->>用户计算机: HTTP响应（HTML内容）
+实战指令与工具
+
+
+层级
+工具&#x2F;命令
+用途
+
+
+
+网络层
+ping 8.8.8.8
+测试网络连通性（ICMP协议）
+
+
+传输层
+netstat -tuln
+查看当前TCP&#x2F;UDP端口监听状态
+
+
+应用层
+nslookup google.com
+DNS域名解析查询
+
+
+抓包分析
+tcpdump port 443 -i eth0
+捕获HTTPS流量（网络接口层）
+
+
+tcp&#x2F;udpMermaid 可視化 + 结构化对比 解析 TCP 与 UDP 的核心区别graph LR
+  %% TCP vs UDP 核心对比框架
+  CP["传输层核心协议"] --> TCP["TCP协议（Transmission Control Protocol）"]
+  CP --> UDP["UDP协议（User Datagram Protocol）"]
+
+  %% ========== TCP核心特性 ==========
+  TCP -->|特性| TCP_Feature["可靠传输连接导向流量控制/拥塞控制"]
+  TCP -->|头部结构| TCP_Header["20字节头部Seq/Ack/Window字段"]
+  TCP -->|过程| TCP_Process["三次握手建立连接四次挥手终止连接"]
+  TCP -->|应用场景| TCP_Use["网页浏览（HTTP/HTTPS）文件传输（FTP）电子邮件（SMTP）"]
+
+  %% ========== UDP核心特性 ==========
+  UDP -->|特性| UDP_Feature["无连接通信尽最大努力交付低延迟/低开销"]
+  UDP -->|头部结构| UDP_Header["8字节头部Source/Dest Port/Length/Checksum"]
+  UDP -->|过程| UDP_Process["无需握手直接发送数据无状态维护"]
+  UDP -->|应用场景| UDP_Use["实时视频/语音（RTP）DNS查询游戏数据（UDP+自定义可靠性）"]
+
+  %% ======= 对比交互示例 =======
+  subgraph "HTTP（TCP） vs DNS（UDP）交互流程"
+    direction LR
+    HTTP_Client[("客户端")] --TCP三次握手--> HTTP_Server[("服务器")]
+    HTTP_Client --发送HTTP请求--> HTTP_Server
+    HTTP_Server --返回HTTP响应--> HTTP_Client
+    HTTP_Client --TCP四次挥手断开--> HTTP_Server
+
+    DNS_Client[("客户端")] --UDP单包查询--> DNS_Server[("DNS服务器")]
+    DNS_Server --UDP单包响应--> DNS_Client
+  end
+
+  %% 高亮关键差异
+  classDef red fill:#FFE8E8,stroke:#FF0000
+  classDef blue fill:#E8F4FF,stroke:#0066CC
+  class TCP red
+  class UDP blue
+
+交换机与路由器Mermaid 可视化 + 结构化对比 解析 交换机与路由器 的核心graph LR
+  %% ======== 性能与技术参数对比 ========
+  subgraph "技术参数对比"
+    direction TB
+    SwitchParam["交换机参数"] -->|端口密度| HighPort["24/48端口"]
+    SwitchParam -->|背板带宽| HighBW["数百Gbps"]
+    RouterParam["路由器参数"] -->|路由表容量| LargeTable["支持10万+路由条目"]
+    RouterParam -->|接口类型| WANPort["光纤/以太网/串口"]
+  end
+
+graph TB
+  %% 交换机 vs 路由器对比框架
+  NetworkDevice["网络设备"] --> Switch["交换机（Switch）数据链路层（L2）"]
+  NetworkDevice --> Router["路由器（Router）网络层（L3）"]
+
+  %% ========== 核心功能对比 ==========
+  Switch -->|核心功能| SwitchFunc["基于MAC地址转发数据帧构建局域网（LAN）高速端口交换"]
+  Router -->|核心功能| RouterFunc["基于IP路由表转发数据包连接不同网络（WAN/LAN）NAT/防火墙功能"]
+
+  %% ========== 工作原理对比 ==========
+  subgraph "工作原理对比"
+    Switch -->|MAC学习| Learn[["学习MAC地址表（端口-MAC映射）"]]
+    Switch -->|转发规则| Forward[["单播/组播转发避免广播风暴"]]
+    Router -->|路由选择| Routing[["动态路由协议（OSPF/BGP）静态路由配置"]]
+    Router -->|NAT转换| NAT[["私网IP ↔ 公网IP转换"]]
+  end
+
+  %% ======== 典型组网场景示例 ========
+  subgraph "企业网络拓扑示例"
+    direction LR
+    Internet[("互联网")] --> Router
+    Router --> Switch
+    Switch --> PC1[("PC1")] & PC2[("PC2")] & Server[("服务器")]
+  end
+  style Internet fill:#99CCFF
+  style Router fill:#FFCC99
+  style Switch fill:#99FF99
+
+
+
+  %% 高亮关键差异
+  classDef green fill:#E8FFE8,stroke:#009900
+  classDef orange fill:#FFE8CC,stroke:#FF6600
+  class Switch green
+  class Router orange
+核心对比表
+
+
+特征
+交换机（L2）
+路由器（L3）
+
+
+
+工作层级
+数据链路层（MAC地址）
+网络层（IP地址）
+
+
+转发依据
+MAC地址表
+路由表
+
+
+广播域控制
+每个端口为一个冲突域，全交换机构成单个广播域
+每个接口隔离广播域
+
+
+典型应用场景
+局域网内设备互联（同子网通信）
+跨网络通信（不同子网&#x2F;互联网接入）
+
+
+协议支持
+VLAN, STP	RIP, OSPF, BGP, VPN
+
+
+
+网络地址转换（NAT）
+❌ 不支持
+✅ 支持
+
+
+深度技术解析1. 交换机 MAC 地址学习sequenceDiagram
+  PC1->>Switch: 发送数据帧（源MAC:00-AA）
+  Switch->>Switch: 记录MAC地址表（Port1↔00-AA）
+  PC2->>Switch: 发送数据帧（源MAC:00-BB）
+  Switch->>Switch: 记录MAC地址表（Port2↔00-BB）
+  当PC1向PC2发送数据时，Switch直接转发到Port2。
+2. 路由器 IP 路由表查询flowchart LR
+  A[接收数据包] --> B{目标IP是否在直连网络?}
+  B -->|是| C["从对应接口直接转发"]
+  B -->|否| D["查找路由表最长前缀匹配"]
+  D --> E{"找到下一跳?"}
+  E -->|是| F["通过指定接口转发到下一跳"]
+  E -->|否| G["丢弃（ICMP目标不可达）"]
+典型应用场景1. 交换机：构建高性能局域网
+场景： 办公室内部设备互联
+技术方案：graph TB
+CoreSwitch[核心交换机] --> AccessSwitch1[接入交换机]
+CoreSwitch --> AccessSwitch2[接入交换机]
+AccessSwitch1 --> User1[用户PC]
+AccessSwitch1 --> Printer[打印机]
+AccessSwitch2 --> Server[服务器集群]
+
+2. 路由器：跨地区网络互联
+场景： 总部与分支机构通过VPN连接graph RL
+HQ[总部网络] -->|IPSEC VPN| RouterA[总部路由器]
+Branch[分支机构] -->|ISP链路| RouterB[分支路由器]
+RouterA  RouterB
+
+网络分类可视化 + 结构化对比 解析 网络分类graph LR
+  %% 网络分类核心框架
+  NetworkClass["网络分类"] --> Coverage["按覆盖范围"]
+  NetworkClass --> Topology["按拓扑结构"]
+  NetworkClass --> Medium["按传输介质"]
+  NetworkClass --> Usage["按用途"]
+  NetworkClass --> Tech["按传输技术"]
+  
+  %% ====== 覆盖范围分类 ======
+  Coverage --> PAN["PAN（个人域网）距离＜10m（蓝牙/ZigBee）"]
+  Coverage --> LAN["LAN（局域网）建筑/园区内（以太网/WiFi）"]
+  Coverage --> MAN["MAN（城域网）城市级别（地铁监控/城市政务网）"]
+  Coverage --> WAN["WAN（广域网）全球/跨地域（互联网/SDH专线）"]
+
+  %% ====== 拓扑结构分类 ======
+  Topology --> Star["星型拓扑（Switch为核心）"]
+  Topology --> Bus["总线型拓扑（共享介质）"]
+  Topology --> Ring["环型拓扑（令牌传递）"]
+  Topology --> Mesh["网状拓扑（高冗余）"]
+  Topology --> Hybrid["混合拓扑（星型+总线）"]
+
+  %% ====== 传输介质分类 ======
+  Medium --> Wired["有线介质双绞线/光纤/同轴"]
+  Medium --> Wireless["无线介质Wi-Fi/5G/卫星"]
+
+  %% ====== 用途分类示例 ======
+  Usage --> Public["公用网络（互联网）"]
+  Usage --> Private["专用网络（企业VPN）"]
+  
+  %% ====== 传输技术 ======
+  Tech --> Broadcast["广播式网络（传统以太网）"]
+  Tech --> PointToPoint["点对点网络（PPP协议）"]
+覆盖范围分类详解
+
+
+类型
+覆盖范围
+传输技术
+典型应用场景
+
+
+
+PAN
+0-10米
+蓝牙、NFC、ZigBee
+智能手表与手机配对
+
+
+LAN
+100米-几公里
+IEEE 802.3（以太网）、WiFi
+企业办公网络、家庭局域网
+
+
+MAN
+城市（10-100km）
+光纤、WiMAX
+城市交通监控系统、校园互联
+
+
+WAN
+全球
+IP&#x2F;MPLS、卫星通信
+跨国企业专线、云计算互联
+
+
+IP地址可视化 + 结构化对比 全面解析 IP地址graph LR
+  %% IP地址分类框架
+  IP_Address["IP地址"] --> IPv4["IPv4（32位）"] & IPv6["IPv6（128位）"]
+  IP_Address --> PublicIP["公有IP"] & PrivateIP["私有IP"]
+  IP_Address --> Dynamic["动态IP"] & Static["静态IP"]
+  
+  %% ========== IPv4详解 ==========
+  IPv4 --> FormatIPv4["点分十进制格式（192.168.1.1）"]
+  IPv4 --> Classes["传统分类"] --> A类["A类（0.0.0.0-127.255.255.255）"]
+  Classes --> B类["B类（128.0.0.0-191.255.255.255）"]
+  Classes --> C类["C类（192.0.0.0-223.255.255.255）"]
+  IPv4 --> Subnet["子网划分/CIDR"]
+  
+  %% ========== IPv6特性 ==========
+  IPv6 --> FormatIPv6["十六进制冒分格式（2001:0db8:85a3::1）"]
+  IPv6 --> TypesIPv6["地址类型"] --> GlobalUnicast["全球单播地址"]
+  TypesIPv6 --> LinkLocal["链路本地地址（FE80::/10）"]
+  TypesIPv6 --> ULA["唯一本地地址（FC00::/7）"]
+  
+  %% ====== 关键支撑技术 ======
+  Dynamic --> DHCP["DHCP协议动态分配"]
+  PublicIP --> NAT["NAT地址转换"]
+IPv4 vs IPv6 核心对比
+
+
+特征
+IPv4
+IPv6
+
+
+
+地址长度
+32位（约43亿个地址）
+128位（约3.4×10³⁸个地址）
+
+
+地址表示法
+十进制点分（192.168.0.1）
+十六进制冒分（2001:db8:85a3:0:0:8a2e:370:7334）
+
+
+报头复杂度
+可变长度（需选项字段）
+固定长度（效率更高）
+
+
+安全性
+依赖外部协议（IPSec可选）
+原生支持IPSec
+
+
+典型配置场景
+NAT广泛使用
+端到端直接寻址
+
+
+IPv4子网划分实战1. CIDR表示法示例
+给定地址： 192.168.1.0&#x2F;24graph LR
+地址构成 --> 网络部分["网络位：192.168.1"]
+地址构成 --> 主机部分["主机位：0-255（254可用）"]
+掩码计算/24 对应子网掩码：255.255.255.0
+
+2. 划分子网工具链flowchart LR
+  A[需求分析] -->|用户数200| B["选择掩码：/24（254主机）"]
+  B --> C["可用IP范围：192.168.1.1 - 192.168.1.254"]
+  B --> D["网关设置：192.168.1.1"]
+  D --> E["保留地址：192.168.1.255（广播）"]
+
+私有IP地址范围（RFC 1918）
+IPv4保留段：classDiagram
+class PrivateIPv4{
+  +A类：10.0.0.0 ~ 10.255.255.255
+  +B类：172.16.0.0 ~ 172.31.255.255
+  +C类：192.168.0.0 ~ 192.168.255.255
+}
+典型案例：家庭路由器通常分配 192.168.1.1/24，并启用NAT转换公网IP。
+
+IP数据包转发过程sequenceDiagram
+  PC[发送方] ->> Router1: 源IP:192.168.1.100目标IP:203.0.113.5
+  Router1 ->> Internet: 应用NAT转换源IP为公网IP
+  Internet ->> Router2: 目标IP命中路由表
+  Router2 ->> Server: 路由到内网服务器（DNAT）
+
+核心特性对比
+
+
+维度
+公有地址 (Public IP)
+私有地址 (Private IP)
+
+
+
+唯一性	全球唯一，
+需向ISP或IANA申请
+仅需在局域网内唯一
+
+
+访问范围
+可直接访问互联网
+不能直接访问互联网（需通过NAT映射）
+
+
+地址分配主体
+由互联网管理机构（如APNIC）或ISP分配
+由本地网络管理员自由分配
+
+
+典型地址段
+非保留的任意IPv4地址（如8.8.8.8）
+RFC 1918定义的保留段（如192.168.x.x）
+
+
+成本
+需向运营商付费租用
+免费自由使用
+
+
+私有地址保留段详解
+
+
+类型
+范围
+容量
+
+
+
+A类 (10.0.0.0&#x2F;8)
+10.0.0.0 ~ 10.255.255.255
+16,777,216个地址
+
+
+B类 (172.16.0.0&#x2F;12)
+172.16.0.0 ~ 172.31.255.255
+1,048,576个地址
+
+
+C类 (192.168.0.0&#x2F;16)
+192.168.0.0 ~ 192.168.255.255
+65,536个地址
+
+
+核心技术机制：NAT（网络地址转换）sequenceDiagram
+  内网设备 ->> 路由器: 发送请求：源IP=192.168.1.100
+  Note over 路由器: 执行SNAT（源地址转换）
+  路由器 ->> 公网服务器: 请求：源IP=203.0.113.5
+  公网服务器 -->> 路由器: 响应：目标IP=203.0.113.5
+  Note over 路由器: 执行DNAT（目标地址转换）
+  路由器 -->> 内网设备: 响应：目标IP=192.168.1.100
+典型应用场景对比1. 公有地址flowchart TD
+  场景1["互联网服务暴露"] --> WebServer["网站服务器（119.29.76.211）"]
+  场景2["云平台通信"] --> Cloud["AWS EC2实例（52.76.27.141）"]
+  场景3["VPN连接终点"] --> VPN["企业VPN网关（112.124.25.36）"]
+2. 私有地址flowchart TD
+  场景1["企业内网"] --> OfficeNetwork["员工电脑（172.16.10.33）"]
+  场景2["IoT设备管理"] --> SmartHome["智能灯泡（192.168.50.20）"]
+  场景3["虚拟化环境"] --> VM["虚拟机（10.3.1.101）"]
+
+端口号端口号的核心定义graph LR
+  端口号["端口号（Port）"] --> 定义["为应用层进程/服务设计的数字标识（范围0-65535）"]
+  端口号 --> 作用["唯一标识同一IP地址上的不同网络服务"]
+  作用 --> 案例["HTTP服务使用80端口"]
+端口号分类（按IANA标准）classDiagram
+  class 端口类型{
+    
+    +知名端口（Well-Known Ports）: 0-1023
+    +注册端口（Registered Ports）: 1024-49151
+    +动态/私有端口（Dynamic/Private Ports）: 49152-65535
+  }
+TCP vs UDP 端口关键差异
+
+
+维度
+TCP端口
+UDP端口
+
+
+
+连接性
+基于连接的可靠传输（三次握手）
+无连接的尽力传输（无握手）
+
+
+适用场景
+文件传输、网页浏览、电子邮件
+视频流、DNS查询、实时游戏
+
+
+端口状态
+需要维护连接状态（SYN&#x2F;ACK&#x2F;FIN）
+无状态
+
+
+典型服务
+HTTP（80）、SSH（22）、SMTP（25）
+DNS（53）、DHCP（67&#x2F;68）、RTP（实时传输协议）
+
+
+经典应用场景1. 端口转发实现内网穿透graph LR
+  内网服务器 -->|绑定本地端口:8080| 路由器
+  路由器 -->|映射公网端口:80| 外部用户访问公网IP:80
+2. 防火墙端口开放策略flowchart LR
+  配置防火墙 --> 允许入站端口:80,443
+  允许入站端口 --> 拒绝其他端口访问
+  拒绝其他端口 --> 提升网络安全
+
+端口安全风险与防护1. 高危端口示例classDiagram
+  class 高危端口{
+    +23/TCP : Telnet（明文传输风险）
+    +445/TCP : SMB（永恒之蓝漏洞入口）
+    +3389/TCP : RDP（暴力破解重灾区）
+  }
+2. 防护措施
+关闭无用端口
+限制访问来源IP
+启用端口流量加密
+
+网络常见的名词解释DNS-域名域名结构剖析graph LR
+  A[根域 . ] --> B[顶级域 TLD] 
+  B --> com
+  B --> cn
+  B --> org
+  com --> C[二级域名] --> 公司主站 --> alibaba
+  C --> 云服务平台 --> aliyun
+  cn --> D[政府机构-->beijing.gov.cn]
+DNS解析全流程sequenceDiagram
+  User->>本地DNS: 请求① www.example.com
+  本地DNS->>根服务器: 请求② (.com NS地址)
+  根服务器-->>本地DNS: 响应③ .com权威服务器IP
+  本地DNS->>TLD服务器: 请求④ example.com NS
+  TLD服务器-->>本地DNS: 响应⑤ 该域权威服务器IP
+  本地DNS->>权威DNS: 请求⑥ www记录
+  权威DNS-->>本地DNS: 最终IP 93.184.216.34
+  本地DNS->>User: 返回结果⑦
+关键阶段解析：
+
+
+步骤
+角色
+作用说明
+
+
+
+①
+本地DNS（递归解析器）
+接收用户请求，发起迭代查询
+
+
+②③
+根DNS服务器（全球13组）
+返回顶级域权威服务器地址
+
+
+④⑤
+TLD服务器（如.com域）
+管理二级域名注册信息
+
+
+⑥⑦
+权威DNS（域名管理员）
+提供最终域名对应的资源记录
+
+
+域名与URL的差异对比flowchart LR
+  URL结构 --> 协议头[HTTP/HTTPS] --> 域名 --> 端口[可选:8080] --> 路径[/api/data/] --> 参数[?id=123]
+  域名 --> 单纯定位服务器
+  URL --> 完整资源地址
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></content>
       <categories>
         <category>网络安全</category>
         <category>基础入门</category>
       </categories>
       <tags>
-        <tag>Windows</tag>
         <tag>网络安全-阶段一</tag>
       </tags>
   </entry>
@@ -1184,7 +2129,7 @@ classDiagram
     <title>web前端基础知识</title>
     <url>/2025/04/06/wang-luo-an-quan/ji-chu-ru-men/web-qian-duan-ji-chu-zhi-shi/</url>
     <content><![CDATA[web基础概念知识Web基础概念知识详解1. 互联网与万维网（WWW）
-**互联网（Internet）: ** 全球互联的计算机网络，基于TCP&#x2F;IP协议族进行通信，包含硬件设备（路由、服务器）和协议（HTTP, FTP, SMTP）。
+互联网（Internet）: 全球互联的计算机网络，基于TCP&#x2F;IP协议族进行通信，包含硬件设备（路由、服务器）和协议（HTTP, FTP, SMTP）。
 
 万维网（World Wide Web, WWW）: 基于互联网的信息共享系统，通过HTTP协议和超文本（HTML）链接资源，核心组件包括：
 
@@ -2131,951 +3076,6 @@ Webpack
       <tags>
         <tag>网络安全-阶段一</tag>
         <tag>Web</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计算机网络</title>
-    <url>/2025/04/05/wang-luo-an-quan/ji-chu-ru-men/ji-suan-ji-wang-luo/</url>
-    <content><![CDATA[计算机网络概述Mermaid 可视化 + 结构化 的计算机网络核心知识框架graph LR
-  %% 计算机网络核心结构
-  Network[计算机网络] --> Architecture["分层架构"]
-  Network --> Protocols["核心协议"]
-  Network --> Devices["网络设备"]
-  Network --> Security["网络安全"]
-
-  %% ========== 分层架构 ========== 
-  Architecture --> OSI7["OSI七层模型"]
-  OSI7 --> PhysicalLayer["物理层（比特流传输）"]
-  OSI7 --> DataLinkLayer["数据链路层（MAC/帧）"]
-  OSI7 --> NetworkLayer["网络层（IP/路由）"]
-  OSI7 --> TransportLayer["传输层（TCP/UDP）"]
-  OSI7 --> SessionLayer["会话层"]
-  OSI7 --> PresentationLayer["表示层"]
-  OSI7 --> ApplicationLayer["应用层（HTTP/DNS）"]
-
-  Architecture --> TCPIP["TCP/IP四层模型"]
-  TCPIP --> Link["网络接口层"]
-  TCPIP --> Internet["网络层"] 
-  TCPIP --> Transport["传输层"] 
-  TCPIP --> App["应用层"]
-
-  %% ========== 核心协议 ========== 
-  Protocols --> TCP["TCP（可靠传输/三次握手）"]
-  Protocols --> UDP["UDP（无连接/高效）"]
-  Protocols --> IP["IPv4/IPv6（地址/包结构）"]
-  Protocols --> HTTP["HTTP/HTTPS（请求响应模型）"]
-  Protocols --> DNS["DNS（域名解析）"]
-
-  %% ========== 网络设备 ========== 
-  Devices --> Switch["交换机（二层转发/MAC表）"]
-  Devices --> Router["路由器（三层路由/IP表）"]
-  Devices --> Firewall["防火墙（ACL/状态检测）"]
-  
-  %% ========== 网络安全 ==========
-  Security --> Cryptography["加密技术（SSL/TLS/非对称加密）"]
-  Security --> VPN["VPN隧道（IPSec/OpenVPN）"]
-  Security --> Attack["网络攻击与防御（DDoS/中间人攻击/防火墙规则）"]
-
-  %% ===== 关联逻辑 =====
-  subgraph "数据流示例"
-    direction LR
-    WebClient["客户端HTTP请求"] --> TCP["封装TCP头部"] 
-    TCP --> IP["封装IP头部"] 
-    IP --> MAC["封装MAC地址"]
-    MAC --> Router["通过路由器转发"]
-  end
-
-  %% 高亮关键协议
-  classDef highlight fill:#E6F3FF,stroke:#0066CC
-  class TCP,UDP,HTTP,DNS highlight
-
-    
-  
-
-核心概念分解1. 协议分层对比
-
-
-OSI 7层
-TCP&#x2F;IP 4层
-功能描述
-
-
-
-应用层&#x2F;表示层&#x2F;会话层
-应用层
-HTTP, FTP, DNS, SSL
-
-
-传输层
-传输层
-TCP (可靠), UDP (高速)
-
-
-网络层
-网络层
-IP, ICMP, ARP
-
-
-数据链路层&#x2F;物理层
-网络接口层
-Ethernet, Wi-Fi, MAC地址
-
-
-2. TCP三次握手sequenceDiagram
-  客户端->>服务端: SYN (seq=100)
-  服务端->>客户端: SYN-ACK (seq=300, ack=101)
-  客户端->>服务端: ACK (seq=101, ack=301)
-3. IP地址与子网划分graph LR
-  IP地址["192.168.1.0/24"] --> 子网A["子网A: 192.168.1.0/25 (1-126)"]
-  IP地址 --> 子网B["子网B: 192.168.1.128/26 (129-190)"]
-
-CIDR计算工具：ipcalc 192.168.1.0/26
-
-关键协议功能1. HTTP vs HTTPS
-
-
-特性
-HTTP
-HTTPS
-
-
-
-加密
-无
-SSL&#x2F;TLS 加密
-
-
-端口
-80
-443
-
-
-性能影响
-低
-略高（握手延时&#x2F;加密开销）
-
-
-2. DNS解析流程graph LR
-  浏览器 --> LocalDNS["本地DNS服务器"]
-  LocalDNS --> RootDNS["根域名服务器"]
-  RootDNS --> TLD["顶级域名服务器（.com）"]
-  TLD --> Authoritative["权威域名服务器（example.com）"]
-网络设备功能对比
-
-
-设备
-工作层级
-核心功能
-
-
-
-集线器
-物理层
-广播传输（数据冲突&#x2F;低效）
-
-
-交换机
-数据链路层
-MAC地址学习&#x2F;精确转发
-
-
-路由器
-网络层
-IP路由选择&#x2F;跨网络通信
-
-
-OSI模型Mermaid 可视化 + 结构化 的 OSI七层模型 详解graph LR
-  %% OSI七层模型结构
-  OSI7["OSI七层模型"] --> L1["1\. 物理层（Physical Layer）"]
-  OSI7 --> L2["2\. 数据链路层（Data Link Layer）"]
-  OSI7 --> L3["3\. 网络层（Network Layer）"]
-  OSI7 --> L4["4\. 传输层（Transport Layer）"]
-  OSI7 --> L5["5\. 会话层（Session Layer）"]
-  OSI7 --> L6["6\. 表示层（Presentation Layer）"]
-  OSI7 --> L7["7\. 应用层（Application Layer）"]
-
-  %% ======== 各层核心功能与协议 ========
-  L1 -->|功能| L1_Func["比特流传输物理介质（电缆/光纤/无线电）"]
-  L1 -->|协议| L1_Proto["RS-232, 802.3（以太网物理层）"]
-
-  L2 -->|功能| L2_Func["帧传输MAC地址寻址错误检测（CRC）"]
-  L2 -->|协议| L2_Proto["以太网（802.3）Wi-Fi（802.11）PPP"]
-
-  L3 -->|功能| L3_Func["逻辑寻址（IP地址）路由选择IP分段"]
-  L3 -->|协议| L3_Proto["IPv4/IPv6ICMP（ping）ARP"]
-
-  L4 -->|功能| L4_Func["端到端连接控制流量控制/拥塞控制"]
-  L4 -->|协议| L4_Proto["TCP（可靠）UDP（快速）"]
-
-  L5 -->|功能| L5_Func["建立/管理/终止会话会话同步"]
-  L5 -->|协议| L5_Proto["NetBIOSRPCSQL*Net"]
-
-  L6 -->|功能| L6_Func["数据格式转换加密/解密压缩"]
-  L6 -->|协议| L6_Proto["SSL/TLS（加密）JPEG, ASCII"]
-
-  L7 -->|功能| L7_Func["用户接口应用服务访问"]
-  L7 -->|协议| L7_Proto["HTTP/HTTPSFTPDNSSMTP"]
-
-
-  %% ======== 数据封装流程 ========
-  subgraph "数据封装和解封装（示例：HTTP请求）"
-    direction TB
-    User[用户输入URL] --> L7_HTTP["应用层：生成HTTP请求"]
-    L7_HTTP --> L6_ENC["表示层：加密（HTTPS）"]
-    L6_ENC --> L5_SESSION["会话层：建立TCP会话"]
-    L5_SESSION --> L4_TCP["传输层：添加TCP头部（端口号）"]
-    L4_TCP --> L3_IP["网络层：添加IP头部（源/目标IP）"]
-    L3_IP --> L2_ETH["数据链路层：添加MAC头部（源/目标MAC）"]
-    L2_ETH --> L1_BITS["物理层：转换为比特流传输"]
-  end
-
-  %% 高亮关键技术层
-  classDef green fill:#E8FFE8,stroke:#009900
-  class L3,L4,L7 green
-
-各层核心功能对比例表
-
-
-层级
-名称
-数据单位
-关键设备&#x2F;协议
-典型应用场景
-
-
-
-7
-应用层
-报文&#x2F;消息
-HTTP, DNS, SMTP
-浏览器访问网页
-
-
-6
-表示层
-报文
-SSL&#x2F;TLS, ASCII
-HTTPS加密通信
-
-
-5
-会话层
-会话
-NetBIOS, RPC
-远程数据库连接
-
-
-4
-传输层
-段&#x2F;数据报
-TCP, UDP
-视频流传输（UDP）
-
-
-3
-网络层
-数据包
-IP, 路由器
-跨网络快递路由跟踪
-
-
-2
-数据链路层
-帧
-交换机, MAC地址
-局域网内设备通信
-
-
-1
-物理层
-比特
-网卡, 光纤
-网线传输电信号
-
-
-工具与调试命令
-
-
-层级
-工具&#x2F;命令
-用途
-
-
-
-2
-arp -a
-查看ARP缓存（IP-MAC映射）
-
-
-3
-traceroute &#x2F; tracert
-跟踪数据包路径（网络层路由）
-
-
-4
-netstat -ano
-查看TCP&#x2F;UDP连接状态
-
-
-7
-Wireshark过滤http.request
-抓取应用层HTTP请求
-
-
-对比TCP&#x2F;IP模型：
-应用层 ≈ OSI 5-7层
-传输层&#x2F;网络层 对应OSI同名层
-网络接口层 ≈ OSI 1-2层
-
-常见层次模型中的协议及设备TCP&#x2F;IP体系结构Mermaid 可视化 + 结构化 的 TCP&#x2F;IP体系结构 详解graph LR
-  %% ======== 数据流示例（发送HTTP请求） ========
-  subgraph "数据封装流程示例"
-    direction LR
-    User["用户输入URL"] --> HTTP["应用层: HTTP请求"] 
-    --> TCP["传输层: 添加TCP头（端口号:80）"] 
-    --> IP["网络层: 添加IP头（目标IP: 8.8.8.8）"] 
-    --> Ethernet["网络接口层: 添加MAC头（目标MAC:路由器）"]
-    --> Bits["物理传输（比特流）"]
-  end
-graph LR
-  %% TCP/IP四层模型结构
-  TCPIP["TCP/IP四层模型"] --> LinkLayer["网络接口层"]
-  TCPIP --> InternetLayer["网络层（Internet Layer）"]
-  TCPIP --> TransportLayer["传输层（Transport Layer）"]
-  TCPIP --> ApplicationLayer["应用层（Application Layer）"]
-
-  %% ========== 各层核心协议与功能 ==========
-  LinkLayer -->|功能| LinkFunc["物理介质传输MAC地址寻址"]
-  LinkLayer -->|协议| LinkProto["以太网（Ethernet）Wi-Fi（802.11）PPP"]
-
-  InternetLayer -->|功能| InternetFunc["IP地址路由数据包分片与重组"]
-  InternetLayer -->|协议| InternetProto["IPv4/IPv6ICMP（网络控制）ARP（地址解析）"]
-
-  TransportLayer -->|功能| TransportFunc["端到端可靠传输端口号标识服务"]
-  TransportLayer -->|协议| TransportProto["TCP（连接/可靠）UDP（无连接/高效）"]
-
-  ApplicationLayer -->|功能| AppFunc["用户应用服务支持"]
-  ApplicationLayer -->|协议| AppProto["HTTP/HTTPSDNSSMTP/IMAPSSH/FTP"]
-
-  %% ======= TCP/IP与OSI模型对应关系 ======= 
-  subgraph "TCP/IP vs OSI模型"
-    TCPIP -->|应用层≈| OSI5_7["OSI应用层/表示层/会话层"]
-    TCPIP -->|传输层≈| OSI4["OSI传输层"]
-    TCPIP -->|网络层≈| OSI3["OSI网络层"]
-    TCPIP -->|网络接口层≈| OSI1_2["OSI物理层/数据链路层"]
-  end
-
-  %% 高亮关键技术层
-  classDef green fill:#E8FFE8,stroke:#009900
-  class InternetLayer,TransportLayer,ApplicationLayer green
-
-TCP&#x2F;IP四层详细解析1. 网络接口层（Link Layer）
-功能： 物理介质连接与数据帧传输。
-典型协议&#x2F;技术：
-以太网（Ethernet）：局域网通信（MAC地址）
-Wi-Fi（802.11）：无线局域网接入
-串行通信协议（如PPP）：拨号连接
-
-
-
-2. 网络层（Internet Layer）
-关键技术：
-IP协议（IPv4&#x2F;IPv6）：全球唯一地址分配与路由
-ICMP： 网络状态诊断（如ping命令）
-路由协议 （OSPF, BGP）：路径选择与优化
-
-
-核心设备： 路由器（基于IP表转发）
-
-3. 传输层（Transport Layer）
-关键对比：
-
-
-
-
-协议
-特性
-典型应用
-
-
-
-TCP
-可靠传输、流量控制、拥塞控制
-网页浏览（HTTP&#x2F;HTTPS）
-
-
-UDP
-无连接、低延迟、无可靠性保证
-视频直播（QUIC&#x2F;DNS）
-
-
-4. 应用层（Application Layer）
-常见协议与服务：
-HTTP&#x2F;HTTPS：Web数据传输
-DNS：域名解析为IP地址
-SMTP&#x2F;POP3：电子邮件发送与接收
-
-
-
-TCP&#x2F;IP与OSI模型核心对比graph LR
-  OSI模型 --> L7["7\. 应用层"] 
-  OSI模型 --> L6["6\. 表示层"] 
-  OSI模型 --> L5["5\. 会话层"] 
-  OSI模型 --> L4["4\. 传输层"] 
-  OSI模型 --> L3["3\. 网络层"] 
-  OSI模型 --> L2["2\. 数据链路层"] 
-  OSI模型 --> L1["1\. 物理层"] 
-
-  TCP/IP模型 --> App["应用层"] 
-  TCP/IP模型 --> Transport["传输层"] 
-  TCP/IP模型 --> Internet["网络层"] 
-  TCP/IP模型 --> Link["网络接口层"] 
-
-  App -->|合并了| OSI的L5_L7["OSI应用层/表示层/会话层"]
-  Transport --> OSI的L4["OSI传输层"]
-  Internet --> OSI的L3["OSI网络层"]
-  Link -->|对应| OSI的L1_L2["OSI物理层/数据链路层"]
-典型数据流场景1. 浏览器访问网页（HTTP请求）sequenceDiagram
-  用户计算机->>DNS服务器: 解析域名（DNS协议）
-  DNS服务器-->>用户计算机: 返回IP地址（如202.108.22.5）
-  用户计算机->>Web服务器: HTTP请求（TCP端口80）
-  Web服务器-->>用户计算机: HTTP响应（HTML内容）
-实战指令与工具
-
-
-层级
-工具&#x2F;命令
-用途
-
-
-
-网络层
-ping 8.8.8.8
-测试网络连通性（ICMP协议）
-
-
-传输层
-netstat -tuln
-查看当前TCP&#x2F;UDP端口监听状态
-
-
-应用层
-nslookup google.com
-DNS域名解析查询
-
-
-抓包分析
-tcpdump port 443 -i eth0
-捕获HTTPS流量（网络接口层）
-
-
-tcp&#x2F;udpMermaid 可視化 + 结构化对比 解析 TCP 与 UDP 的核心区别graph LR
-  %% TCP vs UDP 核心对比框架
-  CP["传输层核心协议"] --> TCP["TCP协议（Transmission Control Protocol）"]
-  CP --> UDP["UDP协议（User Datagram Protocol）"]
-
-  %% ========== TCP核心特性 ==========
-  TCP -->|特性| TCP_Feature["可靠传输连接导向流量控制/拥塞控制"]
-  TCP -->|头部结构| TCP_Header["20字节头部Seq/Ack/Window字段"]
-  TCP -->|过程| TCP_Process["三次握手建立连接四次挥手终止连接"]
-  TCP -->|应用场景| TCP_Use["网页浏览（HTTP/HTTPS）文件传输（FTP）电子邮件（SMTP）"]
-
-  %% ========== UDP核心特性 ==========
-  UDP -->|特性| UDP_Feature["无连接通信尽最大努力交付低延迟/低开销"]
-  UDP -->|头部结构| UDP_Header["8字节头部Source/Dest Port/Length/Checksum"]
-  UDP -->|过程| UDP_Process["无需握手直接发送数据无状态维护"]
-  UDP -->|应用场景| UDP_Use["实时视频/语音（RTP）DNS查询游戏数据（UDP+自定义可靠性）"]
-
-  %% ======= 对比交互示例 =======
-  subgraph "HTTP（TCP） vs DNS（UDP）交互流程"
-    direction LR
-    HTTP_Client[("客户端")] --TCP三次握手--> HTTP_Server[("服务器")]
-    HTTP_Client --发送HTTP请求--> HTTP_Server
-    HTTP_Server --返回HTTP响应--> HTTP_Client
-    HTTP_Client --TCP四次挥手断开--> HTTP_Server
-
-    DNS_Client[("客户端")] --UDP单包查询--> DNS_Server[("DNS服务器")]
-    DNS_Server --UDP单包响应--> DNS_Client
-  end
-
-  %% 高亮关键差异
-  classDef red fill:#FFE8E8,stroke:#FF0000
-  classDef blue fill:#E8F4FF,stroke:#0066CC
-  class TCP red
-  class UDP blue
-
-交换机与路由器Mermaid 可视化 + 结构化对比 解析 交换机与路由器 的核心graph LR
-  %% ======== 性能与技术参数对比 ========
-  subgraph "技术参数对比"
-    direction TB
-    SwitchParam["交换机参数"] -->|端口密度| HighPort["24/48端口"]
-    SwitchParam -->|背板带宽| HighBW["数百Gbps"]
-    RouterParam["路由器参数"] -->|路由表容量| LargeTable["支持10万+路由条目"]
-    RouterParam -->|接口类型| WANPort["光纤/以太网/串口"]
-  end
-
-graph TB
-  %% 交换机 vs 路由器对比框架
-  NetworkDevice["网络设备"] --> Switch["交换机（Switch）数据链路层（L2）"]
-  NetworkDevice --> Router["路由器（Router）网络层（L3）"]
-
-  %% ========== 核心功能对比 ==========
-  Switch -->|核心功能| SwitchFunc["基于MAC地址转发数据帧构建局域网（LAN）高速端口交换"]
-  Router -->|核心功能| RouterFunc["基于IP路由表转发数据包连接不同网络（WAN/LAN）NAT/防火墙功能"]
-
-  %% ========== 工作原理对比 ==========
-  subgraph "工作原理对比"
-    Switch -->|MAC学习| Learn[["学习MAC地址表（端口-MAC映射）"]]
-    Switch -->|转发规则| Forward[["单播/组播转发避免广播风暴"]]
-    Router -->|路由选择| Routing[["动态路由协议（OSPF/BGP）静态路由配置"]]
-    Router -->|NAT转换| NAT[["私网IP ↔ 公网IP转换"]]
-  end
-
-  %% ======== 典型组网场景示例 ========
-  subgraph "企业网络拓扑示例"
-    direction LR
-    Internet[("互联网")] --> Router
-    Router --> Switch
-    Switch --> PC1[("PC1")] & PC2[("PC2")] & Server[("服务器")]
-  end
-  style Internet fill:#99CCFF
-  style Router fill:#FFCC99
-  style Switch fill:#99FF99
-
-
-
-  %% 高亮关键差异
-  classDef green fill:#E8FFE8,stroke:#009900
-  classDef orange fill:#FFE8CC,stroke:#FF6600
-  class Switch green
-  class Router orange
-核心对比表
-
-
-特征
-交换机（L2）
-路由器（L3）
-
-
-
-工作层级
-数据链路层（MAC地址）
-网络层（IP地址）
-
-
-转发依据
-MAC地址表
-路由表
-
-
-广播域控制
-每个端口为一个冲突域，全交换机构成单个广播域
-每个接口隔离广播域
-
-
-典型应用场景
-局域网内设备互联（同子网通信）
-跨网络通信（不同子网&#x2F;互联网接入）
-
-
-协议支持
-VLAN, STP	RIP, OSPF, BGP, VPN
-
-
-
-网络地址转换（NAT）
-❌ 不支持
-✅ 支持
-
-
-深度技术解析1. 交换机 MAC 地址学习sequenceDiagram
-  PC1->>Switch: 发送数据帧（源MAC:00-AA）
-  Switch->>Switch: 记录MAC地址表（Port1↔00-AA）
-  PC2->>Switch: 发送数据帧（源MAC:00-BB）
-  Switch->>Switch: 记录MAC地址表（Port2↔00-BB）
-  当PC1向PC2发送数据时，Switch直接转发到Port2。
-2. 路由器 IP 路由表查询flowchart LR
-  A[接收数据包] --> B{目标IP是否在直连网络?}
-  B -->|是| C["从对应接口直接转发"]
-  B -->|否| D["查找路由表最长前缀匹配"]
-  D --> E{"找到下一跳?"}
-  E -->|是| F["通过指定接口转发到下一跳"]
-  E -->|否| G["丢弃（ICMP目标不可达）"]
-典型应用场景1. 交换机：构建高性能局域网
-场景： 办公室内部设备互联
-技术方案：graph TB
-CoreSwitch[核心交换机] --> AccessSwitch1[接入交换机]
-CoreSwitch --> AccessSwitch2[接入交换机]
-AccessSwitch1 --> User1[用户PC]
-AccessSwitch1 --> Printer[打印机]
-AccessSwitch2 --> Server[服务器集群]
-
-2. 路由器：跨地区网络互联
-场景： 总部与分支机构通过VPN连接graph RL
-HQ[总部网络] -->|IPSEC VPN| RouterA[总部路由器]
-Branch[分支机构] -->|ISP链路| RouterB[分支路由器]
-RouterA  RouterB
-
-网络分类可视化 + 结构化对比 解析 网络分类graph LR
-  %% 网络分类核心框架
-  NetworkClass["网络分类"] --> Coverage["按覆盖范围"]
-  NetworkClass --> Topology["按拓扑结构"]
-  NetworkClass --> Medium["按传输介质"]
-  NetworkClass --> Usage["按用途"]
-  NetworkClass --> Tech["按传输技术"]
-  
-  %% ====== 覆盖范围分类 ======
-  Coverage --> PAN["PAN（个人域网）距离＜10m（蓝牙/ZigBee）"]
-  Coverage --> LAN["LAN（局域网）建筑/园区内（以太网/WiFi）"]
-  Coverage --> MAN["MAN（城域网）城市级别（地铁监控/城市政务网）"]
-  Coverage --> WAN["WAN（广域网）全球/跨地域（互联网/SDH专线）"]
-
-  %% ====== 拓扑结构分类 ======
-  Topology --> Star["星型拓扑（Switch为核心）"]
-  Topology --> Bus["总线型拓扑（共享介质）"]
-  Topology --> Ring["环型拓扑（令牌传递）"]
-  Topology --> Mesh["网状拓扑（高冗余）"]
-  Topology --> Hybrid["混合拓扑（星型+总线）"]
-
-  %% ====== 传输介质分类 ======
-  Medium --> Wired["有线介质双绞线/光纤/同轴"]
-  Medium --> Wireless["无线介质Wi-Fi/5G/卫星"]
-
-  %% ====== 用途分类示例 ======
-  Usage --> Public["公用网络（互联网）"]
-  Usage --> Private["专用网络（企业VPN）"]
-  
-  %% ====== 传输技术 ======
-  Tech --> Broadcast["广播式网络（传统以太网）"]
-  Tech --> PointToPoint["点对点网络（PPP协议）"]
-覆盖范围分类详解
-
-
-类型
-覆盖范围
-传输技术
-典型应用场景
-
-
-
-PAN
-0-10米
-蓝牙、NFC、ZigBee
-智能手表与手机配对
-
-
-LAN
-100米-几公里
-IEEE 802.3（以太网）、WiFi
-企业办公网络、家庭局域网
-
-
-MAN
-城市（10-100km）
-光纤、WiMAX
-城市交通监控系统、校园互联
-
-
-WAN
-全球
-IP&#x2F;MPLS、卫星通信
-跨国企业专线、云计算互联
-
-
-IP地址可视化 + 结构化对比 全面解析 IP地址graph LR
-  %% IP地址分类框架
-  IP_Address["IP地址"] --> IPv4["IPv4（32位）"] & IPv6["IPv6（128位）"]
-  IP_Address --> PublicIP["公有IP"] & PrivateIP["私有IP"]
-  IP_Address --> Dynamic["动态IP"] & Static["静态IP"]
-  
-  %% ========== IPv4详解 ==========
-  IPv4 --> FormatIPv4["点分十进制格式（192.168.1.1）"]
-  IPv4 --> Classes["传统分类"] --> A类["A类（0.0.0.0-127.255.255.255）"]
-  Classes --> B类["B类（128.0.0.0-191.255.255.255）"]
-  Classes --> C类["C类（192.0.0.0-223.255.255.255）"]
-  IPv4 --> Subnet["子网划分/CIDR"]
-  
-  %% ========== IPv6特性 ==========
-  IPv6 --> FormatIPv6["十六进制冒分格式（2001:0db8:85a3::1）"]
-  IPv6 --> TypesIPv6["地址类型"] --> GlobalUnicast["全球单播地址"]
-  TypesIPv6 --> LinkLocal["链路本地地址（FE80::/10）"]
-  TypesIPv6 --> ULA["唯一本地地址（FC00::/7）"]
-  
-  %% ====== 关键支撑技术 ======
-  Dynamic --> DHCP["DHCP协议动态分配"]
-  PublicIP --> NAT["NAT地址转换"]
-IPv4 vs IPv6 核心对比
-
-
-特征
-IPv4
-IPv6
-
-
-
-地址长度
-32位（约43亿个地址）
-128位（约3.4×10³⁸个地址）
-
-
-地址表示法
-十进制点分（192.168.0.1）
-十六进制冒分（2001:db8:85a3:0:0:8a2e:370:7334）
-
-
-报头复杂度
-可变长度（需选项字段）
-固定长度（效率更高）
-
-
-安全性
-依赖外部协议（IPSec可选）
-原生支持IPSec
-
-
-典型配置场景
-NAT广泛使用
-端到端直接寻址
-
-
-IPv4子网划分实战1. CIDR表示法示例
-给定地址： 192.168.1.0&#x2F;24graph LR
-地址构成 --> 网络部分["网络位：192.168.1"]
-地址构成 --> 主机部分["主机位：0-255（254可用）"]
-掩码计算/24 对应子网掩码：255.255.255.0
-
-2. 划分子网工具链flowchart LR
-  A[需求分析] -->|用户数200| B["选择掩码：/24（254主机）"]
-  B --> C["可用IP范围：192.168.1.1 - 192.168.1.254"]
-  B --> D["网关设置：192.168.1.1"]
-  D --> E["保留地址：192.168.1.255（广播）"]
-
-私有IP地址范围（RFC 1918）
-IPv4保留段：classDiagram
-class PrivateIPv4{
-  +A类：10.0.0.0 ~ 10.255.255.255
-  +B类：172.16.0.0 ~ 172.31.255.255
-  +C类：192.168.0.0 ~ 192.168.255.255
-}
-典型案例：家庭路由器通常分配 192.168.1.1/24，并启用NAT转换公网IP。
-
-IP数据包转发过程sequenceDiagram
-  PC[发送方] ->> Router1: 源IP:192.168.1.100目标IP:203.0.113.5
-  Router1 ->> Internet: 应用NAT转换源IP为公网IP
-  Internet ->> Router2: 目标IP命中路由表
-  Router2 ->> Server: 路由到内网服务器（DNAT）
-
-核心特性对比
-
-
-维度
-公有地址 (Public IP)
-私有地址 (Private IP)
-
-
-
-唯一性	全球唯一，
-需向ISP或IANA申请
-仅需在局域网内唯一
-
-
-访问范围
-可直接访问互联网
-不能直接访问互联网（需通过NAT映射）
-
-
-地址分配主体
-由互联网管理机构（如APNIC）或ISP分配
-由本地网络管理员自由分配
-
-
-典型地址段
-非保留的任意IPv4地址（如8.8.8.8）
-RFC 1918定义的保留段（如192.168.x.x）
-
-
-成本
-需向运营商付费租用
-免费自由使用
-
-
-私有地址保留段详解
-
-
-类型
-范围
-容量
-
-
-
-A类 (10.0.0.0&#x2F;8)
-10.0.0.0 ~ 10.255.255.255
-16,777,216个地址
-
-
-B类 (172.16.0.0&#x2F;12)
-172.16.0.0 ~ 172.31.255.255
-1,048,576个地址
-
-
-C类 (192.168.0.0&#x2F;16)
-192.168.0.0 ~ 192.168.255.255
-65,536个地址
-
-
-核心技术机制：NAT（网络地址转换）sequenceDiagram
-  内网设备 ->> 路由器: 发送请求：源IP=192.168.1.100
-  Note over 路由器: 执行SNAT（源地址转换）
-  路由器 ->> 公网服务器: 请求：源IP=203.0.113.5
-  公网服务器 -->> 路由器: 响应：目标IP=203.0.113.5
-  Note over 路由器: 执行DNAT（目标地址转换）
-  路由器 -->> 内网设备: 响应：目标IP=192.168.1.100
-典型应用场景对比1. 公有地址flowchart TD
-  场景1["互联网服务暴露"] --> WebServer["网站服务器（119.29.76.211）"]
-  场景2["云平台通信"] --> Cloud["AWS EC2实例（52.76.27.141）"]
-  场景3["VPN连接终点"] --> VPN["企业VPN网关（112.124.25.36）"]
-2. 私有地址flowchart TD
-  场景1["企业内网"] --> OfficeNetwork["员工电脑（172.16.10.33）"]
-  场景2["IoT设备管理"] --> SmartHome["智能灯泡（192.168.50.20）"]
-  场景3["虚拟化环境"] --> VM["虚拟机（10.3.1.101）"]
-
-端口号端口号的核心定义graph LR
-  端口号["端口号（Port）"] --> 定义["为应用层进程/服务设计的数字标识（范围0-65535）"]
-  端口号 --> 作用["唯一标识同一IP地址上的不同网络服务"]
-  作用 --> 案例["HTTP服务使用80端口"]
-端口号分类（按IANA标准）classDiagram
-  class 端口类型{
-    
-    +知名端口（Well-Known Ports）: 0-1023
-    +注册端口（Registered Ports）: 1024-49151
-    +动态/私有端口（Dynamic/Private Ports）: 49152-65535
-  }
-TCP vs UDP 端口关键差异
-
-
-维度
-TCP端口
-UDP端口
-
-
-
-连接性
-基于连接的可靠传输（三次握手）
-无连接的尽力传输（无握手）
-
-
-适用场景
-文件传输、网页浏览、电子邮件
-视频流、DNS查询、实时游戏
-
-
-端口状态
-需要维护连接状态（SYN&#x2F;ACK&#x2F;FIN）
-无状态
-
-
-典型服务
-HTTP（80）、SSH（22）、SMTP（25）
-DNS（53）、DHCP（67&#x2F;68）、RTP（实时传输协议）
-
-
-经典应用场景1. 端口转发实现内网穿透graph LR
-  内网服务器 -->|绑定本地端口:8080| 路由器
-  路由器 -->|映射公网端口:80| 外部用户访问公网IP:80
-2. 防火墙端口开放策略flowchart LR
-  配置防火墙 --> 允许入站端口:80,443
-  允许入站端口 --> 拒绝其他端口访问
-  拒绝其他端口 --> 提升网络安全
-
-端口安全风险与防护1. 高危端口示例classDiagram
-  class 高危端口{
-    +23/TCP : Telnet（明文传输风险）
-    +445/TCP : SMB（永恒之蓝漏洞入口）
-    +3389/TCP : RDP（暴力破解重灾区）
-  }
-2. 防护措施
-关闭无用端口
-限制访问来源IP
-启用端口流量加密
-
-网络常见的名词解释DNS-域名域名结构剖析graph LR
-  A[根域 . ] --> B[顶级域 TLD] 
-  B --> com
-  B --> cn
-  B --> org
-  com --> C[二级域名] --> 公司主站 --> alibaba
-  C --> 云服务平台 --> aliyun
-  cn --> D[政府机构-->beijing.gov.cn]
-DNS解析全流程sequenceDiagram
-  User->>本地DNS: 请求① www.example.com
-  本地DNS->>根服务器: 请求② (.com NS地址)
-  根服务器-->>本地DNS: 响应③ .com权威服务器IP
-  本地DNS->>TLD服务器: 请求④ example.com NS
-  TLD服务器-->>本地DNS: 响应⑤ 该域权威服务器IP
-  本地DNS->>权威DNS: 请求⑥ www记录
-  权威DNS-->>本地DNS: 最终IP 93.184.216.34
-  本地DNS->>User: 返回结果⑦
-关键阶段解析：
-
-
-步骤
-角色
-作用说明
-
-
-
-①
-本地DNS（递归解析器）
-接收用户请求，发起迭代查询
-
-
-②③
-根DNS服务器（全球13组）
-返回顶级域权威服务器地址
-
-
-④⑤
-TLD服务器（如.com域）
-管理二级域名注册信息
-
-
-⑥⑦
-权威DNS（域名管理员）
-提供最终域名对应的资源记录
-
-
-域名与URL的差异对比flowchart LR
-  URL结构 --> 协议头[HTTP/HTTPS] --> 域名 --> 端口[可选:8080] --> 路径[/api/data/] --> 参数[?id=123]
-  域名 --> 单纯定位服务器
-  URL --> 完整资源地址
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-]]></content>
-      <categories>
-        <category>网络安全</category>
-        <category>基础入门</category>
-      </categories>
-      <tags>
-        <tag>网络安全-阶段一</tag>
       </tags>
   </entry>
 </search>
