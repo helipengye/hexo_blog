@@ -180,6 +180,738 @@ S3插件：用来登录S3的图床
       </tags>
   </entry>
   <entry>
+    <title>Windows操作系统</title>
+    <url>/2025/04/05/wang-luo-an-quan/ji-chu-ru-men/windows-cao-zuo-xi-tong/</url>
+    <content><![CDATA[操作系统的介绍什么是操作系统操作系统（Operating System, OS）是计算机系统中最核心的软件，扮演着硬件管理者和用户服务提供者的双重角色。它为用户和应用程序提供统一的接口，同时管理计算机的硬件资源，如处理器、内存、存储设备和外设。以下是关键内容的清晰梳理：
+
+    classDiagram
+    class 计算机系统 {
+        +硬件系统
+        +软件系统
+    }
+    计算机系统 &lt;|-- 硬件系统
+    计算机系统 &lt;|-- 软件系统
+    class 硬件系统 {
+        +中央处理器
+        +存储系统
+        +输入输出系统
+    }
+    class 软件系统 {
+        +系统软件
+        +应用软件
+    }
+    硬件系统 &lt;|-- 中央处理器 : contains
+        class 中央处理器 {
+            运算器
+            控制器
+            ...
+        }
+    硬件系统 &lt;|-- 存储系统 : contains
+        class 存储系统 {
+            内存储器
+            软盘
+            硬盘
+            光盘
+            ...
+        }
+    硬件系统 &lt;|-- 输入输出系统 : contains
+        class 输入输出系统 {
+            键盘
+            鼠标
+            打印机
+            ...
+        }
+    软件系统 &lt;|-- 系统软件 : contains
+        class 系统软件 {
+            操作系统
+            ...
+        }
+    软件系统 &lt;|-- 应用软件 : contains
+        class 应用软件 {
+            QQ
+            微信
+            办公软件
+            ...
+        }
+  
+
+硬件资源管理
+CPU调度：决定哪些程序优先使用处理器，实现多任务处理。
+内存分配：为运行中的程序分配和回收内存，避免内存占用冲突。
+输入&#x2F;输出控制：管理键盘、鼠标、打印机等设备的数据传输。
+文件系统：组织硬盘中的数据（如Windows的NTFS、Linux的EXT4）。
+
+
+用户接口：
+图形界面（GUI）：如Windows的桌面、macOS的Finder，用户通过点击操作。
+命令行界面（CLI）：如Linux的Bash或Windows的PowerShell，通过输入指令控制。
+
+
+抽象层作用：
+通过系统调用（System Calls）向应用程序提供硬件服务，开发者无需直接操作硬件细节。
+例如，程序只需调用“保存文件”，无需关心数据在硬盘上的物理存储位置。
+
+安全和权限管理：
+阻止未授权访问，如用户权限分级（管理员&#x2F;普通用户）。
+防止程序崩溃导致整个系统瘫痪（进程隔离机制）。
+
+操作系统分类
+
+
+类型
+代表系统
+适用场景
+
+
+
+桌面操作系统
+Windows, macOS
+个人电脑、办公
+
+
+移动操作系统
+Android, iOS
+智能手机、平板
+
+
+服务器操作系统
+Linux, Windows Server
+数据中心、云服务
+
+
+嵌入式操作系统
+FreeRTOS, VxWorks
+物联网设备、智能家电、工业控制
+
+
+主流操作系统主要包括以下几类：Windows简介：Windows是微软公司研发的操作系统，自1985年推出以来，已成为全球应用广泛的操作系统。
+Windows采用了图形用户界面，提升了系统的易用性，并具有良好的硬件适应性，支持多种硬件平台。
+
+Linux简介：Linux是一种自由和开放源代码的类Unix操作系统，由林纳斯·托瓦兹于1991年首次发布。Linux操作系统是
+UNIX操作系统的一种克隆系统，它诞生于UNIX计算机实验室中。
+
+macOS简介：macOS是由苹果公司开发的专有操作系统，运行在Macintosh系列电脑上。macOS是基于XNU混合内核的图
+形化操作系统，属于类Unix的商业操作系统。
+
+初识WindowsWindows用户与组一、用户账户类型1.本地用户账户
+适用范围：仅当前设备有效
+创建入口：
+图形界面：控制面板 → 用户账户 → 管理其他账户
+命令工具：lusrmgr.msc（本地用户和组管理器）
+
+
+核心操作：# 创建用户（管理员权限运行）net user John Passw0rd! /add# 将用户加入管理员组net localgroup Administrators John /add
+
+2. Microsoft账户（网络账户）
+特征：与Microsoft服务（如OneDrive、应用商店）同步
+绑定&#x2F;解绑：设置 → 账户 → 你的信息
+
+3. 域用户账户（仅域环境中存在）
+管理工具：Active Directory用户和计算机 (dsa.msc)
+域组策略：可强制密码复杂度、登录时间限制等
+
+二、内置用户组及其权限
+
+
+组名称
+权限范围
+常用成员举例
+
+
+
+Administrators
+完全控制系统（危险！）
+默认管理员账户
+
+
+Users
+普通操作（运行程序、个人文件）
+所有新建的普通用户
+
+
+Guests
+临时访问权限（默认禁用）
+Guest账户（禁用状态）
+
+
+Remote Desktop Users
+允许远程桌面连接
+需手动添加指定用户
+
+
+Power Users
+部分管理员权限（较少使用）
+旧版兼容保留组
+
+
+三、用户管理实战技巧1. 创建和配置用户
+图形界面：
+Win + R → 输入control userpasswords2 → 通过向导操作
+勾选用户密码永不过期（适用于服务账户）
+
+
+PowerShell高级操作：  # 创建用户并设置密码不过期（需管理员权限）New-LocalUser -Name &quot;ServiceAccount&quot; -Password (ConvertTo-SecureString &quot;P@ssw0rd&quot; -AsPlainText -Force)Set-LocalUser -Name &quot;ServiceAccount&quot; -PasswordNeverExpires $true
+
+2. 用户安全措施
+账户锁定策略：
+设置路径：本地安全策略（secpol.msc） → 账户策略 → 账户锁定策略
+建议：三次错误密码后锁定，30分钟自动解锁
+
+
+UAC（用户账户控制）设置：
+调整级别：控制面板 → 用户账户 → 更改用户账户控制设置
+
+
+
+四、组管理核心操作1. 创建自定义组# 创建组New-LocalGroup -Name &quot;FinanceDept&quot;# 添加用户到组（支持批量添加）Add-LocalGroupMember -Group &quot;FinanceDept&quot; -Member &quot;User1&quot;, &quot;User2&quot;
+
+Windows文件权限Windows文件权限基于访问控制列表（ACL）管理，用于控制用户或组对文件&#x2F;文件夹的访问级别。以下是结构化解析与操作步骤：
+一、权限的核心概念1. 权限类型
+权限类型
+
+
+权限项
+作用
+
+
+
+完全控制
+所有操作（修改、删除、更改权限、获取所有权）
+
+
+修改
+读写、删除文件，但不可更改权限
+
+
+读取和执行
+运行程序、浏览文件夹内容
+
+
+读取
+查看文件内容
+
+
+写入
+创建或修改文件，但不包含删除权限
+
+
+
+
+2. 权限继承
+默认行为：子文件夹和文件继承父文件夹权限。
+禁用继承：点击资源管理器中的 “禁用继承” 按钮，可选择：
+转换为显式权限：保留当前规则但断开继承链路。
+删除所有继承的权限：清空后手动添加新规则。
+
+
+
+二、通过资源管理器设置文件权限步骤示例：共享文件夹并限制访问
+
+右键文件夹 → 属性 → 安全 → 高级：
+
+更改所有者（需管理员权限）: takeown /f &quot;C:\Data&quot; /r /d y  # 获取所有权icacls &quot;C:\Data&quot; /grant Administrators:(F) /t  # 授予管理员完全控制
+
+
+添加用户&#x2F;组：
+
+点击 编辑 → 添加，输入组名（如Finance）→ 选择权限（如“读取”）。
+
+
+禁止继承（可选）：
+
+高级 → 禁用继承 → 选择 “从此对象中删除所有已继承的权限”。
+
+
+
+三、命令行管理工具：icacls
+常用命令模板  # 授予用户读取权限（/grant 用户:权限）icacls &quot;D:\Reports&quot; /grant Alice:(R)# 递归授予组修改权限（/t 遍历子目录）icacls &quot;D:\Projects&quot; /grant Developers:(M) /t# 移除某个用户的权限（/remove）icacls &quot;C:\Secure&quot; /remove Bob# 重置权限并继承父目录规则（/reset）icacls &quot;E:\Backup&quot; /reset /t
+
+查看当前权限  icacls &quot;C:\Confidential&quot;  # 显示ACL详情
+
+
+
+Windows 命令行工具一、命令提示符（CMD）基础1. 文件与目录操作
+列出文件： dir  （常用参数：/s递归显示子目录，/a显示隐藏文件）
+  dir C:\ /s /a       # 递归列出C盘所有文件（含隐藏文件）
+切换目录： cd
+  cd D:\Data         # 切换至D盘Data目录cd ..              # 返回上级目录
+创建&#x2F;删除目录： mkdir 或 rmdir
+  mkdir Backup       # 创建Backup文件夹rmdir Backup /s /q # 强制删除Backup及其内容（/q静默模式）
+
+复制&#x2F;移动文件： copy 和 move
+  copy report.txt D:\Archive\      # 复制文件到目标目录move *.log D:\Logs/              # 移动所有日志文件
+
+2. 系统管理命令
+用户管理： net user
+
+
+
+命令
+功能描述
+
+
+
+net user
+列出所有本地账户
+
+
+net user 用户名
+查看指定用户的详细信息
+
+
+net user 用户名 密码 &#x2F;add
+创建用户并设置初始密码
+
+
+net user 用户名 新密码
+修改用户密码
+
+
+net user 用户名 &#x2F;delete
+删除用户
+
+
+net user 用户名 &#x2F;active:yes 或 &#x2F;active:no
+启用&#x2F;禁用账户（禁用后用户无法登录）
+
+
+
+示例：
+  net user John P@ssw0rd /add             # 创建用户 John，密码 P@ssw0rdnet user John /active:no                # 禁用账户net user John /delete                   # 删除用户
+
+2. net localgroup：本地用户组管理
+本地用户组管理
+
+
+
+命令
+功能描述
+
+
+
+net localgroup
+列出所有本地组
+
+
+net localgroup 组名 用户名 &#x2F;add
+将用户添加到指定组
+
+
+net localgroup 组名 用户名 &#x2F;delete
+从组中移除用户
+
+
+net localgroup Administrators John &#x2F;add
+添加用户到管理员组（提权）
+
+
+
+示例：
+net localgroup Users John /add          # 将 John 加入 Users 组net localgroup Administrators John /add # 赋予管理员权限
+
+3. 其他实用命令
+query user查看当前登录的远程用户（适用于服务器环境）：  query user
+logoff登出指定用户（需会话 ID）  logoff 1    # 断开会话 ID 为 1 的用户
+服务控制： sc  sc queryex type= service        # 列出所有服务sc stop &quot;Windows Update&quot;        # 停止Windows Update服务
+进程管理：tasklist 和 taskkill  tasklist /svc                   # 显示带服务的进程列表taskkill /IM notepad.exe /F     # 强制结束记事本进程
+
+二、PowerShell：现代化命令行工具1. 基础操作
+别名支持： 多数CMD命令可直接使用（如 dir&#x3D;Get-ChildItem）
+面向对象输出： 支持筛选、格式化与管道操作  Get-Process | Where-Object &#123; $_.CPU -gt 100 &#125; | Format-Table Name, CPU -AutoSize
+文件操作  New-Item -Path &quot;C:\Logs&quot; -ItemType Directory  # 创建目录Remove-Item -Path &quot;*.tmp&quot; -Recurse -Force     # 强制删除临时文件
+
+2. 高级功能
+远程管理：  Enter-PSSession -ComputerName Server01        # 远程连接Get-Service -ComputerName Server01 | Restart-Service  # 远程重启服务
+脚本执行：  Set-ExecutionPolicy RemoteSigned  # 允许本地脚本运行./deploy.ps1                      # 执行脚本
+模块管理：  Install-Module -Name PSWindowsUpdate    # 安装模块Get-WindowsUpdate -Install -AutoReboot  # 自动更新系统
+基础用户管理
+
+
+命令
+功能描述
+
+
+
+New-LocalUser -Name “John” -Password (ConvertTo-SecureString “P@ssw0rd” -AsPlainText -Force)
+创建用户并设置密码
+
+
+Remove-LocalUser -Name “John”
+删除用户
+
+
+Set-LocalUser -Name “John” -Password (ConvertTo-SecureString “新密码” -AsPlainText -Force)
+修改用户密码
+
+
+Enable-LocalUser -Name “John” 或 Disable-LocalUser -Name “John”
+启用&#x2F;禁用用户
+
+
+
+组管理
+
+
+命令
+功能描述
+
+
+
+Add-LocalGroupMember -Group “Administrators” -Member “John”
+将用户加入管理员组
+
+
+Remove-LocalGroupMember -Group “Administrators” -Member “John”
+从组中移除用户
+
+
+
+查询用户信息
+
+
+命令
+功能描述
+
+
+
+Get-LocalUser
+列出所有本地用户
+
+
+Get-LocalUser -Name “John”
+查看指定用户详细信息
+
+
+Get-LocalGroupMember -Group “Administrators”
+查看管理员组成员
+
+
+
+示例：  # 创建用户并立即启用New-LocalUser -Name &quot;John&quot; -Password (ConvertTo-SecureString &quot;P@ssw0rd&quot; -AsPlainText -Force) -AccountNeverExpires -UserMayNotChangePassword# 添加用户到管理员组Add-LocalGroupMember -Group &quot;Administrators&quot; -Member &quot;John&quot;# 禁用账户Disable-LocalUser -Name &quot;John&quot;
+常用命令
+
+
+命令
+功能描述
+
+
+
+systeminfo
+查看系统信息
+
+
+whoami
+查看当前用户
+
+
+ipconfig
+显示网络信息
+
+
+ping
+查看网络连接是否正常
+
+
+dir
+列出当前目录下所有文件
+
+
+cd
+进入指定目录
+
+
+shutdown -s -t 10
+-s：关机 -t 10 :10秒后关机 安排计算机在10秒后关机
+
+
+
+
+三、windows进程1. tasklist：查看进程列表
+语法：  tasklist [/s 计算机名] [/u 用户名] [/p 密码] [/m &quot;模块名&quot;] [/svc] [/fi &quot;筛选条件&quot;]  
+常用参数：
+&#x2F;svc：显示进程关联的服务
+&#x2F;fi “STATUS eq RUNNING”：筛选运行中的进程
+&#x2F;m：显示进程加载的 DLL 模块
+
+
+示例：  tasklist                     # 显示所有进程  tasklist /fi &quot;IMAGENAME eq chrome.exe&quot;   # 查找 Chrome 进程  tasklist /svc | findstr &quot;svchost&quot;        # 显示 svchost 进程关联的服务  
+
+2. taskkill：终止进程
+语法：  taskkill [/s 计算机名] [/u 用户名] [/p 密码] [/im 进程名] [/pid 进程ID] [/f] [/t]  
+常用参数：
+&#x2F;im：按进程名终止（支持通配符 *）
+&#x2F;pid：按进程 ID 终止
+&#x2F;f：强制终止（不等待确认）
+&#x2F;t：终止进程及其子进程（树形终止）
+
+
+示例：  taskkill /im notepad.exe     # 结束所有记事本进程  taskkill /pid 1234 /f /t     # 强制终止 PID 为 1234 的进程及其子进程  
+
+3. 总结-    |场景	|推荐命令&#x2F;工具|    |:—|:—|    |快速查看进程	|tasklist &#x2F; Get-Process|    |强制终止进程	|taskkill &#x2F;f &#x2F; Stop-Process -Force|    |高级资源分析	|资源监视器 (resmon) &#x2F; Process Explorer|    |批量进程操作	|PowerShell 管道与筛选|    |安全排查	|WMIC 命令行检查 &#x2F; VirusTotal 扫描|
+四、windwos系统服务1. sc：服务控制工具
+核心功能：管理服务属性、启动类型、依赖关系。
+
+
+命令
+功能描述
+
+
+
+sc query
+列出所有服务的基本信息（状态、PID、显示名称）
+
+
+sc queryex type&#x3D; service state&#x3D; all
+显示详细服务信息（包括进程ID和标志位）
+
+
+sc query 服务名
+查看指定服务的详细信息
+
+
+sc start 服务名
+启动服务
+
+
+sc stop 服务名
+停止服务（需要管理员权限）
+
+
+sc config 服务名 start&#x3D; demand
+设置服务启动类型（选项：auto&#x2F;demand&#x2F;disabled）
+
+
+sc delete 服务名
+删除服务（需先停止服务）
+
+
+
+示例：  sc query state= inactive              # 查看所有已停止的服务  sc config Spooler start= disabled     # 禁用打印后台服务  sc stop Spooler &amp;&amp; sc delete Spooler  # 停止并删除打印服务（谨慎操作！）  
+
+2. net 命令的快捷操作
+
+
+
+命令
+功能描述
+
+
+
+net start
+列出所有正在运行的服务
+
+
+net start 服务名
+启动服务（需服务名称）
+
+
+net stop 服务名
+停止服务
+
+
+
+
+3. 总结
+
+
+
+场景
+推荐命令&#x2F;工具
+
+
+
+快速启动&#x2F;停止服务
+net start&#x2F;net stop （GUI：services.msc）
+
+
+复杂服务配置
+sc config &#x2F; PowerShell Set-Service
+
+
+服务依赖分析
+PowerShell &#96;Get-Service
+
+
+批量导出服务列表
+PowerShell Export-Csv
+
+
+服务故障诊断
+事件查看器（eventvwr） + sc query
+
+
+
+
+五、Windows 防火墙管理1. 防火墙基础控制
+
+
+
+命令
+功能描述
+
+
+
+netsh advfirewall show allprofiles
+查看所有配置文件的防火墙状态（域&#x2F;专用&#x2F;公用）
+
+
+netsh advfirewall set allprofiles state on
+启用所有配置文件防火墙
+
+
+netsh advfirewall set allprofiles state off
+禁用所有配置文件防火墙（慎用！）
+
+
+netsh advfirewall set domainprofile state on
+单独启用域网络防火墙
+
+
+
+
+2. 规则管理（入站&#x2F;出站）
+语法：  netsh advfirewall firewall add rule     # 添加规则  netsh advfirewall firewall delete rule  # 删除规则  netsh advfirewall firewall show rule    # 查看规则  
+示例：  # 允许 TCP 8080 端口的入站流量（名称需唯一）  netsh advfirewall firewall add rule name=&quot;Open HTTP Port&quot; dir=in action=allow protocol=TCP localport=8080  # 允许某程序的所有出站连接  netsh advfirewall firewall add rule name=&quot;Allow App&quot; dir=out action=allow program=&quot;C:\App\test.exe&quot;  # 禁止特定 IP 段的入站访问  netsh advfirewall firewall add rule name=&quot;Block IP&quot; dir=in action=block remoteip=192.168.1.0/24  # 删除规则  netsh advfirewall firewall delete rule name=&quot;Open HTTP Port&quot;  
+
+3. 防火墙规则类型与场景
+
+
+
+规则类型
+典型用途
+
+
+
+程序规则
+允许&#x2F;禁止特定程序访问网络（如游戏或云盘同步）
+
+
+端口规则
+开放 Web 服务（80&#x2F;443）、数据库（3306）端口
+
+
+IP 地址规则
+限制内部服务器仅允许特定 IP 访问
+
+
+预定义规则
+使用系统内置规则（如“文件和打印机共享”）
+
+
+
+
+4. 总结
+
+
+
+场景
+推荐命令&#x2F;操作
+
+
+
+快速开放端口
+netsh advfirewall 或 PowerShell New-NetFirewallRule
+
+
+查看被阻止的连接
+resmon 网络标签页或分析 pfirewall.log
+
+
+批量备份&#x2F;恢复规则
+netsh advfirewall export&#x2F;import
+
+
+程序联网控制
+GUI 控制面板防火墙（wf.msc）
+
+
+
+
+六、远程桌面管理1. 启用远程桌面(1). 通过图形界面（GUI）
+打开设置：
+Win + R → 输入 sysdm.cpl → 选择“远程”标签页
+勾选 “允许远程连接到此计算机”（建议选择“仅允许使用网络级别身份验证的远程桌面连接”以提高安全性）。
+
+
+
+(2). 通过命令行&#x2F;脚本
+使用 PowerShell 启用 RDP：  Set-ItemProperty -Path &quot;HKLM:\System\CurrentControlSet\Control\Terminal Server&quot; -Name &quot;fDenyTSConnections&quot; -Value 0  Enable-NetFirewallRule -DisplayGroup &quot;Remote Desktop&quot;  # 启用防火墙规则  
+禁用远程桌面：  Set-ItemProperty -Path &quot;HKLM:\System\CurrentControlSet\Control\Terminal Server&quot; -Name &quot;fDenyTSConnections&quot; -Value 1  Disable-NetFirewallRule -DisplayGroup &quot;Remote Desktop&quot;  
+
+2. 修改 RDP 默认端口（3389）(1). 更改注册表
+修改端口号：
+
+Win + R → regedit → 导航到：
+HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp
+将 PortNumber 的十进制值修改为新端口（如 3390）。
+
+
+重启服务：
+  net stop termservice &amp;&amp; net start termservice  
+
+(2). 配置防火墙开放新端口
+使用 PowerShell：  New-NetFirewallRule -DisplayName &quot;RDP-CustomPort&quot; -Direction Inbound -Protocol TCP -LocalPort 3390 -Action Allow  
+验证端口监听：  netstat -ano | findstr &quot;:3390&quot;  
+
+3. 防火墙与网络安全配置(1). 确保防火墙允许 RDP
+检查防火墙规则：  Get-NetFirewallRule -DisplayGroup &quot;Remote Desktop&quot; | Select-Object Name, Enabled  
+手动放行端口（默认 3389）：  netsh advfirewall firewall add rule name=&quot;RDP&quot; dir=in protocol=TCP localport=3389 action=allow  
+
+(2). 增强安全性
+强制网络级别身份验证 (NLA)：
+注册表路径：  HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp
+设置 UserAuthentication 值为 1（需重启服务）。
+
+
+限制访问 IP 范围（例如仅允许内网 IP）：netsh advfirewall firewall add rule name=&quot;RDP-Restricted&quot; dir=in action=allow protocol=TCP localport=3389 remoteip=192.168.1.0/24  
+启用 VPN 或 SSH 隧道：不在公网直接暴露 RDP 端口，通过加密隧道访问。
+
+总结
+
+
+
+场景
+推荐操作&#x2F;工具
+
+
+
+启用&#x2F;禁用 RDP
+sysdm.cpl 或 PowerShell Set-ItemProperty
+
+
+更改端口
+注册表 HKEY_LOCAL_MACHINE...\RDP-Tcp
+
+
+防火墙放行端口
+netsh advfirewall 或 PowerShell New-NetFirewallRule
+
+
+连接失败排查
+telnet、netstat 及事件查看器
+
+
+强制使用 NLA
+注册表 UserAuthentication 值设为 1
+
+
+多用户支持
+安装远程桌面服务（需服务器版）
+
+
+
+
+]]></content>
+      <categories>
+        <category>网络安全</category>
+        <category>基础入门</category>
+      </categories>
+      <tags>
+        <tag>Windows</tag>
+        <tag>网络安全-阶段一</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>免费搭建个人博客</title>
     <url>/2025/03/24/bo-ke/mian-fei-da-jian-ge-ren-bo-ke/</url>
     <content><![CDATA[前言个人博客需满足以下要求：
@@ -214,7 +946,7 @@ blog/├── _config.yml       # 全局配置（站点名称、作者等）├
 将博客托管到 GitHub Pages现在我们这个博客，还只能在本地网址预览。下面我们把博客项目托管到 GitHub 仓库，并且使用 GitHub Pages 来部署博客，让其他人也能访问我们的博客网站
 博客项目托管到GitHub为了方便管理 blog 博客项目，我们下一步把这个项目托管到 GitHub 上。首先在 GitHub 上创建一个项目，项目名可以设置为 我们的GitHub用户名.github.io。
 使用 GitHub Pages 部署博客执行完配置命令以后，我们就可以使用 git 来管理博客项目了。接下来我们把 my-blog 项目，部署到 GitHub Pages 上。 这样我们的博客，就不再只是一个本地网站了。其他人也可以通过网络，来访问我们的博客。
-首先在 my-blog 项目的 _config.yml 配置文件中，把 git 服务部署的配置加进去。在 type 配置项这里填上 git，然后分别添加一个 repository 和一个 branch 配置，指定部署博客网站时，所使用的 GitHub 项目和对应的分支。repository 这里填 &#x67;&#x69;&#116;&#x40;&#103;&#105;&#116;&#104;&#117;&#98;&#x2e;&#99;&#111;&#x6d;:GitHub用户名&#x2F;GitHub仓库名，branch 这里指定 main 分支，然后保存配置。
+首先在 my-blog 项目的 _config.yml 配置文件中，把 git 服务部署的配置加进去。在 type 配置项这里填上 git，然后分别添加一个 repository 和一个 branch 配置，指定部署博客网站时，所使用的 GitHub 项目和对应的分支。repository 这里填 &#103;&#105;&#116;&#64;&#x67;&#105;&#x74;&#104;&#117;&#98;&#x2e;&#x63;&#111;&#109;:GitHub用户名&#x2F;GitHub仓库名，branch 这里指定 main 分支，然后保存配置。
 最后我们执行 npm install hexo-deployer-git –save 命令，安装 hexo-deployer-git 这个插件，来简化部署到 GitHub Pages 的流程。
 npm install hexo-deployer-git --save
 这样配置完以后，我们就可以在本地写文章，写完以后通过 http://localhost:4000/ 预览文章效果并进行修改。修改满意后，就可以部署到 GitHub Pages 这样其他人就能访问我们的博客了。我们来看一下使用流程：
@@ -257,927 +989,6 @@ hexo -s
       </categories>
       <tags>
         <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux操作系统</title>
-    <url>/2025/04/05/wang-luo-an-quan/ji-chu-ru-men/linux-cao-zuo-xi-tong/</url>
-    <content><![CDATA[Linux操作系统介绍什么是 Linux？Linux 是一种开源的类 Unix 操作系统内核，由 Linus Torvalds 于 1991 年首次发布。 广义上的 Linux 通常指基于该内核的完整操作系统（如 Ubuntu、Fedora 等）， 结合了 GNU 项目 的软件工具，因此严格称为 GNU/Linux。
-Linux 的核心特性
-开源免费
-源码公开可修改，社区协作开发，遵循 GPL 协议。
-用户可自由分发、定制系统（无需支付版权费用）。
-
-
-多用户与多任务
-支持多个用户同时登录，可高效并行执行多个任务。
-
-
-高稳定性与安全性
-服务器可连续运行数年无需重启，漏洞修复快，权限管理严格。
-
-
-硬件兼容性广泛
-支持从嵌入式设备到超级计算机的多种硬件架构。
-
-
-强大的命令行工具
-通过终端（Terminal）可深度控制系统，支持脚本自动化。
-
-
-
-Linux 发行版（Distros）
-基于 Linux 内核的不同打包版本，满足不同场景需求：
-
-
-
-类型
-主流发行版
-特点
-
-
-
-通用桌面
-Ubuntu、Fedora、Linux Mint
-界面友好，适合日常办公及开发者使用
-
-
-企业服务器
-CentOS（Rocky Linux）、RHEL
-长期支持（LTS），安全稳定，适用于服务器运维
-
-
-轻量级
-Alpine、Lubuntu
-资源占用低，适合老旧硬件或容器环境
-
-
-专精领域
-Kali（安全渗透）、Raspbian（树莓派）
-预装领域专用工具，开箱即用
-
-
-
-
-Linux 的架构与核心组件
-内核（Kernel）
-
-管理硬件资源（CPU、内存、磁盘等），提供核心接口。
-支持模块化驱动，可动态加载或卸载。
-
-
-Shell
-
-用户与内核交互的接口（如 Bash、Zsh），支持脚本编程。
-
-
-文件系统
-
-采用层级目录结构（&#x2F; 为根目录），如 ext4、XFS、Btrfs。
-常见目录：
-/bin（基础命令）
-/etc（配置文件）
-/home（用户目录）
-
-
-
-
-包管理系统
-
-Debian 系（如 Ubuntu）：apt（apt install &#x2F; apt update）
-Red Hat 系（如 CentOS）：yum 或 dnf（yum install）
-Arch 系：pacman（pacman -S）
-
-
-
-基础命令速查
-
-
-
-类别
-命令
-说明
-
-
-
-文件管理
-ls、cp、mv、rm
-列出文件、复制、移动、删除
-
-
-目录操作
-cd、mkdir、pwd
-切换目录、创建目录、显示当前路径
-
-
-权限管理
-chmod、chown
-修改文件权限与所有者
-
-
-文本处理
-cat、grep、vim
-查看内容、文本搜索、编辑文件
-
-
-网络工具
-ping、curl、ssh
-测试连接、数据传输、远程登录
-
-
-进程管理
-ps、top、kill
-查看进程状态、结束进程
-
-
-
-
-应用场景
-服务器与云计算
-Web 服务（如 Nginx&#x2F;Apache）、数据库（MySQL）、容器化（Docker&#x2F;K8s）。
-
-
-开发与运维
-支持 Python、Java、C&#x2F;C++ 等语言，提供丰富的开发工具链（Git、CI&#x2F;CD）。
-
-
-嵌入式与物联网
-智能家电、路由器、工控设备（如 OpenWrt）。
-
-
-学术与科研
-科学计算（如 MATLAB 替代品 Octave）、大数据处理（Hadoop&#x2F;Spark）。
-
-
-
-Linux 目录结构详解
-Linux 采用层级式树形目录结构，整个文件系统以根目录 &#x2F; 为起点。以下为关键目录及其用途说明：
-
-
-
-目录
-作用
-典型内容示例
-
-
-
-&#x2F;
-根目录，所有目录的起点
--
-
-
-&#x2F;bin
-基础二进制命令（所有用户可用）
-ls, cp, mv, rm, cat 等常用命令
-
-
-&#x2F;sbin
-系统管理命令（通常需管理员权限）
-fdisk, ip, systemctl 等
-
-
-&#x2F;etc
-系统配置文件
-passwd, nginx.conf, apt&#x2F;sources.list
-
-
-&#x2F;home
-普通用户的家目录（每个用户拥有独立子目录）
-&#x2F;home&#x2F;alice, &#x2F;home&#x2F;bob
-
-
-&#x2F;root
-root 用户的家目录
-root 用户的配置文件和私有数据
-
-
-&#x2F;usr
-用户程序与资源（可共享的只读数据）
-&#x2F;usr&#x2F;bin（用户程序）、&#x2F;usr&#x2F;lib（库文件）
-
-
-&#x2F;var
-动态数据文件（日志、缓存、数据库等）
-&#x2F;var&#x2F;log（日志）、&#x2F;var&#x2F;cache（缓存）
-
-
-&#x2F;tmp
-临时文件（所有用户可读写，定期清理）
-运行时产生的临时文件
-
-
-&#x2F;dev
-设备文件（如磁盘、USB 等）
-&#x2F;dev&#x2F;sda（磁盘）、&#x2F;dev&#x2F;ttyUSB0（USB设备）
-
-
-&#x2F;proc
-内核与进程的虚拟文件系统（实时反映系统状态）
-&#x2F;proc&#x2F;cpuinfo（CPU信息）、&#x2F;proc&#x2F;meminfo
-
-
-&#x2F;boot
-系统启动文件
-内核、引导程序（如 GRUB）
-
-
-&#x2F;lib
-核心库文件（&#x2F;bin 和 &#x2F;sbin 依赖的库）
-.so 动态链接库文件
-
-
-&#x2F;mnt
-临时挂载点（手动挂载设备，如移动硬盘）
--
-
-
-&#x2F;media
-自动挂载点（系统自动挂载的设备，如U盘、光盘）
-&#x2F;media&#x2F;usb-disk
-
-
-&#x2F;opt
-第三方软件安装目录（可选应用，如 JetBrains IDE、WPS）
-&#x2F;opt&#x2F;wps
-
-
-&#x2F;run
-运行时数据（系统启动后生成的临时文件，如PID、套接字）
-&#x2F;run&#x2F;docker.sock（Docker套接字）
-
-
-&#x2F;srv
-服务数据（存放网站、FTP等服务的文件）
-&#x2F;srv&#x2F;ftp（FTP服务）
-
-
-&#x2F;sys
-系统硬件与内核参数配置（虚拟文件系统，用于管理设备、电源、模块等）
-设备驱动参数配置
-
-
-      graph LR
-  /[//：根目录/] --> /bin["/bin：基础命令"]
-  / --> /etc["/etc：配置文件"]
-  / --> /home["/home：用户目录"]
-  / --> /root["/root：管理员家目录"]
-  / --> /usr["/usr：用户程序"]
-  / --> /var["/var：动态数据"]
-  / --> /tmp["/tmp：临时文件"]
-  / --> /dev["/dev：设备文件"]
-  / --> /proc["/proc：内核与进程"]
-  / --> /boot["/boot：启动文件"]
-  /usr --> /usr/bin["bin：用户程序"]
-  /usr --> /usr/lib["lib：库文件"]
-  /usr --> /usr/local["local：本地安装软件"]
-  /var --> /var/log["log：系统日志"]
-  /var --> /var/cache["cache：缓存"]
-  /var --> /var/www["www：网站数据"]
-  /home --> user1["user1：用户1目录"]
-  /home --> user2["user2：用户2目录"]
-  /proc --> proc1["cpuinfoCPU：信息"]
-  /proc --> proc2["meminfo：内存信息"]
-  /proc --> proc3["pid：进程目录"]
-
-
-    
-  
-
-
-常见问题与操作示例
-如何查看磁盘空间？  df -h        # 查看磁盘分区使用情况  du -sh /var  # 统计 `/var` 目录的总大小  
-查找特定文件或配置文件  find /etc -name &quot;*.conf&quot;       # 在 `/etc` 下查找所有 `.conf` 文件  locate nginx.conf              # 快速定位文件（需先执行 `updatedb`）  
-挂载外部设备到 &#x2F;mnt  sudo mount /dev/sdb1 /mnt      # 挂载磁盘分区到 `/mnt`  sudo umount /mnt               # 卸载设备  
-
-
-
-Linux用户与组管理一、基础命令
-
-
-操作
-命令示例
-作用
-
-
-
-创建用户
-sudo useradd -m alice
-创建用户alice并生成家目录
-
-
-设置密码
-sudo passwd alice
-为alice设置登录密码
-
-
-创建组
-sudo groupadd developers
-新建组developers
-
-
-将用户加入组
-sudo usermod -aG developers alice
-将alice添加到developers组（附加组）
-
-
-修改用户主组
-sudo usermod -g developers bob
-将bob的主组改为developers
-
-
-删除用户
-sudo userdel -r alice
-删除alice及其家目录
-
-
-查看用户信息
-id alice
-显示用户UID、GID及所属组
-
-
-查看当前用户
-whoami
--
-
-
-查看当前用户组
-groups
--
-
-
-查看当前用户组
-groups
--
-
-
-查看所有用户
-cat &#x2F;etc&#x2F;passwd
--
-
-
-查看所有组
-cat &#x2F;etc&#x2F;group
--
-
-
-添加用户
-useradd 用户名
--
-
-
-修改用户信息
-usermod
--
-
-
-切换用户
-su - 用户名
-不加用户名表示切换root
-
-
-创建新用户组
-groupadd
--
-
-
-删除新用户组
-groupdel
--
-
-
-查看所有组
-cat &#x2F;etc&#x2F;group
--
-
-
-修改用户组信息
-groupmod
--
-
-
-二、配置文件解析
-
-
-文件路径
-关键字段说明
-
-
-
-&#x2F;etc&#x2F;passwd
-用户名:密码占位符(x):UID:GID:描述:家目录:默认Shell
-
-
-&#x2F;etc&#x2F;shadow
-用户名:加密密码:最近修改日:最小天数:最大天数:警告期:失效日:保留字段
-
-
-&#x2F;etc&#x2F;group
-组名:组密码占位符(x):GID:组成员列表
-
-
-三、Mermaid关系图graph TD
-  %% 定义用户和组节点（用双引号包裹避免解析问题）
-  root[("root用户 (UID 0)")] --> |"拥有sudo权限"| admin_group["admin组GID 1001"]
-  admin_group --> user1["用户1(alice)"]
-  admin_group --> user2["用户2(bob)"]
-
-  %% 普通用户与附加组关系
-  dev_group["dev组GID 1002"] --> user3["用户3(charlie)"]
-  user1 --> |"附加组"| dev_group
-
-  %% 主组连接样式
-  style user1 fill:#f9f,stroke:#333
-  linkStyle 2 stroke:#0f0,stroke-width:2px;
-
-Linux文件与目录管理一、核心操作命令
-
-
-操作
-命令示例
-作用
-
-
-
-查看目录内容
-ls -l &#x2F;home
-显示详细文件列表
-
-
-切换目录
-cd &#x2F;var&#x2F;log
-进入指定目录
-
-
-创建目录
-mkdir -p &#x2F;data&#x2F;project&#x2F;src
-递归创建多层目录
-
-
-删除目录&#x2F;文件
-rm -rf tmp&#x2F;
-强制递归删除
-
-
-复制文件&#x2F;目录
-cp -a &#x2F;backup&#x2F;config &#x2F;etc
-保留属性复制（包含隐藏文件）
-
-
-移动&#x2F;重命名
-mv old_name.txt new_name.txt
-文件&#x2F;目录重命名或移动
-
-
-查看文件内容
-cat -n server.conf
-显示文件内容并显示行号
-
-
-实时跟踪日志
-tail -f &#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log
-监控实时更新的日志文件
-
-
-二、权限与所有权管理1. 权限符号解释-rwxr-xr--    → 用户(u)、组(g)、其他人(o)\_/\_/\_/\   类型| | |    用户权限[rwx]      组权限[r-x]         其他权限[r--]  
-2. 关键操作命令# 修改权限（数字法）chmod 764 script.sh          # rwxrw-r--# 修改权限（符号法）chmod u+x,g-w,o=r file.txt   # 用户加执行，组删写，其他只读# 修改所有者sudo chown alice:developers /project/src   # 同时修改用户和组
-三、目录结构可视化graph LR
-  root["/ (根目录)"] --> bin["/bin核心命令"] & etc["/etc配置文件"]
-  root --> home["/home"] --> user1["alice"] & user2["bob"]
-  root --> var["/var"] --> log["/var/log系统日志"] & www["/var/www网站目录"]
-  etc --> network[/"network/网络配置"\]   
-  style user1 fill:#9f9,stroke-width:2px
-
-四、高级文件操作
-
-
-场景
-组合命令示例
-说明
-
-
-
-批量重命名
-rename &#39;s/.jpg/.png/&#39; *.jpg
-所有jpg文件改为png格式
-
-
-查找并删除旧文件
-find /tmp -name &quot;*.log&quot; -mtime +30 -delete
-删除30天前的临时日志
-
-
-目录同步
-rsync -avz ~/docs/ backup@server:/backup/
-增量同步到远程服务器
-
-
-文件差异比对
-diff -u file_v1.c file_v2.c
-生成可读的差异补丁
-
-
-
-五、软链接和硬链接
-
-
-类型
-创建命令
-关键特性
-
-
-
-软链接
-ln -s source link
-✔️ 跨文件系统✔️ 链接目录❌ 源文件删除后失效
-
-
-硬链接
-ln source link
-✔️ 同分区✔️ 同步更新❌ 不能链接目录
-
-
-
-六、压缩与解压
-
-
-格式
-压缩命令
-解压命令
-
-
-
-.tar.gz
-tar -czvf archive.tar.gz dir
-tar -xzvf archive.tar.gz
-
-
-.zip
-zip -r data.zip dir
-unzip data.zip
-
-
-.tar.xz
-tar -cJvf file.tar.xz dir
-tar -xJvf file.tar.xz
-
-
-
-七、常见问题排查
-权限被拒绝（Permission Denied）  # 检查权限和所有权ls -l /path/to/file  sudo chmod +x script.sh  # 添加执行权限sudo chown user:group file  # 修复所有权
-
-Linux文件权限一、权限基础1. 权限表示方式
-通过ls -l查看的文件权限格式：-rwxr-xr-- 1 user group 4096 Jan 1 12:34 file.txt↑_________│  |   └──── 其他用户权限（o）│  └──────── 组权限（g）└─────────── 用户权限（u）
-类型标识：
--：普通文件
-d：目录
-l：软链接
-
-2. 权限符号与数值对应关系
-
-
-权限
-符号
-数值
-
-
-
-读
-r
-4
-
-
-写
-w
-2
-
-
-执行
-x
-1
-
-
-
-示例：rwxr-xr-- = 7 (4+2+1) | 5 (4+0+1) | 4 (4+0+0) → 权限 754
-
-二、权限设置命令
-
-
-命令
-用法
-说明
-
-
-
-chmod（数字法）
-chmod 755 file.txt
-修改权限为rwxr-xr-x
-
-
-chmod（符号法）
-chmod u+x,g-w,o&#x3D;r file.txt
-用户添加执行，组移除写，其他设为只读
-
-
-chown
-sudo chown alice:developers file.txt
-修改所有者和组
-
-
-chgrp
-sudo chgrp www-data &#x2F;var&#x2F;www
-修改所属组
-
-
-递归设置
-chmod -R 755 &#x2F;path&#x2F;to&#x2F;dir
-递归修改目录及其内容
-
-
-三、关键权限规则1. 目录权限的特殊性
-x（执行）：允许进入目录或访问其内容（如cd或ls）。
-r（读）：仅允许列出目录内容（仍需x权限才能生效）。
-w（写）：允许在目录中创建&#x2F;删除文件（仍需x权限）。
-
-示例：# 允许浏览但不修改目录内容chmod 544 directory/    # r-xr--r--（x不可少）
-2. 特殊权限
-
-
-权限
-字符表示
-数值表示
-作用
-
-
-
-SUID
-s（用户位）
-4（如4755）
-用户执行文件时继承所有者权限（如&#x2F;usr&#x2F;bin&#x2F;passwd）。
-
-
-SGID
-s（组位）
-2（如2770）
-文件继承组权限；目录中新文件自动继承组所有权。
-
-
-Sticky Bit
-t（其他位）
-1（如1777）
-目录下的文件仅所有者可删除（如&#x2F;tmp）。
-
-
-设置示例：# 设置SUIDchmod u+s /usr/bin/script.shchmod 4755 /usr/bin/script.sh# 设置SGID（共享目录适用）chmod g+s /shared_dirchmod 2770 /shared_dir# 设置Sticky Bitchmod o+t /tmp/uploadchmod 1777 /tmp/upload
-
-四、默认权限与umask默认权限规则：- 文件：最大权限为 666（rw-rw-rw-）。
-- 目录：最大权限为 777（rwxrwxrwx）。
-
-umask值：
-定义创建文件&#x2F;目录时需“减去”的权限（如umask 022）：
-文件：666 - 022 &#x3D; 644 → rw-r–r–
-目录：777 - 022 &#x3D; 755 → rwxr-xr-x
-
-
-
-查看当前umask：umask      # 输出：0022
-
-五、文件权限Mermaid展示graph LR
-  %% 1. 权限整体结构
-  perms["权限分解: - rwx r-x r--"] --> type["类型位"]
-  perms --> user["用户权限(u)"]
-  perms --> group["组权限(g)"]
-  perms --> others["其他用户权限(o)"]
-
-  %% 2. 类型位详解
-  type --> f["\- → 普通文件"]
-  type --> d["d → 目录"]
-  type --> l["l → 软链接"]
-  
-  %% 3. 用户权限
-  user --> ur["读(r)"]
-  user --> uw["写(w)"]
-  user --> ux["执行(x)"]
-
-  %% 4. 组权限
-  group --> gr["读"]
-  group --> gw["\- → 无写权限"]
-  group --> gx["执行"]
-
-  %% 5. 其他权限
-  others --> o_r["读"]
-  others --> o_w["\- → 无写"]
-  others --> o_x["\- → 无执行"]
-
-  %% 6. 权限数字化转换
-  style perms fill:#f9f,stroke:#333
-  perms --> numeric["数值表示: rwx=7, r-x=5, r--=4 → 754"]
-  numeric --> bits["计算逻辑"] 
-  bits --> rbits["r=4(读)"]
-  bits --> wbits["w=2(写)"]
-  bits --> xbits["x=1(执行)"]
-
-  %% 7. 视觉修饰
-  classDef red fill:#fdd,stroke:#f00
-  classDef green fill:#cfc,stroke:#0f0
-  classDef purple fill:#f9f,stroke:#909
-  class urs,rbits green
-  class uw,gw,o_w,o_x red
-  class perms,purple purple
-
-Linux进程与软件管理及ShellMermaid 可视化+结构化 的 Linux 进程管理、软件管理及 Shell 知识框架graph LR
-  %% Linux 核心管理主题
-  Linux[Linux管理] --> Processes["进程管理"] 
-  Linux --> Packages["软件管理"] 
-  Linux --> Shell["Shell 基础"] 
-
-  %% ========== 进程管理 ========== 
-  Processes --> Status["进程状态"] 
-  Status --> Running("运行中Running")
-  Status --> Sleeping("睡眠中Sleeping (S)")
-  Status --> Zombie("僵尸进程Zombie (Z)")
-  Status --> Stopped("已停止Stopped (T)")
-
-  Processes --> Commands["命令工具"]
-  Commands --> ps["ps aux → 进程快照"]
-  Commands --> top["top → 动态监视"]
-  Commands --> kill["kill -9 PID → 强制终止"]
-
-  %% ========== 包管理 ========== 
-  Packages --> Managers["包管理器"]
-  Managers --> apt["APT (Debian/Ubuntu)"]
-  Managers --> yum["YUM/DNF (RHEL/CentOS)"]
-  Managers --> pacman["Pacman (Arch)"]
-
-  Packages --> Operations["常用操作"]
-  Operations --> Install["安装: apt install nano"]
-  Operations --> Remove["卸载: dnf remove httpd"]
-  Operations --> Update["更新系统: pacman -Syu"]
-
-  %% ========== Shell 基础 ========== 
-  Shell --> Env["环境变量"]
-  Env --> PATH["PATH → 命令搜索路径"]
-  Env --> Export["export VAR=value → 设置变量"]
-
-  Shell --> Scripts["脚本基础"]
-  Scripts --> Shebang["#!/bin/bash → 解释器指定"]
-  Scripts --> Condition["条件语句: if [ -f file ]"]
-  Scripts --> Loop["循环: for i in 1 2 3"]
-
-  %% 高亮关键点
-  classDef highlight fill:#FFE6B3,stroke:#FFA500
-  class Stop,Install,Scripts highlight
-
-核心概念分解1. 进程管理
-状态转换逻辑：graph LR
-A[新建进程] -->|调度执行| B(Running)
-B -->|等待资源| C(Sleeping)
-B -->|信号暂停| D(Stopped)
-C -->|资源就绪| B 
-D -->|继续运行| B 
-B -->|完成退出| E(Zombie)
-关键命令：# 后台运行进程nohup command &amp;# 按名称杀进程pkill -f &quot;process_name&quot;
-
-2. 软件管理
-包管理对比：
-
-
-
-
-操作
-APT (Debian)
-YUM (RHEL)
-Pacman (Arch)
-
-
-
-更新源
-apt update
-yum check-update
-pacman -Sy
-
-
-清理缓存
-apt clean
-yum clean all
-pacman -Scc
-
-
-3. Shell 编程
-脚本模板示例：#!/bin/bash# 带参数的脚本if [ &quot;$1&quot; == &quot;start&quot; ]; then  echo &quot;Starting service...&quot;else  echo &quot;Usage: $0 &#123;start|stop&#125;&quot;fi
-进程与资源监控：# 实时磁盘IOiotop# 内存占用排序ps aux --sort=-%mem | head
-
-Linux系统防火墙Mermaid 可视化 + 结构化 的 Linux 防火墙知识框架graph LR
-  %% Linux 防火墙核心工具
-  Firewall["Linux 防火墙"] --> Tools["工具与实现"]
-  Tools --> iptables("iptables (基础规则工具)")
-  Tools --> firewalld("firewalld (动态防火墙管理)")
-  Tools --> ufw("UFW (简单防火墙工具)")
-
-  %% ========== iptables ========== 
-  iptables --> Concepts["核心概念"]
-  Concepts --> Tables["四张表: raw > mangle > nat > filter"]
-  Concepts --> Chains["链: INPUT/OUTPUT/FORWARD"]
-  Concepts --> Rules["规则匹配顺序: 从上到下"]
-
-  iptables --> CommonRules["常用规则示例"]
-  CommonRules --> AllowSSH("-A INPUT -p tcp --dport 22 -j ACCEPT")
-  CommonRules --> DropAll("-P INPUT DROP ← 默认拒绝")
-  CommonRules --> LogPackets("-j LOG --log-prefix 'Blocked: '")
-
-  %% ========== firewalld ========== 
-  firewalld --> Zones["区域逻辑"]
-  Zones --> PredefZones["默认区域: public/home/dmz..."]
-  Zones --> DynamicAdjust["运行时动态调整规则"]
-
-  firewalld --> Commands["常用命令"]
-  Commands --> zoneAddPort("firewall-cmd --zone=public --add-port=80/tcp --permanent")
-  Commands --> reload("firewall-cmd --reload")
-
-  %% ========== UFW ========== 
-  ufw --> Simplicity["简单操作"]
-  Simplicity --> Enable("ufw enable/disable")
-  Simplicity --> AllowDeny("ufw allow 22/tcpufw deny 23")
-
-  %% ===== 通用流程 =====
-  Firewall --> Workflow["配置流程"]
-  Workflow --> DefinePolicy["1\. 定义默认策略 (允许/拒绝)"]
-  Workflow --> WhiteList["2\. 设置白名单规则"]
-  Workflow --> PersistRules["3\. 持久化规则 (iptables-save)"]
-  Workflow --> Monitor["4\. 监控日志 (/var/log/syslog)"]
-
-  %% 高亮关键能力
-  classDef red fill:#FFE5E5,stroke:#FF4444
-  class DropAll,AllowSSH,reload,Enable red
-
-核心功能详解1. iptables 四表五链
-流量控制流程图：graph LR
-Incoming[接收数据包] --> PREROUTING --> Routing{路由决策}
-Routing -->|目标为本机| INPUT --> App[应用程序]
-Routing -->|需要转发| FORWARD --> POSTROUTING --> Out[发出数据包]
-App --> OUTPUT --> POSTROUTING
-保存规则：iptables-save &gt; /etc/iptables/rules.v4  # Debian/Ubuntuservice iptables save                  # RHEL/CentOS 6
-
-2. firewalld 高级操作
-富规则 (Rich Rules) 示例：firewall-cmd --add-rich-rule=&#x27;  rule family=&quot;ipv4&quot; source address=&quot;192.168.1.0/24&quot; port port=&quot;3306&quot; protocol=&quot;tcp&quot; reject&#x27;
-与 Docker 的冲突解决：firewall-cmd --zone=trusted --add-interface=docker0 --permanent
-
-3. UFW 场景化配置
-限制IP访问：ufw allow from 192.168.1.100 to any port 22ufw deny from 203.0.113.0/24
-查看状态：ufw status numbered  # 显示带编号的规则
-
-实际应用案例案例1：Web服务器防火墙graph LR
-  用户请求 --> Firewall{防火墙规则}
-  Firewall -->|允许HTTP/HTTPS| Web服务器
-  Firewall -->|阻断其他流量| Drop[丢弃数据包]
-案例2：NAT端口转发# 将外网 8080 转发到内网 192.168.1.10:80iptables -t nat -A PREROUTING -p tcp --dport 8080 -j DNAT --to 192.168.1.10:80iptables -t nat -A POSTROUTING -j MASQUERADE
-
-学习路线建议
-
-
-阶段
-内容
-
-
-
-初级
-UFW基础命令、firewalld放行端口
-
-
-中级
-iptables四表五链深入、NAT配置
-
-
-高级
-结合Fail2ban防暴力破解、自定义防火墙脚本
-
-
-]]></content>
-      <categories>
-        <category>网络安全</category>
-        <category>基础入门</category>
-      </categories>
-      <tags>
-        <tag>网络安全-阶段一</tag>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows操作系统</title>
-    <url>/2025/04/05/wang-luo-an-quan/ji-chu-ru-men/windows-cao-zuo-xi-tong/</url>
-    <content><![CDATA[操作系统的介绍什么是操作系统操作系统（Operating System, OS）是计算机系统中最核心的软件，扮演着硬件管理者和用户服务提供者的双重角色。它为用户和应用程序提供统一的接口，同时管理计算机的硬件资源，如处理器、内存、存储设备和外设。以下是关键内容的清晰梳理：
-classDiagram
-    class 计算机系统 {
-        +硬件系统
-        +软件系统
-    }
-    计算机系统 ]]></content>
-      <categories>
-        <category>网络安全</category>
-        <category>基础入门</category>
-      </categories>
-      <tags>
-        <tag>Windows</tag>
-        <tag>网络安全-阶段一</tag>
       </tags>
   </entry>
   <entry>
@@ -1270,16 +1081,15 @@ www.example.com
 #section1（页面内跳转）
 
 
-5. DNS域名解析流程sequenceDiagram
-  User->>浏览器: 输入 example.com
-  浏览器->>本地DNS: 查询缓存
-  本地DNS->>根DNS: 请求.com NS记录
-  根DNS-->>本地DNS: 返回.com权威服务器IP
-  本地DNS->>权威DNS: 解析example.com A记录
-  权威DNS-->>本地DNS: 返回IP地址
-  本地DNS->>用户: 缓存并返回结果
-
-    
+5. DNS域名解析流程
+    sequenceDiagram
+  User-&gt;&gt;浏览器: 输入 example.com
+  浏览器-&gt;&gt;本地DNS: 查询缓存
+  本地DNS-&gt;&gt;根DNS: 请求.com NS记录
+  根DNS--&gt;&gt;本地DNS: 返回.com权威服务器IP
+  本地DNS-&gt;&gt;权威DNS: 解析example.com A记录
+  权威DNS--&gt;&gt;本地DNS: 返回IP地址
+  本地DNS-&gt;&gt;用户: 缓存并返回结果
   
 
 
@@ -2134,62 +1944,983 @@ Webpack
       </tags>
   </entry>
   <entry>
+    <title>Linux操作系统</title>
+    <url>/2025/04/05/wang-luo-an-quan/ji-chu-ru-men/linux-cao-zuo-xi-tong/</url>
+    <content><![CDATA[Linux操作系统介绍什么是 Linux？Linux 是一种开源的类 Unix 操作系统内核，由 Linus Torvalds 于 1991 年首次发布。 广义上的 Linux 通常指基于该内核的完整操作系统（如 Ubuntu、Fedora 等）， 结合了 GNU 项目 的软件工具，因此严格称为 GNU/Linux。
+Linux 的核心特性
+开源免费
+源码公开可修改，社区协作开发，遵循 GPL 协议。
+用户可自由分发、定制系统（无需支付版权费用）。
+
+
+多用户与多任务
+支持多个用户同时登录，可高效并行执行多个任务。
+
+
+高稳定性与安全性
+服务器可连续运行数年无需重启，漏洞修复快，权限管理严格。
+
+
+硬件兼容性广泛
+支持从嵌入式设备到超级计算机的多种硬件架构。
+
+
+强大的命令行工具
+通过终端（Terminal）可深度控制系统，支持脚本自动化。
+
+
+
+Linux 发行版（Distros）
+基于 Linux 内核的不同打包版本，满足不同场景需求：
+
+
+
+类型
+主流发行版
+特点
+
+
+
+通用桌面
+Ubuntu、Fedora、Linux Mint
+界面友好，适合日常办公及开发者使用
+
+
+企业服务器
+CentOS（Rocky Linux）、RHEL
+长期支持（LTS），安全稳定，适用于服务器运维
+
+
+轻量级
+Alpine、Lubuntu
+资源占用低，适合老旧硬件或容器环境
+
+
+专精领域
+Kali（安全渗透）、Raspbian（树莓派）
+预装领域专用工具，开箱即用
+
+
+
+
+Linux 的架构与核心组件
+内核（Kernel）
+
+管理硬件资源（CPU、内存、磁盘等），提供核心接口。
+支持模块化驱动，可动态加载或卸载。
+
+
+Shell
+
+用户与内核交互的接口（如 Bash、Zsh），支持脚本编程。
+
+
+文件系统
+
+采用层级目录结构（&#x2F; 为根目录），如 ext4、XFS、Btrfs。
+常见目录：
+/bin（基础命令）
+/etc（配置文件）
+/home（用户目录）
+
+
+
+
+包管理系统
+
+Debian 系（如 Ubuntu）：apt（apt install &#x2F; apt update）
+Red Hat 系（如 CentOS）：yum 或 dnf（yum install）
+Arch 系：pacman（pacman -S）
+
+
+
+基础命令速查
+
+
+
+类别
+命令
+说明
+
+
+
+文件管理
+ls、cp、mv、rm
+列出文件、复制、移动、删除
+
+
+目录操作
+cd、mkdir、pwd
+切换目录、创建目录、显示当前路径
+
+
+权限管理
+chmod、chown
+修改文件权限与所有者
+
+
+文本处理
+cat、grep、vim
+查看内容、文本搜索、编辑文件
+
+
+网络工具
+ping、curl、ssh
+测试连接、数据传输、远程登录
+
+
+进程管理
+ps、top、kill
+查看进程状态、结束进程
+
+
+
+
+应用场景
+服务器与云计算
+Web 服务（如 Nginx&#x2F;Apache）、数据库（MySQL）、容器化（Docker&#x2F;K8s）。
+
+
+开发与运维
+支持 Python、Java、C&#x2F;C++ 等语言，提供丰富的开发工具链（Git、CI&#x2F;CD）。
+
+
+嵌入式与物联网
+智能家电、路由器、工控设备（如 OpenWrt）。
+
+
+学术与科研
+科学计算（如 MATLAB 替代品 Octave）、大数据处理（Hadoop&#x2F;Spark）。
+
+
+
+Linux 目录结构详解
+Linux 采用层级式树形目录结构，整个文件系统以根目录 &#x2F; 为起点。以下为关键目录及其用途说明：
+
+
+
+目录
+作用
+典型内容示例
+
+
+
+&#x2F;
+根目录，所有目录的起点
+-
+
+
+&#x2F;bin
+基础二进制命令（所有用户可用）
+ls, cp, mv, rm, cat 等常用命令
+
+
+&#x2F;sbin
+系统管理命令（通常需管理员权限）
+fdisk, ip, systemctl 等
+
+
+&#x2F;etc
+系统配置文件
+passwd, nginx.conf, apt&#x2F;sources.list
+
+
+&#x2F;home
+普通用户的家目录（每个用户拥有独立子目录）
+&#x2F;home&#x2F;alice, &#x2F;home&#x2F;bob
+
+
+&#x2F;root
+root 用户的家目录
+root 用户的配置文件和私有数据
+
+
+&#x2F;usr
+用户程序与资源（可共享的只读数据）
+&#x2F;usr&#x2F;bin（用户程序）、&#x2F;usr&#x2F;lib（库文件）
+
+
+&#x2F;var
+动态数据文件（日志、缓存、数据库等）
+&#x2F;var&#x2F;log（日志）、&#x2F;var&#x2F;cache（缓存）
+
+
+&#x2F;tmp
+临时文件（所有用户可读写，定期清理）
+运行时产生的临时文件
+
+
+&#x2F;dev
+设备文件（如磁盘、USB 等）
+&#x2F;dev&#x2F;sda（磁盘）、&#x2F;dev&#x2F;ttyUSB0（USB设备）
+
+
+&#x2F;proc
+内核与进程的虚拟文件系统（实时反映系统状态）
+&#x2F;proc&#x2F;cpuinfo（CPU信息）、&#x2F;proc&#x2F;meminfo
+
+
+&#x2F;boot
+系统启动文件
+内核、引导程序（如 GRUB）
+
+
+&#x2F;lib
+核心库文件（&#x2F;bin 和 &#x2F;sbin 依赖的库）
+.so 动态链接库文件
+
+
+&#x2F;mnt
+临时挂载点（手动挂载设备，如移动硬盘）
+-
+
+
+&#x2F;media
+自动挂载点（系统自动挂载的设备，如U盘、光盘）
+&#x2F;media&#x2F;usb-disk
+
+
+&#x2F;opt
+第三方软件安装目录（可选应用，如 JetBrains IDE、WPS）
+&#x2F;opt&#x2F;wps
+
+
+&#x2F;run
+运行时数据（系统启动后生成的临时文件，如PID、套接字）
+&#x2F;run&#x2F;docker.sock（Docker套接字）
+
+
+&#x2F;srv
+服务数据（存放网站、FTP等服务的文件）
+&#x2F;srv&#x2F;ftp（FTP服务）
+
+
+&#x2F;sys
+系统硬件与内核参数配置（虚拟文件系统，用于管理设备、电源、模块等）
+设备驱动参数配置
+
+
+
+
+
+    graph LR
+&#x2F;[&#x2F;&#x2F;：根目录&#x2F;] --&gt; &#x2F;bin[&quot;&#x2F;bin：基础命令&quot;]
+&#x2F; --&gt; &#x2F;etc[&quot;&#x2F;etc：配置文件&quot;]
+&#x2F; --&gt; &#x2F;home[&quot;&#x2F;home：用户目录&quot;]
+&#x2F; --&gt; &#x2F;root[&quot;&#x2F;root：管理员家目录&quot;]
+&#x2F; --&gt; &#x2F;usr[&quot;&#x2F;usr：用户程序&quot;]
+&#x2F; --&gt; &#x2F;var[&quot;&#x2F;var：动态数据&quot;]
+&#x2F; --&gt; &#x2F;tmp[&quot;&#x2F;tmp：临时文件&quot;]
+&#x2F; --&gt; &#x2F;dev[&quot;&#x2F;dev：设备文件&quot;]
+&#x2F; --&gt; &#x2F;proc[&quot;&#x2F;proc：内核与进程&quot;]
+&#x2F; --&gt; &#x2F;boot[&quot;&#x2F;boot：启动文件&quot;]
+&#x2F;usr --&gt; &#x2F;usr&#x2F;bin[&quot;bin：用户程序&quot;]
+&#x2F;usr --&gt; &#x2F;usr&#x2F;lib[&quot;lib：库文件&quot;]
+&#x2F;usr --&gt; &#x2F;usr&#x2F;local[&quot;local：本地安装软件&quot;]
+&#x2F;var --&gt; &#x2F;var&#x2F;log[&quot;log：系统日志&quot;]
+&#x2F;var --&gt; &#x2F;var&#x2F;cache[&quot;cache：缓存&quot;]
+&#x2F;var --&gt; &#x2F;var&#x2F;www[&quot;www：网站数据&quot;]
+&#x2F;home --&gt; user1[&quot;user1：用户1目录&quot;]
+&#x2F;home --&gt; user2[&quot;user2：用户2目录&quot;]
+&#x2F;proc --&gt; proc1[&quot;cpuinfoCPU：信息&quot;]
+&#x2F;proc --&gt; proc2[&quot;meminfo：内存信息&quot;]
+&#x2F;proc --&gt; proc3[&quot;pid：进程目录&quot;]
+  
+
+
+常见问题与操作示例
+如何查看磁盘空间？  df -h        # 查看磁盘分区使用情况  du -sh /var  # 统计 `/var` 目录的总大小  
+查找特定文件或配置文件  find /etc -name &quot;*.conf&quot;       # 在 `/etc` 下查找所有 `.conf` 文件  locate nginx.conf              # 快速定位文件（需先执行 `updatedb`）  
+挂载外部设备到 &#x2F;mnt  sudo mount /dev/sdb1 /mnt      # 挂载磁盘分区到 `/mnt`  sudo umount /mnt               # 卸载设备  
+
+
+
+Linux用户与组管理一、基础命令
+
+
+操作
+命令示例
+作用
+
+
+
+创建用户
+sudo useradd -m alice
+创建用户alice并生成家目录
+
+
+设置密码
+sudo passwd alice
+为alice设置登录密码
+
+
+创建组
+sudo groupadd developers
+新建组developers
+
+
+将用户加入组
+sudo usermod -aG developers alice
+将alice添加到developers组（附加组）
+
+
+修改用户主组
+sudo usermod -g developers bob
+将bob的主组改为developers
+
+
+删除用户
+sudo userdel -r alice
+删除alice及其家目录
+
+
+查看用户信息
+id alice
+显示用户UID、GID及所属组
+
+
+查看当前用户
+whoami
+-
+
+
+查看当前用户组
+groups
+-
+
+
+查看当前用户组
+groups
+-
+
+
+查看所有用户
+cat &#x2F;etc&#x2F;passwd
+-
+
+
+查看所有组
+cat &#x2F;etc&#x2F;group
+-
+
+
+添加用户
+useradd 用户名
+-
+
+
+修改用户信息
+usermod
+-
+
+
+切换用户
+su - 用户名
+不加用户名表示切换root
+
+
+创建新用户组
+groupadd
+-
+
+
+删除新用户组
+groupdel
+-
+
+
+查看所有组
+cat &#x2F;etc&#x2F;group
+-
+
+
+修改用户组信息
+groupmod
+-
+
+
+二、配置文件解析
+
+
+文件路径
+关键字段说明
+
+
+
+&#x2F;etc&#x2F;passwd
+用户名:密码占位符(x):UID:GID:描述:家目录:默认Shell
+
+
+&#x2F;etc&#x2F;shadow
+用户名:加密密码:最近修改日:最小天数:最大天数:警告期:失效日:保留字段
+
+
+&#x2F;etc&#x2F;group
+组名:组密码占位符(x):GID:组成员列表
+
+
+三、Mermaid关系图
+    graph TD
+  %% 定义用户和组节点（用双引号包裹避免解析问题）
+  root[(&quot;root用户 (UID 0)&quot;)] --&gt; |&quot;拥有sudo权限&quot;| admin_group[&quot;admin组GID 1001&quot;]
+  admin_group --&gt; user1[&quot;用户1(alice)&quot;]
+  admin_group --&gt; user2[&quot;用户2(bob)&quot;]
+
+  %% 普通用户与附加组关系
+  dev_group[&quot;dev组GID 1002&quot;] --&gt; user3[&quot;用户3(charlie)&quot;]
+  user1 --&gt; |&quot;附加组&quot;| dev_group
+
+  %% 主组连接样式
+  style user1 fill:#f9f,stroke:#333
+  linkStyle 2 stroke:#0f0,stroke-width:2px;
+  
+
+Linux文件与目录管理一、核心操作命令
+
+
+操作
+命令示例
+作用
+
+
+
+查看目录内容
+ls -l &#x2F;home
+显示详细文件列表
+
+
+切换目录
+cd &#x2F;var&#x2F;log
+进入指定目录
+
+
+创建目录
+mkdir -p &#x2F;data&#x2F;project&#x2F;src
+递归创建多层目录
+
+
+删除目录&#x2F;文件
+rm -rf tmp&#x2F;
+强制递归删除
+
+
+复制文件&#x2F;目录
+cp -a &#x2F;backup&#x2F;config &#x2F;etc
+保留属性复制（包含隐藏文件）
+
+
+移动&#x2F;重命名
+mv old_name.txt new_name.txt
+文件&#x2F;目录重命名或移动
+
+
+查看文件内容
+cat -n server.conf
+显示文件内容并显示行号
+
+
+实时跟踪日志
+tail -f &#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log
+监控实时更新的日志文件
+
+
+二、权限与所有权管理1. 权限符号解释-rwxr-xr--    → 用户(u)、组(g)、其他人(o)\_/\_/\_/\   类型| | |    用户权限[rwx]      组权限[r-x]         其他权限[r--]  
+2. 关键操作命令# 修改权限（数字法）chmod 764 script.sh          # rwxrw-r--# 修改权限（符号法）chmod u+x,g-w,o=r file.txt   # 用户加执行，组删写，其他只读# 修改所有者sudo chown alice:developers /project/src   # 同时修改用户和组
+三、目录结构可视化
+    graph LR
+  root[&quot;&#x2F; (根目录)&quot;] --&gt; bin[&quot;&#x2F;bin核心命令&quot;] &amp; etc[&quot;&#x2F;etc配置文件&quot;]
+  root --&gt; home[&quot;&#x2F;home&quot;] --&gt; user1[&quot;alice&quot;] &amp; user2[&quot;bob&quot;]
+  root --&gt; var[&quot;&#x2F;var&quot;] --&gt; log[&quot;&#x2F;var&#x2F;log系统日志&quot;] &amp; www[&quot;&#x2F;var&#x2F;www网站目录&quot;]
+  etc --&gt; network[&#x2F;&quot;network&#x2F;网络配置&quot;\]   
+  style user1 fill:#9f9,stroke-width:2px
+  
+
+四、高级文件操作
+
+
+场景
+组合命令示例
+说明
+
+
+
+批量重命名
+rename &#39;s/.jpg/.png/&#39; *.jpg
+所有jpg文件改为png格式
+
+
+查找并删除旧文件
+find /tmp -name &quot;*.log&quot; -mtime +30 -delete
+删除30天前的临时日志
+
+
+目录同步
+rsync -avz ~/docs/ backup@server:/backup/
+增量同步到远程服务器
+
+
+文件差异比对
+diff -u file_v1.c file_v2.c
+生成可读的差异补丁
+
+
+
+五、软链接和硬链接
+
+
+类型
+创建命令
+关键特性
+
+
+
+软链接
+ln -s source link
+✔️ 跨文件系统✔️ 链接目录❌ 源文件删除后失效
+
+
+硬链接
+ln source link
+✔️ 同分区✔️ 同步更新❌ 不能链接目录
+
+
+
+六、压缩与解压
+
+
+格式
+压缩命令
+解压命令
+
+
+
+.tar.gz
+tar -czvf archive.tar.gz dir
+tar -xzvf archive.tar.gz
+
+
+.zip
+zip -r data.zip dir
+unzip data.zip
+
+
+.tar.xz
+tar -cJvf file.tar.xz dir
+tar -xJvf file.tar.xz
+
+
+
+七、常见问题排查
+权限被拒绝（Permission Denied）  # 检查权限和所有权ls -l /path/to/file  sudo chmod +x script.sh  # 添加执行权限sudo chown user:group file  # 修复所有权
+
+Linux文件权限一、权限基础1. 权限表示方式
+通过ls -l查看的文件权限格式：-rwxr-xr-- 1 user group 4096 Jan 1 12:34 file.txt↑_________│  |   └──── 其他用户权限（o）│  └──────── 组权限（g）└─────────── 用户权限（u）
+类型标识：
+-：普通文件
+d：目录
+l：软链接
+
+2. 权限符号与数值对应关系
+
+
+权限
+符号
+数值
+
+
+
+读
+r
+4
+
+
+写
+w
+2
+
+
+执行
+x
+1
+
+
+
+示例：rwxr-xr-- = 7 (4+2+1) | 5 (4+0+1) | 4 (4+0+0) → 权限 754
+
+二、权限设置命令
+
+
+命令
+用法
+说明
+
+
+
+chmod（数字法）
+chmod 755 file.txt
+修改权限为rwxr-xr-x
+
+
+chmod（符号法）
+chmod u+x,g-w,o&#x3D;r file.txt
+用户添加执行，组移除写，其他设为只读
+
+
+chown
+sudo chown alice:developers file.txt
+修改所有者和组
+
+
+chgrp
+sudo chgrp www-data &#x2F;var&#x2F;www
+修改所属组
+
+
+递归设置
+chmod -R 755 &#x2F;path&#x2F;to&#x2F;dir
+递归修改目录及其内容
+
+
+三、关键权限规则1. 目录权限的特殊性
+x（执行）：允许进入目录或访问其内容（如cd或ls）。
+r（读）：仅允许列出目录内容（仍需x权限才能生效）。
+w（写）：允许在目录中创建&#x2F;删除文件（仍需x权限）。
+
+示例：# 允许浏览但不修改目录内容chmod 544 directory/    # r-xr--r--（x不可少）
+2. 特殊权限
+
+
+权限
+字符表示
+数值表示
+作用
+
+
+
+SUID
+s（用户位）
+4（如4755）
+用户执行文件时继承所有者权限（如&#x2F;usr&#x2F;bin&#x2F;passwd）。
+
+
+SGID
+s（组位）
+2（如2770）
+文件继承组权限；目录中新文件自动继承组所有权。
+
+
+Sticky Bit
+t（其他位）
+1（如1777）
+目录下的文件仅所有者可删除（如&#x2F;tmp）。
+
+
+设置示例：# 设置SUIDchmod u+s /usr/bin/script.shchmod 4755 /usr/bin/script.sh# 设置SGID（共享目录适用）chmod g+s /shared_dirchmod 2770 /shared_dir# 设置Sticky Bitchmod o+t /tmp/uploadchmod 1777 /tmp/upload
+
+四、默认权限与umask默认权限规则：- 文件：最大权限为 666（rw-rw-rw-）。
+- 目录：最大权限为 777（rwxrwxrwx）。
+
+umask值：
+定义创建文件&#x2F;目录时需“减去”的权限（如umask 022）：
+文件：666 - 022 &#x3D; 644 → rw-r–r–
+目录：777 - 022 &#x3D; 755 → rwxr-xr-x
+
+
+
+查看当前umask：umask      # 输出：0022
+
+五、文件权限Mermaid展示
+    graph LR
+  %% 1. 权限整体结构
+  perms[&quot;权限分解: - rwx r-x r--&quot;] --&gt; type[&quot;类型位&quot;]
+  perms --&gt; user[&quot;用户权限(u)&quot;]
+  perms --&gt; group[&quot;组权限(g)&quot;]
+  perms --&gt; others[&quot;其他用户权限(o)&quot;]
+
+  %% 2. 类型位详解
+  type --&gt; f[&quot;\- → 普通文件&quot;]
+  type --&gt; d[&quot;d → 目录&quot;]
+  type --&gt; l[&quot;l → 软链接&quot;]
+  
+  %% 3. 用户权限
+  user --&gt; ur[&quot;读(r)&quot;]
+  user --&gt; uw[&quot;写(w)&quot;]
+  user --&gt; ux[&quot;执行(x)&quot;]
+
+  %% 4. 组权限
+  group --&gt; gr[&quot;读&quot;]
+  group --&gt; gw[&quot;\- → 无写权限&quot;]
+  group --&gt; gx[&quot;执行&quot;]
+
+  %% 5. 其他权限
+  others --&gt; o_r[&quot;读&quot;]
+  others --&gt; o_w[&quot;\- → 无写&quot;]
+  others --&gt; o_x[&quot;\- → 无执行&quot;]
+
+  %% 6. 权限数字化转换
+  style perms fill:#f9f,stroke:#333
+  perms --&gt; numeric[&quot;数值表示: rwx&#x3D;7, r-x&#x3D;5, r--&#x3D;4 → 754&quot;]
+  numeric --&gt; bits[&quot;计算逻辑&quot;] 
+  bits --&gt; rbits[&quot;r&#x3D;4(读)&quot;]
+  bits --&gt; wbits[&quot;w&#x3D;2(写)&quot;]
+  bits --&gt; xbits[&quot;x&#x3D;1(执行)&quot;]
+
+  %% 7. 视觉修饰
+  classDef red fill:#fdd,stroke:#f00
+  classDef green fill:#cfc,stroke:#0f0
+  classDef purple fill:#f9f,stroke:#909
+  class urs,rbits green
+  class uw,gw,o_w,o_x red
+  class perms,purple purple
+  
+
+Linux进程与软件管理及ShellMermaid 可视化+结构化 的 Linux 进程管理、软件管理及 Shell 知识框架
+    graph LR
+  %% Linux 核心管理主题
+  Linux[Linux管理] --&gt; Processes[&quot;进程管理&quot;] 
+  Linux --&gt; Packages[&quot;软件管理&quot;] 
+  Linux --&gt; Shell[&quot;Shell 基础&quot;] 
+
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 进程管理 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 
+  Processes --&gt; Status[&quot;进程状态&quot;] 
+  Status --&gt; Running(&quot;运行中&lt;br&gt;Running&quot;)
+  Status --&gt; Sleeping(&quot;睡眠中&lt;br&gt;Sleeping (S)&quot;)
+  Status --&gt; Zombie(&quot;僵尸进程&lt;br&gt;Zombie (Z)&quot;)
+  Status --&gt; Stopped(&quot;已停止&lt;br&gt;Stopped (T)&quot;)
+
+  Processes --&gt; Commands[&quot;命令工具&quot;]
+  Commands --&gt; ps[&quot;ps aux → 进程快照&quot;]
+  Commands --&gt; top[&quot;top → 动态监视&quot;]
+  Commands --&gt; kill[&quot;kill -9 PID → 强制终止&quot;]
+
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 包管理 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 
+  Packages --&gt; Managers[&quot;包管理器&quot;]
+  Managers --&gt; apt[&quot;APT (Debian&#x2F;Ubuntu)&quot;]
+  Managers --&gt; yum[&quot;YUM&#x2F;DNF (RHEL&#x2F;CentOS)&quot;]
+  Managers --&gt; pacman[&quot;Pacman (Arch)&quot;]
+
+  Packages --&gt; Operations[&quot;常用操作&quot;]
+  Operations --&gt; Install[&quot;安装: apt install nano&quot;]
+  Operations --&gt; Remove[&quot;卸载: dnf remove httpd&quot;]
+  Operations --&gt; Update[&quot;更新系统: pacman -Syu&quot;]
+
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Shell 基础 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 
+  Shell --&gt; Env[&quot;环境变量&quot;]
+  Env --&gt; PATH[&quot;PATH → 命令搜索路径&quot;]
+  Env --&gt; Export[&quot;export VAR&#x3D;value → 设置变量&quot;]
+
+  Shell --&gt; Scripts[&quot;脚本基础&quot;]
+  Scripts --&gt; Shebang[&quot;#!&#x2F;bin&#x2F;bash → 解释器指定&quot;]
+  Scripts --&gt; Condition[&quot;条件语句: if [ -f file ]&quot;]
+  Scripts --&gt; Loop[&quot;循环: for i in 1 2 3&quot;]
+
+  %% 高亮关键点
+  classDef highlight fill:#FFE6B3,stroke:#FFA500
+  class Stop,Install,Scripts highlight
+  
+
+核心概念分解1. 进程管理
+状态转换逻辑：
+
+    graph LR
+  A[新建进程] --&gt;|调度执行| B(Running)
+  B --&gt;|等待资源| C(Sleeping)
+  B --&gt;|信号暂停| D(Stopped)
+  C --&gt;|资源就绪| B 
+  D --&gt;|继续运行| B 
+  B --&gt;|完成退出| E(Zombie)
+  
+
+关键命令：
+# 后台运行进程nohup command &amp;# 按名称杀进程pkill -f &quot;process_name&quot;
+
+2. 软件管理
+包管理对比：
+
+
+
+
+操作
+APT (Debian)
+YUM (RHEL)
+Pacman (Arch)
+
+
+
+更新源
+apt update
+yum check-update
+pacman -Sy
+
+
+清理缓存
+apt clean
+yum clean all
+pacman -Scc
+
+
+3. Shell 编程
+脚本模板示例：#!/bin/bash# 带参数的脚本if [ &quot;$1&quot; == &quot;start&quot; ]; then  echo &quot;Starting service...&quot;else  echo &quot;Usage: $0 &#123;start|stop&#125;&quot;fi
+进程与资源监控：# 实时磁盘IOiotop# 内存占用排序ps aux --sort=-%mem | head
+
+Linux系统防火墙Mermaid 可视化 + 结构化 的 Linux 防火墙知识框架
+    graph LR
+  %% Linux 防火墙核心工具
+  Firewall[&quot;Linux 防火墙&quot;] --&gt; Tools[&quot;工具与实现&quot;]
+  Tools --&gt; iptables(&quot;iptables (基础规则工具)&quot;)
+  Tools --&gt; firewalld(&quot;firewalld (动态防火墙管理)&quot;)
+  Tools --&gt; ufw(&quot;UFW (简单防火墙工具)&quot;)
+
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; iptables &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 
+  iptables --&gt; Concepts[&quot;核心概念&quot;]
+  Concepts --&gt; Tables[&quot;四张表: raw &gt; mangle &gt; nat &gt; filter&quot;]
+  Concepts --&gt; Chains[&quot;链: INPUT&#x2F;OUTPUT&#x2F;FORWARD&quot;]
+  Concepts --&gt; Rules[&quot;规则匹配顺序: 从上到下&quot;]
+
+  iptables --&gt; CommonRules[&quot;常用规则示例&quot;]
+  CommonRules --&gt; AllowSSH(&quot;-A INPUT -p tcp --dport 22 -j ACCEPT&quot;)
+  CommonRules --&gt; DropAll(&quot;-P INPUT DROP ← 默认拒绝&quot;)
+  CommonRules --&gt; LogPackets(&quot;-j LOG --log-prefix &#39;Blocked: &#39;&quot;)
+
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; firewalld &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 
+  firewalld --&gt; Zones[&quot;区域逻辑&quot;]
+  Zones --&gt; PredefZones[&quot;默认区域: public&#x2F;home&#x2F;dmz...&quot;]
+  Zones --&gt; DynamicAdjust[&quot;运行时动态调整规则&quot;]
+
+  firewalld --&gt; Commands[&quot;常用命令&quot;]
+  Commands --&gt; zoneAddPort(&quot;firewall-cmd --zone&#x3D;public --add-port&#x3D;80&#x2F;tcp --permanent&quot;)
+  Commands --&gt; reload(&quot;firewall-cmd --reload&quot;)
+
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; UFW &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 
+  ufw --&gt; Simplicity[&quot;简单操作&quot;]
+  Simplicity --&gt; Enable(&quot;ufw enable&#x2F;disable&quot;)
+  Simplicity --&gt; AllowDeny(&quot;ufw allow 22&#x2F;tcp&lt;br&gt;ufw deny 23&quot;)
+
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 通用流程 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  Firewall --&gt; Workflow[&quot;配置流程&quot;]
+  Workflow --&gt; DefinePolicy[&quot;1\. 定义默认策略 (允许&#x2F;拒绝)&quot;]
+  Workflow --&gt; WhiteList[&quot;2\. 设置白名单规则&quot;]
+  Workflow --&gt; PersistRules[&quot;3\. 持久化规则 (iptables-save)&quot;]
+  Workflow --&gt; Monitor[&quot;4\. 监控日志 (&#x2F;var&#x2F;log&#x2F;syslog)&quot;]
+
+  %% 高亮关键能力
+  classDef red fill:#FFE5E5,stroke:#FF4444
+  class DropAll,AllowSSH,reload,Enable red
+  
+
+核心功能详解1. iptables 四表五链
+流量控制流程图：
+    graph LR
+  Incoming[接收数据包] --&gt; PREROUTING --&gt; Routing{路由决策}
+  Routing --&gt;|目标为本机| INPUT --&gt; App[应用程序]
+  Routing --&gt;|需要转发| FORWARD --&gt; POSTROUTING --&gt; Out[发出数据包]
+  App --&gt; OUTPUT --&gt; POSTROUTING
+  
+保存规则：iptables-save &gt; /etc/iptables/rules.v4  # Debian/Ubuntuservice iptables save                  # RHEL/CentOS 6
+
+2. firewalld 高级操作
+富规则 (Rich Rules) 示例：firewall-cmd --add-rich-rule=&#x27;  rule family=&quot;ipv4&quot; source address=&quot;192.168.1.0/24&quot; port port=&quot;3306&quot; protocol=&quot;tcp&quot; reject&#x27;
+与 Docker 的冲突解决：firewall-cmd --zone=trusted --add-interface=docker0 --permanent
+
+3. UFW 场景化配置
+限制IP访问：ufw allow from 192.168.1.100 to any port 22ufw deny from 203.0.113.0/24
+查看状态：ufw status numbered  # 显示带编号的规则
+
+实际应用案例案例1：Web服务器防火墙
+    graph LR
+  用户请求 --&gt; Firewall{防火墙规则}
+  Firewall --&gt;|允许HTTP&#x2F;HTTPS| Web服务器
+  Firewall --&gt;|阻断其他流量| Drop[丢弃数据包]
+  
+
+案例2：NAT端口转发# 将外网 8080 转发到内网 192.168.1.10:80iptables -t nat -A PREROUTING -p tcp --dport 8080 -j DNAT --to 192.168.1.10:80iptables -t nat -A POSTROUTING -j MASQUERADE
+
+学习路线建议
+
+
+阶段
+内容
+
+
+
+初级
+UFW基础命令、firewalld放行端口
+
+
+中级
+iptables四表五链深入、NAT配置
+
+
+高级
+结合Fail2ban防暴力破解、自定义防火墙脚本
+
+
+]]></content>
+      <categories>
+        <category>网络安全</category>
+        <category>基础入门</category>
+      </categories>
+      <tags>
+        <tag>网络安全-阶段一</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>计算机网络</title>
     <url>/2025/04/05/wang-luo-an-quan/ji-chu-ru-men/ji-suan-ji-wang-luo/</url>
-    <content><![CDATA[计算机网络概述Mermaid 可视化 + 结构化 的计算机网络核心知识框架graph LR
+    <content><![CDATA[计算机网络概述Mermaid 可视化 + 结构化 的计算机网络核心知识框架
+    graph LR
   %% 计算机网络核心结构
-  Network[计算机网络] --> Architecture["分层架构"]
-  Network --> Protocols["核心协议"]
-  Network --> Devices["网络设备"]
-  Network --> Security["网络安全"]
+  Network[计算机网络] --&gt; Architecture[&quot;分层架构&quot;]
+  Network --&gt; Protocols[&quot;核心协议&quot;]
+  Network --&gt; Devices[&quot;网络设备&quot;]
+  Network --&gt; Security[&quot;网络安全&quot;]
 
-  %% ========== 分层架构 ========== 
-  Architecture --> OSI7["OSI七层模型"]
-  OSI7 --> PhysicalLayer["物理层（比特流传输）"]
-  OSI7 --> DataLinkLayer["数据链路层（MAC/帧）"]
-  OSI7 --> NetworkLayer["网络层（IP/路由）"]
-  OSI7 --> TransportLayer["传输层（TCP/UDP）"]
-  OSI7 --> SessionLayer["会话层"]
-  OSI7 --> PresentationLayer["表示层"]
-  OSI7 --> ApplicationLayer["应用层（HTTP/DNS）"]
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 分层架构 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 
+  Architecture --&gt; OSI7[&quot;OSI七层模型&quot;]
+  OSI7 --&gt; PhysicalLayer[&quot;物理层&lt;br&gt;（比特流传输）&quot;]
+  OSI7 --&gt; DataLinkLayer[&quot;数据链路层&lt;br&gt;（MAC&#x2F;帧）&quot;]
+  OSI7 --&gt; NetworkLayer[&quot;网络层&lt;br&gt;（IP&#x2F;路由）&quot;]
+  OSI7 --&gt; TransportLayer[&quot;传输层&lt;br&gt;（TCP&#x2F;UDP）&quot;]
+  OSI7 --&gt; SessionLayer[&quot;会话层&quot;]
+  OSI7 --&gt; PresentationLayer[&quot;表示层&quot;]
+  OSI7 --&gt; ApplicationLayer[&quot;应用层&lt;br&gt;（HTTP&#x2F;DNS）&quot;]
 
-  Architecture --> TCPIP["TCP/IP四层模型"]
-  TCPIP --> Link["网络接口层"]
-  TCPIP --> Internet["网络层"] 
-  TCPIP --> Transport["传输层"] 
-  TCPIP --> App["应用层"]
+  Architecture --&gt; TCPIP[&quot;TCP&#x2F;IP四层模型&quot;]
+  TCPIP --&gt; Link[&quot;网络接口层&quot;]
+  TCPIP --&gt; Internet[&quot;网络层&quot;] 
+  TCPIP --&gt; Transport[&quot;传输层&quot;] 
+  TCPIP --&gt; App[&quot;应用层&quot;]
 
-  %% ========== 核心协议 ========== 
-  Protocols --> TCP["TCP（可靠传输/三次握手）"]
-  Protocols --> UDP["UDP（无连接/高效）"]
-  Protocols --> IP["IPv4/IPv6（地址/包结构）"]
-  Protocols --> HTTP["HTTP/HTTPS（请求响应模型）"]
-  Protocols --> DNS["DNS（域名解析）"]
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 核心协议 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 
+  Protocols --&gt; TCP[&quot;TCP&lt;br&gt;（可靠传输&#x2F;三次握手）&quot;]
+  Protocols --&gt; UDP[&quot;UDP&lt;br&gt;（无连接&#x2F;高效）&quot;]
+  Protocols --&gt; IP[&quot;IPv4&#x2F;IPv6&lt;br&gt;（地址&#x2F;包结构）&quot;]
+  Protocols --&gt; HTTP[&quot;HTTP&#x2F;HTTPS&lt;br&gt;（请求响应模型）&quot;]
+  Protocols --&gt; DNS[&quot;DNS&lt;br&gt;（域名解析）&quot;]
 
-  %% ========== 网络设备 ========== 
-  Devices --> Switch["交换机（二层转发/MAC表）"]
-  Devices --> Router["路由器（三层路由/IP表）"]
-  Devices --> Firewall["防火墙（ACL/状态检测）"]
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 网络设备 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 
+  Devices --&gt; Switch[&quot;交换机&lt;br&gt;（二层转发&#x2F;MAC表）&quot;]
+  Devices --&gt; Router[&quot;路由器&lt;br&gt;（三层路由&#x2F;IP表）&quot;]
+  Devices --&gt; Firewall[&quot;防火墙&lt;br&gt;（ACL&#x2F;状态检测）&quot;]
   
-  %% ========== 网络安全 ==========
-  Security --> Cryptography["加密技术（SSL/TLS/非对称加密）"]
-  Security --> VPN["VPN隧道（IPSec/OpenVPN）"]
-  Security --> Attack["网络攻击与防御（DDoS/中间人攻击/防火墙规则）"]
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 网络安全 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  Security --&gt; Cryptography[&quot;加密技术&lt;br&gt;（SSL&#x2F;TLS&#x2F;非对称加密）&quot;]
+  Security --&gt; VPN[&quot;VPN隧道&lt;br&gt;（IPSec&#x2F;OpenVPN）&quot;]
+  Security --&gt; Attack[&quot;网络攻击与防御&lt;br&gt;（DDoS&#x2F;中间人攻击&#x2F;防火墙规则）&quot;]
 
-  %% ===== 关联逻辑 =====
-  subgraph "数据流示例"
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 关联逻辑 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  subgraph &quot;数据流示例&quot;
     direction LR
-    WebClient["客户端HTTP请求"] --> TCP["封装TCP头部"] 
-    TCP --> IP["封装IP头部"] 
-    IP --> MAC["封装MAC地址"]
-    MAC --> Router["通过路由器转发"]
+    WebClient[&quot;客户端HTTP请求&quot;] --&gt; TCP[&quot;封装TCP头部&quot;] 
+    TCP --&gt; IP[&quot;封装IP头部&quot;] 
+    IP --&gt; MAC[&quot;封装MAC地址&quot;]
+    MAC --&gt; Router[&quot;通过路由器转发&quot;]
   end
 
   %% 高亮关键协议
   classDef highlight fill:#E6F3FF,stroke:#0066CC
   class TCP,UDP,HTTP,DNS highlight
-
-    
   
 
 核心概念分解1. 协议分层对比
@@ -2221,13 +2952,18 @@ IP, ICMP, ARP
 Ethernet, Wi-Fi, MAC地址
 
 
-2. TCP三次握手sequenceDiagram
-  客户端->>服务端: SYN (seq=100)
-  服务端->>客户端: SYN-ACK (seq=300, ack=101)
-  客户端->>服务端: ACK (seq=101, ack=301)
-3. IP地址与子网划分graph LR
-  IP地址["192.168.1.0/24"] --> 子网A["子网A: 192.168.1.0/25 (1-126)"]
-  IP地址 --> 子网B["子网B: 192.168.1.128/26 (129-190)"]
+2. TCP三次握手
+    sequenceDiagram
+  客户端-&gt;&gt;服务端: SYN (seq&#x3D;100)
+  服务端-&gt;&gt;客户端: SYN-ACK (seq&#x3D;300, ack&#x3D;101)
+  客户端-&gt;&gt;服务端: ACK (seq&#x3D;101, ack&#x3D;301)
+  
+3. IP地址与子网划分
+    graph LR
+  IP地址[&quot;192.168.1.0&#x2F;24&quot;] --&gt; 子网A[&quot;子网A: 192.168.1.0&#x2F;25 (1-126)&quot;]
+  IP地址 --&gt; 子网B[&quot;子网B: 192.168.1.128&#x2F;26 (129-190)&quot;]
+  
+
 
 CIDR计算工具：ipcalc 192.168.1.0/26
 
@@ -2255,11 +2991,14 @@ SSL&#x2F;TLS 加密
 略高（握手延时&#x2F;加密开销）
 
 
-2. DNS解析流程graph LR
-  浏览器 --> LocalDNS["本地DNS服务器"]
-  LocalDNS --> RootDNS["根域名服务器"]
-  RootDNS --> TLD["顶级域名服务器（.com）"]
-  TLD --> Authoritative["权威域名服务器（example.com）"]
+2. DNS解析流程
+    graph LR
+  浏览器 --&gt; LocalDNS[&quot;本地DNS服务器&quot;]
+  LocalDNS --&gt; RootDNS[&quot;根域名服务器&quot;]
+  RootDNS --&gt; TLD[&quot;顶级域名服务器（.com）&quot;]
+  TLD --&gt; Authoritative[&quot;权威域名服务器&lt;br&gt;（example.com）&quot;]
+  
+
 网络设备功能对比
 
 
@@ -2284,54 +3023,56 @@ MAC地址学习&#x2F;精确转发
 IP路由选择&#x2F;跨网络通信
 
 
-OSI模型Mermaid 可视化 + 结构化 的 OSI七层模型 详解graph LR
+OSI模型Mermaid 可视化 + 结构化 的 OSI七层模型 详解
+    graph LR
   %% OSI七层模型结构
-  OSI7["OSI七层模型"] --> L1["1\. 物理层（Physical Layer）"]
-  OSI7 --> L2["2\. 数据链路层（Data Link Layer）"]
-  OSI7 --> L3["3\. 网络层（Network Layer）"]
-  OSI7 --> L4["4\. 传输层（Transport Layer）"]
-  OSI7 --> L5["5\. 会话层（Session Layer）"]
-  OSI7 --> L6["6\. 表示层（Presentation Layer）"]
-  OSI7 --> L7["7\. 应用层（Application Layer）"]
+  OSI7[&quot;OSI七层模型&quot;] --&gt; L1[&quot;1\. 物理层&lt;br&gt;（Physical Layer）&quot;]
+  OSI7 --&gt; L2[&quot;2\. 数据链路层&lt;br&gt;（Data Link Layer）&quot;]
+  OSI7 --&gt; L3[&quot;3\. 网络层&lt;br&gt;（Network Layer）&quot;]
+  OSI7 --&gt; L4[&quot;4\. 传输层&lt;br&gt;（Transport Layer）&quot;]
+  OSI7 --&gt; L5[&quot;5\. 会话层&lt;br&gt;（Session Layer）&quot;]
+  OSI7 --&gt; L6[&quot;6\. 表示层&lt;br&gt;（Presentation Layer）&quot;]
+  OSI7 --&gt; L7[&quot;7\. 应用层&lt;br&gt;（Application Layer）&quot;]
 
-  %% ======== 各层核心功能与协议 ========
-  L1 -->|功能| L1_Func["比特流传输物理介质（电缆/光纤/无线电）"]
-  L1 -->|协议| L1_Proto["RS-232, 802.3（以太网物理层）"]
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 各层核心功能与协议 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  L1 --&gt;|功能| L1_Func[&quot;比特流传输&lt;br&gt;物理介质（电缆&#x2F;光纤&#x2F;无线电）&quot;]
+  L1 --&gt;|协议| L1_Proto[&quot;RS-232, 802.3（以太网物理层）&quot;]
 
-  L2 -->|功能| L2_Func["帧传输MAC地址寻址错误检测（CRC）"]
-  L2 -->|协议| L2_Proto["以太网（802.3）Wi-Fi（802.11）PPP"]
+  L2 --&gt;|功能| L2_Func[&quot;帧传输&lt;br&gt;MAC地址寻址&lt;br&gt;错误检测（CRC）&quot;]
+  L2 --&gt;|协议| L2_Proto[&quot;以太网（802.3）&lt;br&gt;Wi-Fi（802.11）&lt;br&gt;PPP&quot;]
 
-  L3 -->|功能| L3_Func["逻辑寻址（IP地址）路由选择IP分段"]
-  L3 -->|协议| L3_Proto["IPv4/IPv6ICMP（ping）ARP"]
+  L3 --&gt;|功能| L3_Func[&quot;逻辑寻址（IP地址）&lt;br&gt;路由选择&lt;br&gt;IP分段&quot;]
+  L3 --&gt;|协议| L3_Proto[&quot;IPv4&#x2F;IPv6&lt;br&gt;ICMP（ping）&lt;br&gt;ARP&quot;]
 
-  L4 -->|功能| L4_Func["端到端连接控制流量控制/拥塞控制"]
-  L4 -->|协议| L4_Proto["TCP（可靠）UDP（快速）"]
+  L4 --&gt;|功能| L4_Func[&quot;端到端连接控制&lt;br&gt;流量控制&#x2F;拥塞控制&quot;]
+  L4 --&gt;|协议| L4_Proto[&quot;TCP（可靠）&lt;br&gt;UDP（快速）&quot;]
 
-  L5 -->|功能| L5_Func["建立/管理/终止会话会话同步"]
-  L5 -->|协议| L5_Proto["NetBIOSRPCSQL*Net"]
+  L5 --&gt;|功能| L5_Func[&quot;建立&#x2F;管理&#x2F;终止会话&lt;br&gt;会话同步&quot;]
+  L5 --&gt;|协议| L5_Proto[&quot;NetBIOS&lt;br&gt;RPC&lt;br&gt;SQL*Net&quot;]
 
-  L6 -->|功能| L6_Func["数据格式转换加密/解密压缩"]
-  L6 -->|协议| L6_Proto["SSL/TLS（加密）JPEG, ASCII"]
+  L6 --&gt;|功能| L6_Func[&quot;数据格式转换&lt;br&gt;加密&#x2F;解密&lt;br&gt;压缩&quot;]
+  L6 --&gt;|协议| L6_Proto[&quot;SSL&#x2F;TLS（加密）&lt;br&gt;JPEG, ASCII&quot;]
 
-  L7 -->|功能| L7_Func["用户接口应用服务访问"]
-  L7 -->|协议| L7_Proto["HTTP/HTTPSFTPDNSSMTP"]
+  L7 --&gt;|功能| L7_Func[&quot;用户接口&lt;br&gt;应用服务访问&quot;]
+  L7 --&gt;|协议| L7_Proto[&quot;HTTP&#x2F;HTTPS&lt;br&gt;FTP&lt;br&gt;DNS&lt;br&gt;SMTP&quot;]
 
 
-  %% ======== 数据封装流程 ========
-  subgraph "数据封装和解封装（示例：HTTP请求）"
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 数据封装流程 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  subgraph &quot;数据封装和解封装（示例：HTTP请求）&quot;
     direction TB
-    User[用户输入URL] --> L7_HTTP["应用层：生成HTTP请求"]
-    L7_HTTP --> L6_ENC["表示层：加密（HTTPS）"]
-    L6_ENC --> L5_SESSION["会话层：建立TCP会话"]
-    L5_SESSION --> L4_TCP["传输层：添加TCP头部（端口号）"]
-    L4_TCP --> L3_IP["网络层：添加IP头部（源/目标IP）"]
-    L3_IP --> L2_ETH["数据链路层：添加MAC头部（源/目标MAC）"]
-    L2_ETH --> L1_BITS["物理层：转换为比特流传输"]
+    User[用户输入URL] --&gt; L7_HTTP[&quot;应用层：生成HTTP请求&quot;]
+    L7_HTTP --&gt; L6_ENC[&quot;表示层：加密（HTTPS）&quot;]
+    L6_ENC --&gt; L5_SESSION[&quot;会话层：建立TCP会话&quot;]
+    L5_SESSION --&gt; L4_TCP[&quot;传输层：添加TCP头部（端口号）&quot;]
+    L4_TCP --&gt; L3_IP[&quot;网络层：添加IP头部（源&#x2F;目标IP）&quot;]
+    L3_IP --&gt; L2_ETH[&quot;数据链路层：添加MAC头部（源&#x2F;目标MAC）&quot;]
+    L2_ETH --&gt; L1_BITS[&quot;物理层：转换为比特流传输&quot;]
   end
 
   %% 高亮关键技术层
   classDef green fill:#E8FFE8,stroke:#009900
   class L3,L4,L7 green
+  
 
 各层核心功能对比例表
 
@@ -2427,47 +3168,52 @@ Wireshark过滤http.request
 传输层&#x2F;网络层 对应OSI同名层
 网络接口层 ≈ OSI 1-2层
 
-常见层次模型中的协议及设备TCP&#x2F;IP体系结构Mermaid 可视化 + 结构化 的 TCP&#x2F;IP体系结构 详解graph LR
-  %% ======== 数据流示例（发送HTTP请求） ========
-  subgraph "数据封装流程示例"
+常见层次模型中的协议及设备TCP&#x2F;IP体系结构Mermaid 可视化 + 结构化 的 TCP&#x2F;IP体系结构 详解
+    graph LR
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 数据流示例（发送HTTP请求） &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  subgraph &quot;数据封装流程示例&quot;
     direction LR
-    User["用户输入URL"] --> HTTP["应用层: HTTP请求"] 
-    --> TCP["传输层: 添加TCP头（端口号:80）"] 
-    --> IP["网络层: 添加IP头（目标IP: 8.8.8.8）"] 
-    --> Ethernet["网络接口层: 添加MAC头（目标MAC:路由器）"]
-    --> Bits["物理传输（比特流）"]
+    User[&quot;用户输入URL&quot;] --&gt; HTTP[&quot;应用层: HTTP请求&quot;] 
+    --&gt; TCP[&quot;传输层: 添加TCP头（端口号:80）&quot;] 
+    --&gt; IP[&quot;网络层: 添加IP头（目标IP: 8.8.8.8）&quot;] 
+    --&gt; Ethernet[&quot;网络接口层: 添加MAC头（目标MAC:路由器）&quot;]
+    --&gt; Bits[&quot;物理传输（比特流）&quot;]
   end
-graph LR
-  %% TCP/IP四层模型结构
-  TCPIP["TCP/IP四层模型"] --> LinkLayer["网络接口层"]
-  TCPIP --> InternetLayer["网络层（Internet Layer）"]
-  TCPIP --> TransportLayer["传输层（Transport Layer）"]
-  TCPIP --> ApplicationLayer["应用层（Application Layer）"]
+  
 
-  %% ========== 各层核心协议与功能 ==========
-  LinkLayer -->|功能| LinkFunc["物理介质传输MAC地址寻址"]
-  LinkLayer -->|协议| LinkProto["以太网（Ethernet）Wi-Fi（802.11）PPP"]
 
-  InternetLayer -->|功能| InternetFunc["IP地址路由数据包分片与重组"]
-  InternetLayer -->|协议| InternetProto["IPv4/IPv6ICMP（网络控制）ARP（地址解析）"]
+    graph LR
+  %% TCP&#x2F;IP四层模型结构
+  TCPIP[&quot;TCP&#x2F;IP四层模型&quot;] --&gt; LinkLayer[&quot;网络接口层&quot;]
+  TCPIP --&gt; InternetLayer[&quot;网络层（Internet Layer）&quot;]
+  TCPIP --&gt; TransportLayer[&quot;传输层（Transport Layer）&quot;]
+  TCPIP --&gt; ApplicationLayer[&quot;应用层（Application Layer）&quot;]
 
-  TransportLayer -->|功能| TransportFunc["端到端可靠传输端口号标识服务"]
-  TransportLayer -->|协议| TransportProto["TCP（连接/可靠）UDP（无连接/高效）"]
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 各层核心协议与功能 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  LinkLayer --&gt;|功能| LinkFunc[&quot;物理介质传输&lt;br&gt;MAC地址寻址&quot;]
+  LinkLayer --&gt;|协议| LinkProto[&quot;以太网（Ethernet）&lt;br&gt;Wi-Fi（802.11）&lt;br&gt;PPP&quot;]
 
-  ApplicationLayer -->|功能| AppFunc["用户应用服务支持"]
-  ApplicationLayer -->|协议| AppProto["HTTP/HTTPSDNSSMTP/IMAPSSH/FTP"]
+  InternetLayer --&gt;|功能| InternetFunc[&quot;IP地址路由&lt;br&gt;数据包分片与重组&quot;]
+  InternetLayer --&gt;|协议| InternetProto[&quot;IPv4&#x2F;IPv6&lt;br&gt;ICMP（网络控制）&lt;br&gt;ARP（地址解析）&quot;]
 
-  %% ======= TCP/IP与OSI模型对应关系 ======= 
-  subgraph "TCP/IP vs OSI模型"
-    TCPIP -->|应用层≈| OSI5_7["OSI应用层/表示层/会话层"]
-    TCPIP -->|传输层≈| OSI4["OSI传输层"]
-    TCPIP -->|网络层≈| OSI3["OSI网络层"]
-    TCPIP -->|网络接口层≈| OSI1_2["OSI物理层/数据链路层"]
+  TransportLayer --&gt;|功能| TransportFunc[&quot;端到端可靠传输&lt;br&gt;端口号标识服务&quot;]
+  TransportLayer --&gt;|协议| TransportProto[&quot;TCP（连接&#x2F;可靠）&lt;br&gt;UDP（无连接&#x2F;高效）&quot;]
+
+  ApplicationLayer --&gt;|功能| AppFunc[&quot;用户应用服务支持&quot;]
+  ApplicationLayer --&gt;|协议| AppProto[&quot;HTTP&#x2F;HTTPS&lt;br&gt;DNS&lt;br&gt;SMTP&#x2F;IMAP&lt;br&gt;SSH&#x2F;FTP&quot;]
+
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; TCP&#x2F;IP与OSI模型对应关系 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 
+  subgraph &quot;TCP&#x2F;IP vs OSI模型&quot;
+    TCPIP --&gt;|应用层≈| OSI5_7[&quot;OSI应用层&#x2F;表示层&#x2F;会话层&quot;]
+    TCPIP --&gt;|传输层≈| OSI4[&quot;OSI传输层&quot;]
+    TCPIP --&gt;|网络层≈| OSI3[&quot;OSI网络层&quot;]
+    TCPIP --&gt;|网络接口层≈| OSI1_2[&quot;OSI物理层&#x2F;数据链路层&quot;]
   end
 
   %% 高亮关键技术层
   classDef green fill:#E8FFE8,stroke:#009900
   class InternetLayer,TransportLayer,ApplicationLayer green
+  
 
 TCP&#x2F;IP四层详细解析1. 网络接口层（Link Layer）
 功能： 物理介质连接与数据帧传输。
@@ -2517,29 +3263,34 @@ SMTP&#x2F;POP3：电子邮件发送与接收
 
 
 
-TCP&#x2F;IP与OSI模型核心对比graph LR
-  OSI模型 --> L7["7\. 应用层"] 
-  OSI模型 --> L6["6\. 表示层"] 
-  OSI模型 --> L5["5\. 会话层"] 
-  OSI模型 --> L4["4\. 传输层"] 
-  OSI模型 --> L3["3\. 网络层"] 
-  OSI模型 --> L2["2\. 数据链路层"] 
-  OSI模型 --> L1["1\. 物理层"] 
+TCP&#x2F;IP与OSI模型核心对比
+    graph LR
+  OSI模型 --&gt; L7[&quot;7\. 应用层&quot;] 
+  OSI模型 --&gt; L6[&quot;6\. 表示层&quot;] 
+  OSI模型 --&gt; L5[&quot;5\. 会话层&quot;] 
+  OSI模型 --&gt; L4[&quot;4\. 传输层&quot;] 
+  OSI模型 --&gt; L3[&quot;3\. 网络层&quot;] 
+  OSI模型 --&gt; L2[&quot;2\. 数据链路层&quot;] 
+  OSI模型 --&gt; L1[&quot;1\. 物理层&quot;] 
 
-  TCP/IP模型 --> App["应用层"] 
-  TCP/IP模型 --> Transport["传输层"] 
-  TCP/IP模型 --> Internet["网络层"] 
-  TCP/IP模型 --> Link["网络接口层"] 
+  TCP&#x2F;IP模型 --&gt; App[&quot;应用层&quot;] 
+  TCP&#x2F;IP模型 --&gt; Transport[&quot;传输层&quot;] 
+  TCP&#x2F;IP模型 --&gt; Internet[&quot;网络层&quot;] 
+  TCP&#x2F;IP模型 --&gt; Link[&quot;网络接口层&quot;] 
 
-  App -->|合并了| OSI的L5_L7["OSI应用层/表示层/会话层"]
-  Transport --> OSI的L4["OSI传输层"]
-  Internet --> OSI的L3["OSI网络层"]
-  Link -->|对应| OSI的L1_L2["OSI物理层/数据链路层"]
-典型数据流场景1. 浏览器访问网页（HTTP请求）sequenceDiagram
-  用户计算机->>DNS服务器: 解析域名（DNS协议）
-  DNS服务器-->>用户计算机: 返回IP地址（如202.108.22.5）
-  用户计算机->>Web服务器: HTTP请求（TCP端口80）
-  Web服务器-->>用户计算机: HTTP响应（HTML内容）
+  App --&gt;|合并了| OSI的L5_L7[&quot;OSI应用层&#x2F;表示层&#x2F;会话层&quot;]
+  Transport --&gt; OSI的L4[&quot;OSI传输层&quot;]
+  Internet --&gt; OSI的L3[&quot;OSI网络层&quot;]
+  Link --&gt;|对应| OSI的L1_L2[&quot;OSI物理层&#x2F;数据链路层&quot;]
+  
+典型数据流场景1. 浏览器访问网页（HTTP请求）
+    sequenceDiagram
+  用户计算机-&gt;&gt;DNS服务器: 解析域名（DNS协议）
+  DNS服务器--&gt;&gt;用户计算机: 返回IP地址（如202.108.22.5）
+  用户计算机-&gt;&gt;Web服务器: HTTP请求（TCP端口80）
+  Web服务器--&gt;&gt;用户计算机: HTTP响应（HTML内容）
+  
+
 实战指令与工具
 
 
@@ -2569,33 +3320,34 @@ tcpdump port 443 -i eth0
 捕获HTTPS流量（网络接口层）
 
 
-tcp&#x2F;udpMermaid 可視化 + 结构化对比 解析 TCP 与 UDP 的核心区别graph LR
+tcp&#x2F;udpMermaid 可視化 + 结构化对比 解析 TCP 与 UDP 的核心区别
+    graph LR
   %% TCP vs UDP 核心对比框架
-  CP["传输层核心协议"] --> TCP["TCP协议（Transmission Control Protocol）"]
-  CP --> UDP["UDP协议（User Datagram Protocol）"]
+  CP[&quot;传输层核心协议&quot;] --&gt; TCP[&quot;TCP协议&lt;br&gt;（Transmission Control Protocol）&quot;]
+  CP --&gt; UDP[&quot;UDP协议&lt;br&gt;（User Datagram Protocol）&quot;]
 
-  %% ========== TCP核心特性 ==========
-  TCP -->|特性| TCP_Feature["可靠传输连接导向流量控制/拥塞控制"]
-  TCP -->|头部结构| TCP_Header["20字节头部Seq/Ack/Window字段"]
-  TCP -->|过程| TCP_Process["三次握手建立连接四次挥手终止连接"]
-  TCP -->|应用场景| TCP_Use["网页浏览（HTTP/HTTPS）文件传输（FTP）电子邮件（SMTP）"]
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; TCP核心特性 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  TCP --&gt;|特性| TCP_Feature[&quot;可靠传输&lt;br&gt;连接导向&lt;br&gt;流量控制&#x2F;拥塞控制&quot;]
+  TCP --&gt;|头部结构| TCP_Header[&quot;20字节头部&lt;br&gt;Seq&#x2F;Ack&#x2F;Window字段&quot;]
+  TCP --&gt;|过程| TCP_Process[&quot;三次握手建立连接&lt;br&gt;四次挥手终止连接&quot;]
+  TCP --&gt;|应用场景| TCP_Use[&quot;网页浏览（HTTP&#x2F;HTTPS）&lt;br&gt;文件传输（FTP）&lt;br&gt;电子邮件（SMTP）&quot;]
 
-  %% ========== UDP核心特性 ==========
-  UDP -->|特性| UDP_Feature["无连接通信尽最大努力交付低延迟/低开销"]
-  UDP -->|头部结构| UDP_Header["8字节头部Source/Dest Port/Length/Checksum"]
-  UDP -->|过程| UDP_Process["无需握手直接发送数据无状态维护"]
-  UDP -->|应用场景| UDP_Use["实时视频/语音（RTP）DNS查询游戏数据（UDP+自定义可靠性）"]
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; UDP核心特性 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  UDP --&gt;|特性| UDP_Feature[&quot;无连接通信&lt;br&gt;尽最大努力交付&lt;br&gt;低延迟&#x2F;低开销&quot;]
+  UDP --&gt;|头部结构| UDP_Header[&quot;8字节头部&lt;br&gt;Source&#x2F;Dest Port&#x2F;Length&#x2F;Checksum&quot;]
+  UDP --&gt;|过程| UDP_Process[&quot;无需握手直接发送数据&lt;br&gt;无状态维护&quot;]
+  UDP --&gt;|应用场景| UDP_Use[&quot;实时视频&#x2F;语音（RTP）&lt;br&gt;DNS查询&lt;br&gt;游戏数据（UDP+自定义可靠性）&quot;]
 
-  %% ======= 对比交互示例 =======
-  subgraph "HTTP（TCP） vs DNS（UDP）交互流程"
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 对比交互示例 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  subgraph &quot;HTTP（TCP） vs DNS（UDP）交互流程&quot;
     direction LR
-    HTTP_Client[("客户端")] --TCP三次握手--> HTTP_Server[("服务器")]
-    HTTP_Client --发送HTTP请求--> HTTP_Server
-    HTTP_Server --返回HTTP响应--> HTTP_Client
-    HTTP_Client --TCP四次挥手断开--> HTTP_Server
+    HTTP_Client[(&quot;客户端&quot;)] --TCP三次握手--&gt; HTTP_Server[(&quot;服务器&quot;)]
+    HTTP_Client --发送HTTP请求--&gt; HTTP_Server
+    HTTP_Server --返回HTTP响应--&gt; HTTP_Client
+    HTTP_Client --TCP四次挥手断开--&gt; HTTP_Server
 
-    DNS_Client[("客户端")] --UDP单包查询--> DNS_Server[("DNS服务器")]
-    DNS_Server --UDP单包响应--> DNS_Client
+    DNS_Client[(&quot;客户端&quot;)] --UDP单包查询--&gt; DNS_Server[(&quot;DNS服务器&quot;)]
+    DNS_Server --UDP单包响应--&gt; DNS_Client
   end
 
   %% 高亮关键差异
@@ -2603,40 +3355,44 @@ tcp&#x2F;udpMermaid 可視化 + 结构化对比 解析 TCP 与 UDP 的核心区�
   classDef blue fill:#E8F4FF,stroke:#0066CC
   class TCP red
   class UDP blue
+  
 
-交换机与路由器Mermaid 可视化 + 结构化对比 解析 交换机与路由器 的核心graph LR
-  %% ======== 性能与技术参数对比 ========
-  subgraph "技术参数对比"
+交换机与路由器Mermaid 可视化 + 结构化对比 解析 交换机与路由器 的核心
+    graph LR
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 性能与技术参数对比 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  subgraph &quot;技术参数对比&quot;
     direction TB
-    SwitchParam["交换机参数"] -->|端口密度| HighPort["24/48端口"]
-    SwitchParam -->|背板带宽| HighBW["数百Gbps"]
-    RouterParam["路由器参数"] -->|路由表容量| LargeTable["支持10万+路由条目"]
-    RouterParam -->|接口类型| WANPort["光纤/以太网/串口"]
+    SwitchParam[&quot;交换机参数&quot;] --&gt;|端口密度| HighPort[&quot;24&#x2F;48端口&quot;]
+    SwitchParam --&gt;|背板带宽| HighBW[&quot;数百Gbps&quot;]
+    RouterParam[&quot;路由器参数&quot;] --&gt;|路由表容量| LargeTable[&quot;支持10万+路由条目&quot;]
+    RouterParam --&gt;|接口类型| WANPort[&quot;光纤&#x2F;以太网&#x2F;串口&quot;]
   end
+  
 
-graph TB
+
+    graph TB
   %% 交换机 vs 路由器对比框架
-  NetworkDevice["网络设备"] --> Switch["交换机（Switch）数据链路层（L2）"]
-  NetworkDevice --> Router["路由器（Router）网络层（L3）"]
+  NetworkDevice[&quot;网络设备&quot;] --&gt; Switch[&quot;交换机（Switch）&lt;br&gt;数据链路层（L2）&quot;]
+  NetworkDevice --&gt; Router[&quot;路由器（Router）&lt;br&gt;网络层（L3）&quot;]
 
-  %% ========== 核心功能对比 ==========
-  Switch -->|核心功能| SwitchFunc["基于MAC地址转发数据帧构建局域网（LAN）高速端口交换"]
-  Router -->|核心功能| RouterFunc["基于IP路由表转发数据包连接不同网络（WAN/LAN）NAT/防火墙功能"]
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 核心功能对比 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  Switch --&gt;|核心功能| SwitchFunc[&quot;基于MAC地址转发数据帧&lt;br&gt;构建局域网（LAN）&lt;br&gt;高速端口交换&quot;]
+  Router --&gt;|核心功能| RouterFunc[&quot;基于IP路由表转发数据包&lt;br&gt;连接不同网络（WAN&#x2F;LAN）&lt;br&gt;NAT&#x2F;防火墙功能&quot;]
 
-  %% ========== 工作原理对比 ==========
-  subgraph "工作原理对比"
-    Switch -->|MAC学习| Learn[["学习MAC地址表（端口-MAC映射）"]]
-    Switch -->|转发规则| Forward[["单播/组播转发避免广播风暴"]]
-    Router -->|路由选择| Routing[["动态路由协议（OSPF/BGP）静态路由配置"]]
-    Router -->|NAT转换| NAT[["私网IP ↔ 公网IP转换"]]
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 工作原理对比 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  subgraph &quot;工作原理对比&quot;
+    Switch --&gt;|MAC学习| Learn[[&quot;学习MAC地址表&lt;br&gt;（端口-MAC映射）&quot;]]
+    Switch --&gt;|转发规则| Forward[[&quot;单播&#x2F;组播转发&lt;br&gt;避免广播风暴&quot;]]
+    Router --&gt;|路由选择| Routing[[&quot;动态路由协议（OSPF&#x2F;BGP）&lt;br&gt;静态路由配置&quot;]]
+    Router --&gt;|NAT转换| NAT[[&quot;私网IP ↔ 公网IP转换&quot;]]
   end
 
-  %% ======== 典型组网场景示例 ========
-  subgraph "企业网络拓扑示例"
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 典型组网场景示例 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  subgraph &quot;企业网络拓扑示例&quot;
     direction LR
-    Internet[("互联网")] --> Router
-    Router --> Switch
-    Switch --> PC1[("PC1")] & PC2[("PC2")] & Server[("服务器")]
+    Internet[(&quot;互联网&quot;)] --&gt; Router
+    Router --&gt; Switch
+    Switch --&gt; PC1[(&quot;PC1&quot;)] &amp; PC2[(&quot;PC2&quot;)] &amp; Server[(&quot;服务器&quot;)]
   end
   style Internet fill:#99CCFF
   style Router fill:#FFCC99
@@ -2649,6 +3405,7 @@ graph TB
   classDef orange fill:#FFE8CC,stroke:#FF6600
   class Switch green
   class Router orange
+  
 核心对比表
 
 
@@ -2688,66 +3445,76 @@ VLAN, STP	RIP, OSPF, BGP, VPN
 ✅ 支持
 
 
-深度技术解析1. 交换机 MAC 地址学习sequenceDiagram
-  PC1->>Switch: 发送数据帧（源MAC:00-AA）
-  Switch->>Switch: 记录MAC地址表（Port1↔00-AA）
-  PC2->>Switch: 发送数据帧（源MAC:00-BB）
-  Switch->>Switch: 记录MAC地址表（Port2↔00-BB）
+深度技术解析1. 交换机 MAC 地址学习
+    sequenceDiagram
+  PC1-&gt;&gt;Switch: 发送数据帧（源MAC:00-AA）
+  Switch-&gt;&gt;Switch: 记录MAC地址表（Port1↔00-AA）
+  PC2-&gt;&gt;Switch: 发送数据帧（源MAC:00-BB）
+  Switch-&gt;&gt;Switch: 记录MAC地址表（Port2↔00-BB）
+  
   当PC1向PC2发送数据时，Switch直接转发到Port2。
-2. 路由器 IP 路由表查询flowchart LR
-  A[接收数据包] --> B{目标IP是否在直连网络?}
-  B -->|是| C["从对应接口直接转发"]
-  B -->|否| D["查找路由表最长前缀匹配"]
-  D --> E{"找到下一跳?"}
-  E -->|是| F["通过指定接口转发到下一跳"]
-  E -->|否| G["丢弃（ICMP目标不可达）"]
+2. 路由器 IP 路由表查询
+    flowchart LR
+  A[接收数据包] --&gt; B{目标IP是否在直连网络?}
+  B --&gt;|是| C[&quot;从对应接口直接转发&quot;]
+  B --&gt;|否| D[&quot;查找路由表最长前缀匹配&quot;]
+  D --&gt; E{&quot;找到下一跳?&quot;}
+  E --&gt;|是| F[&quot;通过指定接口转发到下一跳&quot;]
+  E --&gt;|否| G[&quot;丢弃（ICMP目标不可达）&quot;]
+  
 典型应用场景1. 交换机：构建高性能局域网
 场景： 办公室内部设备互联
-技术方案：graph TB
-CoreSwitch[核心交换机] --> AccessSwitch1[接入交换机]
-CoreSwitch --> AccessSwitch2[接入交换机]
-AccessSwitch1 --> User1[用户PC]
-AccessSwitch1 --> Printer[打印机]
-AccessSwitch2 --> Server[服务器集群]
+技术方案：
+    graph TB
+  CoreSwitch[核心交换机] --&gt; AccessSwitch1[接入交换机]
+  CoreSwitch --&gt; AccessSwitch2[接入交换机]
+  AccessSwitch1 --&gt; User1[用户PC]
+  AccessSwitch1 --&gt; Printer[打印机]
+  AccessSwitch2 --&gt; Server[服务器集群]
+  
 
 2. 路由器：跨地区网络互联
-场景： 总部与分支机构通过VPN连接graph RL
-HQ[总部网络] -->|IPSEC VPN| RouterA[总部路由器]
-Branch[分支机构] -->|ISP链路| RouterB[分支路由器]
-RouterA  RouterB
+场景： 总部与分支机构通过VPN连接
+    graph RL
+  HQ[总部网络] --&gt;|IPSEC VPN| RouterA[总部路由器]
+  Branch[分支机构] --&gt;|ISP链路| RouterB[分支路由器]
+  RouterA &lt;-.互联网.-&gt; RouterB
+  
 
-网络分类可视化 + 结构化对比 解析 网络分类graph LR
+网络分类可视化 + 结构化对比 解析 网络分类
+    graph LR
   %% 网络分类核心框架
-  NetworkClass["网络分类"] --> Coverage["按覆盖范围"]
-  NetworkClass --> Topology["按拓扑结构"]
-  NetworkClass --> Medium["按传输介质"]
-  NetworkClass --> Usage["按用途"]
-  NetworkClass --> Tech["按传输技术"]
+  NetworkClass[&quot;网络分类&quot;] --&gt; Coverage[&quot;按覆盖范围&quot;]
+  NetworkClass --&gt; Topology[&quot;按拓扑结构&quot;]
+  NetworkClass --&gt; Medium[&quot;按传输介质&quot;]
+  NetworkClass --&gt; Usage[&quot;按用途&quot;]
+  NetworkClass --&gt; Tech[&quot;按传输技术&quot;]
   
-  %% ====== 覆盖范围分类 ======
-  Coverage --> PAN["PAN（个人域网）距离＜10m（蓝牙/ZigBee）"]
-  Coverage --> LAN["LAN（局域网）建筑/园区内（以太网/WiFi）"]
-  Coverage --> MAN["MAN（城域网）城市级别（地铁监控/城市政务网）"]
-  Coverage --> WAN["WAN（广域网）全球/跨地域（互联网/SDH专线）"]
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 覆盖范围分类 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  Coverage --&gt; PAN[&quot;PAN（个人域网）&lt;br&gt;距离＜10m&lt;br&gt;（蓝牙&#x2F;ZigBee）&quot;]
+  Coverage --&gt; LAN[&quot;LAN（局域网）&lt;br&gt;建筑&#x2F;园区内&lt;br&gt;（以太网&#x2F;WiFi）&quot;]
+  Coverage --&gt; MAN[&quot;MAN（城域网）&lt;br&gt;城市级别&lt;br&gt;（地铁监控&#x2F;城市政务网）&quot;]
+  Coverage --&gt; WAN[&quot;WAN（广域网）&lt;br&gt;全球&#x2F;跨地域&lt;br&gt;（互联网&#x2F;SDH专线）&quot;]
 
-  %% ====== 拓扑结构分类 ======
-  Topology --> Star["星型拓扑（Switch为核心）"]
-  Topology --> Bus["总线型拓扑（共享介质）"]
-  Topology --> Ring["环型拓扑（令牌传递）"]
-  Topology --> Mesh["网状拓扑（高冗余）"]
-  Topology --> Hybrid["混合拓扑（星型+总线）"]
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 拓扑结构分类 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  Topology --&gt; Star[&quot;星型拓扑（Switch为核心）&quot;]
+  Topology --&gt; Bus[&quot;总线型拓扑（共享介质）&quot;]
+  Topology --&gt; Ring[&quot;环型拓扑（令牌传递）&quot;]
+  Topology --&gt; Mesh[&quot;网状拓扑（高冗余）&quot;]
+  Topology --&gt; Hybrid[&quot;混合拓扑（星型+总线）&quot;]
 
-  %% ====== 传输介质分类 ======
-  Medium --> Wired["有线介质双绞线/光纤/同轴"]
-  Medium --> Wireless["无线介质Wi-Fi/5G/卫星"]
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 传输介质分类 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  Medium --&gt; Wired[&quot;有线介质&lt;br&gt;双绞线&#x2F;光纤&#x2F;同轴&quot;]
+  Medium --&gt; Wireless[&quot;无线介质&lt;br&gt;Wi-Fi&#x2F;5G&#x2F;卫星&quot;]
 
-  %% ====== 用途分类示例 ======
-  Usage --> Public["公用网络（互联网）"]
-  Usage --> Private["专用网络（企业VPN）"]
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 用途分类示例 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  Usage --&gt; Public[&quot;公用网络（互联网）&quot;]
+  Usage --&gt; Private[&quot;专用网络（企业VPN）&quot;]
   
-  %% ====== 传输技术 ======
-  Tech --> Broadcast["广播式网络（传统以太网）"]
-  Tech --> PointToPoint["点对点网络（PPP协议）"]
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 传输技术 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  Tech --&gt; Broadcast[&quot;广播式网络&lt;br&gt;（传统以太网）&quot;]
+  Tech --&gt; PointToPoint[&quot;点对点网络&lt;br&gt;（PPP协议）&quot;]
+  
 覆盖范围分类详解
 
 
@@ -2782,28 +3549,30 @@ IP&#x2F;MPLS、卫星通信
 跨国企业专线、云计算互联
 
 
-IP地址可视化 + 结构化对比 全面解析 IP地址graph LR
+IP地址可视化 + 结构化对比 全面解析 IP地址
+    graph LR
   %% IP地址分类框架
-  IP_Address["IP地址"] --> IPv4["IPv4（32位）"] & IPv6["IPv6（128位）"]
-  IP_Address --> PublicIP["公有IP"] & PrivateIP["私有IP"]
-  IP_Address --> Dynamic["动态IP"] & Static["静态IP"]
+  IP_Address[&quot;IP地址&quot;] --&gt; IPv4[&quot;IPv4（32位）&quot;] &amp; IPv6[&quot;IPv6（128位）&quot;]
+  IP_Address --&gt; PublicIP[&quot;公有IP&quot;] &amp; PrivateIP[&quot;私有IP&quot;]
+  IP_Address --&gt; Dynamic[&quot;动态IP&quot;] &amp; Static[&quot;静态IP&quot;]
   
-  %% ========== IPv4详解 ==========
-  IPv4 --> FormatIPv4["点分十进制格式（192.168.1.1）"]
-  IPv4 --> Classes["传统分类"] --> A类["A类（0.0.0.0-127.255.255.255）"]
-  Classes --> B类["B类（128.0.0.0-191.255.255.255）"]
-  Classes --> C类["C类（192.0.0.0-223.255.255.255）"]
-  IPv4 --> Subnet["子网划分/CIDR"]
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; IPv4详解 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  IPv4 --&gt; FormatIPv4[&quot;点分十进制格式&lt;br&gt;（192.168.1.1）&quot;]
+  IPv4 --&gt; Classes[&quot;传统分类&quot;] --&gt; A类[&quot;A类（0.0.0.0-127.255.255.255）&quot;]
+  Classes --&gt; B类[&quot;B类（128.0.0.0-191.255.255.255）&quot;]
+  Classes --&gt; C类[&quot;C类（192.0.0.0-223.255.255.255）&quot;]
+  IPv4 --&gt; Subnet[&quot;子网划分&#x2F;CIDR&quot;]
   
-  %% ========== IPv6特性 ==========
-  IPv6 --> FormatIPv6["十六进制冒分格式（2001:0db8:85a3::1）"]
-  IPv6 --> TypesIPv6["地址类型"] --> GlobalUnicast["全球单播地址"]
-  TypesIPv6 --> LinkLocal["链路本地地址（FE80::/10）"]
-  TypesIPv6 --> ULA["唯一本地地址（FC00::/7）"]
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; IPv6特性 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  IPv6 --&gt; FormatIPv6[&quot;十六进制冒分格式&lt;br&gt;（2001:0db8:85a3::1）&quot;]
+  IPv6 --&gt; TypesIPv6[&quot;地址类型&quot;] --&gt; GlobalUnicast[&quot;全球单播地址&quot;]
+  TypesIPv6 --&gt; LinkLocal[&quot;链路本地地址（FE80::&#x2F;10）&quot;]
+  TypesIPv6 --&gt; ULA[&quot;唯一本地地址（FC00::&#x2F;7）&quot;]
   
-  %% ====== 关键支撑技术 ======
-  Dynamic --> DHCP["DHCP协议动态分配"]
-  PublicIP --> NAT["NAT地址转换"]
+  %% &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 关键支撑技术 &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  Dynamic --&gt; DHCP[&quot;DHCP协议动态分配&quot;]
+  PublicIP --&gt; NAT[&quot;NAT地址转换&quot;]
+  
 IPv4 vs IPv6 核心对比
 
 
@@ -2839,31 +3608,39 @@ NAT广泛使用
 
 
 IPv4子网划分实战1. CIDR表示法示例
-给定地址： 192.168.1.0&#x2F;24graph LR
-地址构成 --> 网络部分["网络位：192.168.1"]
-地址构成 --> 主机部分["主机位：0-255（254可用）"]
+给定地址： 192.168.1.0&#x2F;24
+    graph LR
+  地址构成 --&gt; 网络部分[&quot;网络位：192.168.1&quot;]
+  地址构成 --&gt; 主机部分[&quot;主机位：0-255（254可用）&quot;]
+  
 掩码计算/24 对应子网掩码：255.255.255.0
 
-2. 划分子网工具链flowchart LR
-  A[需求分析] -->|用户数200| B["选择掩码：/24（254主机）"]
-  B --> C["可用IP范围：192.168.1.1 - 192.168.1.254"]
-  B --> D["网关设置：192.168.1.1"]
-  D --> E["保留地址：192.168.1.255（广播）"]
+2. 划分子网工具链
+    flowchart LR
+  A[需求分析] --&gt;|用户数200| B[&quot;选择掩码：&#x2F;24（254主机）&quot;]
+  B --&gt; C[&quot;可用IP范围：192.168.1.1 - 192.168.1.254&quot;]
+  B --&gt; D[&quot;网关设置：192.168.1.1&quot;]
+  D --&gt; E[&quot;保留地址：192.168.1.255（广播）&quot;]
+  
 
 私有IP地址范围（RFC 1918）
-IPv4保留段：classDiagram
-class PrivateIPv4{
-  +A类：10.0.0.0 ~ 10.255.255.255
-  +B类：172.16.0.0 ~ 172.31.255.255
-  +C类：192.168.0.0 ~ 192.168.255.255
-}
+IPv4保留段：
+    classDiagram
+  class PrivateIPv4{
+    +A类：10.0.0.0 ~ 10.255.255.255
+    +B类：172.16.0.0 ~ 172.31.255.255
+    +C类：192.168.0.0 ~ 192.168.255.255
+  }
+  
 典型案例：家庭路由器通常分配 192.168.1.1/24，并启用NAT转换公网IP。
 
-IP数据包转发过程sequenceDiagram
-  PC[发送方] ->> Router1: 源IP:192.168.1.100目标IP:203.0.113.5
-  Router1 ->> Internet: 应用NAT转换源IP为公网IP
-  Internet ->> Router2: 目标IP命中路由表
-  Router2 ->> Server: 路由到内网服务器（DNAT）
+IP数据包转发过程
+    sequenceDiagram
+  PC[发送方] -&gt;&gt; Router1: 源IP:192.168.1.100&lt;br&gt;目标IP:203.0.113.5
+  Router1 -&gt;&gt; Internet: 应用NAT转换源IP为公网IP
+  Internet -&gt;&gt; Router2: 目标IP命中路由表
+  Router2 -&gt;&gt; Server: 路由到内网服务器（DNAT）
+  
 
 核心特性对比
 
@@ -2923,33 +3700,43 @@ C类 (192.168.0.0&#x2F;16)
 65,536个地址
 
 
-核心技术机制：NAT（网络地址转换）sequenceDiagram
-  内网设备 ->> 路由器: 发送请求：源IP=192.168.1.100
+核心技术机制：NAT（网络地址转换）
+    sequenceDiagram
+  内网设备 -&gt;&gt; 路由器: 发送请求：源IP&#x3D;192.168.1.100
   Note over 路由器: 执行SNAT（源地址转换）
-  路由器 ->> 公网服务器: 请求：源IP=203.0.113.5
-  公网服务器 -->> 路由器: 响应：目标IP=203.0.113.5
+  路由器 -&gt;&gt; 公网服务器: 请求：源IP&#x3D;203.0.113.5
+  公网服务器 --&gt;&gt; 路由器: 响应：目标IP&#x3D;203.0.113.5
   Note over 路由器: 执行DNAT（目标地址转换）
-  路由器 -->> 内网设备: 响应：目标IP=192.168.1.100
-典型应用场景对比1. 公有地址flowchart TD
-  场景1["互联网服务暴露"] --> WebServer["网站服务器（119.29.76.211）"]
-  场景2["云平台通信"] --> Cloud["AWS EC2实例（52.76.27.141）"]
-  场景3["VPN连接终点"] --> VPN["企业VPN网关（112.124.25.36）"]
-2. 私有地址flowchart TD
-  场景1["企业内网"] --> OfficeNetwork["员工电脑（172.16.10.33）"]
-  场景2["IoT设备管理"] --> SmartHome["智能灯泡（192.168.50.20）"]
-  场景3["虚拟化环境"] --> VM["虚拟机（10.3.1.101）"]
+  路由器 --&gt;&gt; 内网设备: 响应：目标IP&#x3D;192.168.1.100
+  
+典型应用场景对比1. 公有地址
+    flowchart TD
+  场景1[&quot;互联网服务暴露&quot;] --&gt; WebServer[&quot;网站服务器（119.29.76.211）&quot;]
+  场景2[&quot;云平台通信&quot;] --&gt; Cloud[&quot;AWS EC2实例（52.76.27.141）&quot;]
+  场景3[&quot;VPN连接终点&quot;] --&gt; VPN[&quot;企业VPN网关（112.124.25.36）&quot;]
+  
+2. 私有地址
+    flowchart TD
+  场景1[&quot;企业内网&quot;] --&gt; OfficeNetwork[&quot;员工电脑（172.16.10.33）&quot;]
+  场景2[&quot;IoT设备管理&quot;] --&gt; SmartHome[&quot;智能灯泡（192.168.50.20）&quot;]
+  场景3[&quot;虚拟化环境&quot;] --&gt; VM[&quot;虚拟机（10.3.1.101）&quot;]
+  
 
-端口号端口号的核心定义graph LR
-  端口号["端口号（Port）"] --> 定义["为应用层进程/服务设计的数字标识（范围0-65535）"]
-  端口号 --> 作用["唯一标识同一IP地址上的不同网络服务"]
-  作用 --> 案例["HTTP服务使用80端口"]
-端口号分类（按IANA标准）classDiagram
+端口号端口号的核心定义
+    graph LR
+  端口号[&quot;端口号（Port）&quot;] --&gt; 定义[&quot;为应用层进程&#x2F;服务设计的数字标识（范围0-65535）&quot;]
+  端口号 --&gt; 作用[&quot;唯一标识同一IP地址上的不同网络服务&quot;]
+  作用 --&gt; 案例[&quot;HTTP服务使用80端口&quot;]
+  
+端口号分类（按IANA标准）
+    classDiagram
   class 端口类型{
-    
+    &lt;&lt;端口号分类&gt;&gt;
     +知名端口（Well-Known Ports）: 0-1023
     +注册端口（Registered Ports）: 1024-49151
-    +动态/私有端口（Dynamic/Private Ports）: 49152-65535
+    +动态&#x2F;私有端口（Dynamic&#x2F;Private Ports）: 49152-65535
   }
+  
 TCP vs UDP 端口关键差异
 
 
@@ -2979,42 +3766,52 @@ HTTP（80）、SSH（22）、SMTP（25）
 DNS（53）、DHCP（67&#x2F;68）、RTP（实时传输协议）
 
 
-经典应用场景1. 端口转发实现内网穿透graph LR
-  内网服务器 -->|绑定本地端口:8080| 路由器
-  路由器 -->|映射公网端口:80| 外部用户访问公网IP:80
-2. 防火墙端口开放策略flowchart LR
-  配置防火墙 --> 允许入站端口:80,443
-  允许入站端口 --> 拒绝其他端口访问
-  拒绝其他端口 --> 提升网络安全
+经典应用场景1. 端口转发实现内网穿透
+    graph LR
+  内网服务器 --&gt;|绑定本地端口:8080| 路由器
+  路由器 --&gt;|映射公网端口:80| 外部用户访问公网IP:80
+  
+2. 防火墙端口开放策略
+    flowchart LR
+  配置防火墙 --&gt; 允许入站端口:80,443
+  允许入站端口 --&gt; 拒绝其他端口访问
+  拒绝其他端口 --&gt; 提升网络安全
+  
 
-端口安全风险与防护1. 高危端口示例classDiagram
+端口安全风险与防护1. 高危端口示例
+    classDiagram
   class 高危端口{
-    +23/TCP : Telnet（明文传输风险）
-    +445/TCP : SMB（永恒之蓝漏洞入口）
-    +3389/TCP : RDP（暴力破解重灾区）
+    +23&#x2F;TCP : Telnet（明文传输风险）
+    +445&#x2F;TCP : SMB（永恒之蓝漏洞入口）
+    +3389&#x2F;TCP : RDP（暴力破解重灾区）
   }
+  
 2. 防护措施
 关闭无用端口
 限制访问来源IP
 启用端口流量加密
 
-网络常见的名词解释DNS-域名域名结构剖析graph LR
-  A[根域 . ] --> B[顶级域 TLD] 
-  B --> com
-  B --> cn
-  B --> org
-  com --> C[二级域名] --> 公司主站 --> alibaba
-  C --> 云服务平台 --> aliyun
-  cn --> D[政府机构-->beijing.gov.cn]
-DNS解析全流程sequenceDiagram
-  User->>本地DNS: 请求① www.example.com
-  本地DNS->>根服务器: 请求② (.com NS地址)
-  根服务器-->>本地DNS: 响应③ .com权威服务器IP
-  本地DNS->>TLD服务器: 请求④ example.com NS
-  TLD服务器-->>本地DNS: 响应⑤ 该域权威服务器IP
-  本地DNS->>权威DNS: 请求⑥ www记录
-  权威DNS-->>本地DNS: 最终IP 93.184.216.34
-  本地DNS->>User: 返回结果⑦
+网络常见的名词解释DNS-域名域名结构剖析
+    graph LR
+  A[根域 . ] --&gt; B[顶级域 TLD] 
+  B --&gt; com
+  B --&gt; cn
+  B --&gt; org
+  com --&gt; C[二级域名] --&gt; 公司主站 --&gt; alibaba
+  C --&gt; 云服务平台 --&gt; aliyun
+  cn --&gt; D[政府机构--&gt;beijing.gov.cn]
+  
+DNS解析全流程
+    sequenceDiagram
+  User-&gt;&gt;本地DNS: 请求① www.example.com
+  本地DNS-&gt;&gt;根服务器: 请求② (.com NS地址)
+  根服务器--&gt;&gt;本地DNS: 响应③ .com权威服务器IP
+  本地DNS-&gt;&gt;TLD服务器: 请求④ example.com NS
+  TLD服务器--&gt;&gt;本地DNS: 响应⑤ 该域权威服务器IP
+  本地DNS-&gt;&gt;权威DNS: 请求⑥ www记录
+  权威DNS--&gt;&gt;本地DNS: 最终IP 93.184.216.34
+  本地DNS-&gt;&gt;User: 返回结果⑦
+  
 关键阶段解析：
 
 
@@ -3044,10 +3841,12 @@ TLD服务器（如.com域）
 提供最终域名对应的资源记录
 
 
-域名与URL的差异对比flowchart LR
-  URL结构 --> 协议头[HTTP/HTTPS] --> 域名 --> 端口[可选:8080] --> 路径[/api/data/] --> 参数[?id=123]
-  域名 --> 单纯定位服务器
-  URL --> 完整资源地址
+域名与URL的差异对比
+    flowchart LR
+  URL结构 --&gt; 协议头[HTTP&#x2F;HTTPS] --&gt; 域名 --&gt; 端口[可选:8080] --&gt; 路径[&#x2F;api&#x2F;data&#x2F;] --&gt; 参数[?id&#x3D;123]
+  域名 --&gt; 单纯定位服务器
+  URL --&gt; 完整资源地址
+  
 
 
 
